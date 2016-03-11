@@ -6,21 +6,25 @@
 
 {{#if isExpanded}}
   <div class="left-calendar">
-    <button {{action "prevStartMonth"}}>Prev</button>
-    <button {{action "nextStartMonth"}}>Next</button>
+    {{! <button {{action "prevStartMonth"}\}>Prev</button> }}
+    {{! <button {{action "nextStartMonth"}\}>Next</button> }}
 
-    {{moment-format startDate "MM/DD/YYYY"}}
-
-    {{calendar-display classes="left" selectionStart=startDate selectionEnd=endDate month=startMonth daySelected="startSelected"}}
+    {{calendar-display classes="left"
+                       selectionStart=startDate
+                       selectionEnd=endDate
+                       month=startMonth
+                       daySelected="startSelected"}}
   </div>
 
   <div class="right-calendar">
-    <button {{action "prevEndMonth"}}>Prev</button>
-    <button {{action "nextEndMonth"}}>Next</button>
+    {{! <button {{action "prevEndMonth"}\}>Prev</button> }}
+    {{! <button {{action "nextEndMonth"}\}>Next</button> }}
 
-    {{moment-format endDate "MM/DD/YYYY"}}
-
-    {{calendar-display classes="right" selectionStart=startDate selectionEnd=endDate month=endMonth daySelected="endSelected"}}
+    {{calendar-display classes="right"
+                       selectionStart=startDate
+                       selectionEnd=endDate
+                       month=endMonth
+                       daySelected="endSelected"}}
   </div>
 
   {{presets-picker presets=presets

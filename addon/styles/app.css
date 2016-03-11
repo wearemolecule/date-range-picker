@@ -1,5 +1,5 @@
 .week {
-  width: 100%;
+  width: 175px;;
   clear: both;
 }
 
@@ -20,7 +20,6 @@
 
 .right-calendar, .left-calendar {
   display: inline-block;
-  margin-right: 75px;
 }
 
 .date-range-picker-input {

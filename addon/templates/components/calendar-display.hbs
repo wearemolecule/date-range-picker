@@ -1,7 +1,28 @@
-{{#each weeks as |week|}}
-  <div class='week'>
-  {{#each week as |day|}}
-    {{day-display selectionStart=selectionStart selectionEnd=selectionEnd day=day daySelected="daySelected"}}
+<button {{action "toggleMonthPicker"}}>{{moment-format month "MMM"}}</button>
+
+<button {{action "toggleYearPicker"}}>{{moment-format month "YYYY"}}</button>
+
+{{#if calendarExpanded}}
+  {{#each weeks as |week|}}
+    <div class='week'>
+      {{#each week as |day|}}
+        {{day-display selectionStart=selectionStart
+                      selectionEnd=selectionEnd
+                      day=day
+                      daySelected="daySelected"}}
+      {{/each}}
+    </div>
   {{/each}}
-  </div>
-{{/each}}
+{{/if}}
+
+{{#if monthPickerExpanded}}
+  {{#each allMonths as |month|}}
+    <button {{action "setMonth" month}}>{{month}}</button>
+  {{/each}}
+{{/if}}
+
+{{#if yearPickerExpanded}}
+  {{#each allYears as |year|}}
+    <button {{action "setYear" year}}>{{year}}</button>
+  {{/each}}
+{{/if}}
