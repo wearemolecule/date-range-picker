@@ -61,6 +61,14 @@ export default Ember.Component.extend({
     toggleYearPicker() {
       this.toggleProperty('yearPickerExpanded');
     },
+
+    prevMonth() {
+      this.sendAction('prevMonth', ...arguments);
+    },
+
+    nextMonth() {
+      this.sendAction('nextMonth', ...arguments);
+    },
   }
 });
 

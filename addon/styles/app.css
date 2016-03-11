@@ -27,6 +27,7 @@
 }
 
 .date-range-picker-input {
+  display: block;
   width: calc(100%/7 - 37.5px);
   margin-bottom: 25px;
 }

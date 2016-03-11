@@ -1,31 +1,23 @@
-<div>
-  {{input value=rangeFormatted
-          class="date-range-picker-input"
-          focus-in="toggleIsExpanded"}}
-</div>
+{{input value=rangeFormatted
+        class="date-range-picker-input"
+        focus-in="toggleIsExpanded"}}
 
 {{#if isExpanded}}
-  <div class="left-calendar">
-    {{! <button {{action "prevStartMonth"}\}>Prev</button> }}
-    {{! <button {{action "nextStartMonth"}\}>Next</button> }}
+  {{calendar-display classNames="left-calendar"
+                     selectionStart=startDate
+                     selectionEnd=endDate
+                     month=startMonth
+                     daySelected="startSelected"
+                     prevMonth="prevStartMonth"
+                     nextMonth="nextStartMonth"}}
 
-    {{calendar-display classes="left"
-                       selectionStart=startDate
-                       selectionEnd=endDate
-                       month=startMonth
-                       daySelected="startSelected"}}
-  </div>
-
-  <div class="right-calendar">
-    {{! <button {{action "prevEndMonth"}\}>Prev</button> }}
-    {{! <button {{action "nextEndMonth"}\}>Next</button> }}
-
-    {{calendar-display classes="right"
-                       selectionStart=startDate
-                       selectionEnd=endDate
-                       month=endMonth
-                       daySelected="endSelected"}}
-  </div>
+  {{calendar-display classNames="right-calendar"
+                     selectionStart=startDate
+                     selectionEnd=endDate
+                     month=endMonth
+                     daySelected="endSelected"
+                     prevMonth="prevEndMonth"
+                     nextMonth="nextEndMonth"}}
 
   {{presets-picker presets=presets
                    startSelected="startSelected"
