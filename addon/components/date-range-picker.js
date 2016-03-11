@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 
   rangeFormatted: Ember.computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
-    let endDate = this.get('startDate').format('MM/DD/YYYY');
+    let endDate = this.get('endDate').format('MM/DD/YYYY');
 
     return `${startDate} - ${endDate}`;
   }),
