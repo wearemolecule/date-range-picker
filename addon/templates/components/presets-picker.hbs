@@ -1,0 +1,7 @@
+<marquee>Presets</marquee>
+
+{{#each presets as |preset|}}
+  <button {{action "applyPreset" preset}}>
+    {{preset.name}}
+  </button>
+{{/each}}

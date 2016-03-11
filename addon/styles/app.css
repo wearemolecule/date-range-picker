@@ -17,3 +17,17 @@
 .day.in-range {
   background-color: blue;
 }
+
+.right-calendar, .left-calendar {
+  display: inline-block;
+  margin-right: 75px;
+}
+
+.date-range-picker-input {
+  width: calc(100%/7 - 37.5px);
+  margin-bottom: 25px;
+}
+
+.presets-picker {
+  display: inline-block;
+}
