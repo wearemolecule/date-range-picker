@@ -3,25 +3,30 @@
         focus-in="toggleIsExpanded"}}
 
 {{#if isExpanded}}
-  {{calendar-display classNames="left-calendar"
-                     selectionStart=startDate
-                     selectionEnd=endDate
-                     month=startMonth
-                     daySelected="startSelected"
-                     prevMonth="prevStartMonth"
-                     nextMonth="nextStartMonth"}}
+  <div class="half">
+    {{presets-picker presets=presets
+                     startSelected="startSelected"
+                     endSelected="endSelected"}}
 
-  {{calendar-display classNames="right-calendar"
-                     selectionStart=startDate
-                     selectionEnd=endDate
-                     month=endMonth
-                     daySelected="endSelected"
-                     prevMonth="prevEndMonth"
-                     nextMonth="nextEndMonth"}}
+    <button {{action "cancel"}}>Cancel</button>
+    <button {{action "apply"}}>Apply</button>
+  </div>
 
-  {{presets-picker presets=presets
-                   startSelected="startSelected"
-                   endSelected="endSelected"}}
+  <div class="half">
+    {{calendar-display classNames="left-calendar"
+                       selectionStart=startDate
+                       selectionEnd=endDate
+                       month=startMonth
+                       daySelected="startSelected"
+                      prevMonth="prevStartMonth"
+                       nextMonth="nextStartMonth"}}
 
-  <button {{action "toggleIsExpanded"}}>Close</button>
+    {{calendar-display classNames="right-calendar"
+                       selectionStart=startDate
+                       selectionEnd=endDate
+                       month=endMonth
+                       daySelected="endSelected"
+                       prevMonth="prevEndMonth"
+                       nextMonth="nextEndMonth"}}
+  </div>
 {{/if}}

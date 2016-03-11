@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   endDate: moment().startOf('day').add(1, 'month'),
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month').add(1, 'month'),
-  isExpanded: false,
+  isExpanded: true,
 
   rangeFormatted: Ember.computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
@@ -17,6 +17,16 @@ export default Ember.Component.extend({
   }),
 
   actions: {
+    apply() {
+      this.send('toggleIsExpanded');
+      this.sendAction('apply');
+    },
+
+    cancel() {
+      this.send('toggleIsExpanded');
+      this.sendAction('cancel');
+    },
+
     startSelected(day) {
       this.set('startDate', day);
     },

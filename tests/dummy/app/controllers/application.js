@@ -32,6 +32,14 @@ export default Ember.Controller.extend({
   ],
 
   actions: {
+    apply() {
+      console.log('ApplicationController#cancel');
+    },
+
+    cancel() {
+      console.log('ApplicationController#cancel');
+    },
+
     nextMonth() {
       this.set('month', this.get('month').add(1, 'month').clone());
     },

@@ -33,5 +33,13 @@
 }
 
 .presets-picker {
-  display: inline-block;
+  display: block;
+}
+
+.presets-picker button {
+  display: block;
+}
+
+.half {
+  display: inline-table;
 }
