@@ -1,0 +1,19 @@
+.week {
+  width: 100%;
+  clear: both;
+}
+
+.day {
+  display: block;
+  float: left;
+  height: 1.5em;
+  width: calc(100%/7);
+}
+
+.day.selected {
+  background-color: red;
+}
+
+.day.in-range {
+  background-color: blue;
+}

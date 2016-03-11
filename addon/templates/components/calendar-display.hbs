@@ -1,0 +1,7 @@
+{{#each weeks as |week|}}
+  <div class='week'>
+  {{#each week as |day|}}
+    {{day-display selectionStart=selectionStart selectionEnd=selectionEnd day=day daySelected="daySelected"}}
+  {{/each}}
+  </div>
+{{/each}}

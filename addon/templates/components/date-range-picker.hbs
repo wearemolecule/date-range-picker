@@ -1,0 +1,6 @@
+<button {{action "prevStartMonth"}}>Prev</button>
+<button {{action "nextStartMonth"}}>Next</button>
+{{calendar-display classes="left" selectionStart=startDate selectionEnd=endDate month=startMonth daySelected="startSelected"}}
+<button {{action "prevEndMonth"}}>Prev</button>
+<button {{action "nextEndMonth"}}>Next</button>
+{{calendar-display classes="right" selectionStart=startDate selectionEnd=endDate month=endMonth daySelected="endSelected"}}
