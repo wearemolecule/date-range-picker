@@ -18,6 +18,10 @@
   background-color: blue;
 }
 
+.day.other-month {
+  background-color: gray;
+}
+
 .right-calendar, .left-calendar {
   display: inline-block;
 }
