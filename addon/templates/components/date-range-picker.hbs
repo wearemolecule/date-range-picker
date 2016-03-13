@@ -6,7 +6,7 @@
   </div>
 
   {{#if isExpanded}}
-    <div class="half button-half">
+    <div class="button-console">
       {{presets-picker presets=presets
                        startSelected="startSelected"
                        endSelected="endSelected"}}
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="half">
+    <div class="calendars">
       {{calendar-display classNames="calendar left-calendar"
                          selectionStart=startDate
                          selectionEnd=endDate

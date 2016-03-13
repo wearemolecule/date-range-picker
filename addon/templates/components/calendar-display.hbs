@@ -25,13 +25,17 @@
 {{/if}}
 
 {{#if monthPickerExpanded}}
-  {{#each allMonths as |month|}}
-    <button {{action "setMonth" month}}>{{month}}</button>
-  {{/each}}
+  <div class="month">
+    {{#each allMonths as |month|}}
+      <button {{action "setMonth" month}}>{{month}}</button>
+    {{/each}}
+  </div>
 {{/if}}
 
 {{#if yearPickerExpanded}}
-  {{#each allYears as |year|}}
-    <button {{action "setYear" year}}>{{year}}</button>
-  {{/each}}
+  <div class="year">
+    {{#each allYears as |year|}}
+      <button {{action "setYear" year}}>{{year}}</button>
+    {{/each}}
+  </div>
 {{/if}}
