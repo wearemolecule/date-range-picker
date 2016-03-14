@@ -32,6 +32,8 @@ $action-btn-txt:      #000;
 $action-btn-border:   #CCC;
 $action-btn-hover:    #EEE;
 
+$mobile-touch-height: 35px;
+
 * {
   box-sizing: border-box;
 }
@@ -293,7 +295,7 @@ button:focus {
       border-bottom: 1px solid $cal-border;
 
       button {
-        height: 35px;
+        height: $mobile-touch-height;
         font-size: 14px;
       }
 
@@ -331,16 +333,16 @@ button:focus {
     .calendar-body {
 
       .day {
-        height: 30px;
+        height: $mobile-touch-height;
         font-size: 14px;
       }
 
       .month,
       .year {
-        height: calc(30px * 5);
+        height: calc(#{$mobile-touch-height} * 5);
 
         button {
-          height: 30px;
+          height: $mobile-touch-height;
           font-size: 14px;
         }
       }
@@ -352,7 +354,7 @@ button:focus {
     width: 100%;
 
     button {
-      height: 35px;
+      height: $mobile-touch-height;
       font-size: 14px;
       text-align: center;
       font-weight: bold;
@@ -365,7 +367,7 @@ button:focus {
 
     button {
       width: calc(50% - 5px);
-      height: 35px;
+      height: $mobile-touch-height;
       font-size: 14px;
 
       &:first-child {
