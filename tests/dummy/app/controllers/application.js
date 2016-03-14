@@ -12,6 +12,11 @@ export default Ember.Controller.extend({
 
   presets: [
     {
+      name: 'Today',
+      startDate: moment().startOf('day'),
+      endDate: moment().startOf('day'),
+    },
+    {
       name: 'Tomorrow',
       startDate: moment().add(1, 'day').startOf('day'),
       endDate: moment().add(1, 'day').startOf('day'),

@@ -1,33 +1,43 @@
-<button {{action "prevMonth"}}>&lt;</button>
+<div class="calendar-header">
+  <button class="btn-previous-month" {{action "prevMonth"}}/>
 
-<button {{action "toggleMonthPicker"}}>{{moment-format month "MMM"}}</button>
+  <div class="month-year">
+    <button class="btn-month" {{action "toggleMonthPicker"}}>{{moment-format month "MMM"}}</button>
 
-<button {{action "toggleYearPicker"}}>{{moment-format month "YYYY"}}</button>
+    <button class="btn-year" {{action "toggleYearPicker"}}>{{moment-format month "YYYY"}}</button>
+  </div>
 
-<button {{action "nextMonth"}}>&gt;</button>
+  <button class="btn-next-month" {{action "nextMonth"}}/>
+</div>
 
-{{#if calendarExpanded}}
-  {{#each weeks as |week|}}
-    <div class='week'>
-      {{#each week as |day|}}
-        {{day-display selectionStart=selectionStart
-                      selectionEnd=selectionEnd
-                      day=day
-                      month=month
-                      daySelected="daySelected"}}
+<div class="calendar-body">
+  {{#if calendarExpanded}}
+    {{#each weeks as |week|}}
+      <div class='week'>
+        {{#each week as |day|}}
+          {{day-display selectionStart=selectionStart
+                        selectionEnd=selectionEnd
+                        day=day
+                        month=month
+                        daySelected="daySelected"}}
+        {{/each}}
+      </div>
+    {{/each}}
+  {{/if}}
+
+  {{#if monthPickerExpanded}}
+    <div class="month">
+      {{#each allMonths as |month|}}
+        <button {{action "setMonth" month}}>{{month}}</button>
       {{/each}}
     </div>
-  {{/each}}
-{{/if}}
+  {{/if}}
 
-{{#if monthPickerExpanded}}
-  {{#each allMonths as |month|}}
-    <button {{action "setMonth" month}}>{{month}}</button>
-  {{/each}}
-{{/if}}
-
-{{#if yearPickerExpanded}}
-  {{#each allYears as |year|}}
-    <button {{action "setYear" year}}>{{year}}</button>
-  {{/each}}
-{{/if}}
+  {{#if yearPickerExpanded}}
+    <div class="year">
+      {{#each allYears as |year|}}
+        <button {{action "setYear" year}}>{{year}}</button>
+      {{/each}}
+    </div>
+  {{/if}}
+</div>
