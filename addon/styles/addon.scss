@@ -135,7 +135,7 @@ button:focus {
     .day {
       display: table-cell;
       height: 20px;
-      width: calc(100%/7);
+      width: calc(100% / 7);
       vertical-align: middle;
       border-left: 1px solid $border-color;
       border-top: 1px solid $border-color;
@@ -192,19 +192,18 @@ button:focus {
 }
 
 .button-console {
-  position: relative;
   display: table-cell;
-  width: 95px;
   padding: 8px;
   vertical-align: top;
 
   button {
     display: block;
     width: 100%;
-    text-align: left;
     border: 1px solid $border-color;
     background-color: #DDD;
     margin-bottom: 7px;
+    font-weight: bold;
+    text-align: left;
 
     &:last-child {
       margin-bottom: 0;
@@ -217,25 +216,6 @@ button:focus {
 
   .presets-picker {
   }
-
-  // .actions {
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   padding: 8px;
-
-  //   button {
-  //     width: calc(50% - 3px);
-  //     float: left;
-  //     margin: 0;
-  //     text-align: center;
-
-  //     &:last-child {
-  //       float: right;
-  //     }
-  //   }
-  // }
 }
 
 .action-console {
