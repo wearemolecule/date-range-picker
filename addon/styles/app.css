@@ -1,36 +1,36 @@
-.week {
+/*.week {
   width: 175px;;
   clear: both;
-}
+}*/
 
-.day {
+/*.day {
   display: block;
   float: left;
   height: 1.5em;
   width: calc(100%/7);
-}
+}*/
 
-.day.selected {
+/*.day.selected {
   background-color: red;
-}
+}*/
 
-.day.in-range {
+/*.day.in-range {
   background-color: blue;
-}
+}*/
 
-.day.other-month {
+/*.day.other-month {
   background-color: gray;
-}
+}*/
 
-.right-calendar, .left-calendar {
+/*.right-calendar, .left-calendar {
   display: inline-block;
-}
+}*/
 
-.date-range-picker-input {
+/*.date-range-picker-input {
   display: block;
   width: calc(100%/7 - 37.5px);
   margin-bottom: 25px;
-}
+}*/
 
 .presets-picker {
   display: block;
@@ -40,6 +40,221 @@
   display: block;
 }
 
-.half {
+/*.half {
   display: inline-table;
+}*/
+
+/* New */
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+.daterange-picker {
+  display: inline-block;
+  border: 1px solid #CCC;
+}
+
+.top {
+  padding: 5px 8px;
+  border-bottom: 1px solid #CCC;
+}
+
+.date-range-picker-input {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+  border: 0;
+}
+
+.calendars {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.left-calendar {
+  margin-right: 8px;
+}
+
+.calendar {
+  float: left;
+  border: 1px solid #CCC;
+  font-family: arial;
+  margin: 8px 8px 8px 0;
+}
+
+.calendar-buttons {
+  display: table;
+  width: 100%;
+}
+
+.calendar-buttons button {
+  height: 25px;
+  border: 0;
+  vertical-align: middle;
+  background-color: transparent;
+}
+
+.calendar-buttons .month-year {
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+}
+
+.calendar-buttons .month-year button {
+  padding: 0;
+  font-weight: bold;
+}
+
+.btn-previous-month {
+  display: table-cell;
+}
+
+.btn-previous-month::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #CCC;
+}
+
+.btn-previous-month:hover::before {
+  border-right: 5px solid #FFCC00;
+}
+
+.btn-next-month {
+  display: table-cell;
+}
+
+.btn-next-month::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #CCC;
+}
+
+.btn-next-month:hover::before {
+  border-left: 5px solid #FFCC00;
+}
+
+.week {
+  display: table;
+  width: 175px;
+  clear: both;
+}
+
+.week div:first-child {
+  border-width: 1px 0 0 0;
+}
+
+.day {
+  display: table-cell;
+  height: 20px;
+  width: calc(100%/7);
+  vertical-align: middle;
+  border-width: 1px 0 0 1px;
+  border-color: #CCC;
+  border-style: solid;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.day:hover {
+  background-color: #FFCC00;
+}
+
+.day.selected {
+  background-color: #FFCC00;
+}
+
+.day.in-range {
+  background-color: #ffe992;
+}
+
+.day.other-month {
+  background-color: #DDD;
+  color: #999;
+}
+
+.month,
+.year {
+  height: calc(20px * 5);
+  width: 175px;
+  overflow-y: auto;
+  border-top: 1px solid #CCC;
+}
+
+.month button,
+.year button {
+  width: 100%;
+  height: 20px;
+  display: block;
+  float: left;
+  clear: both;
+  border: 0;
+  border-bottom: 1px solid #CCC;
+  background-color: #FFF;
+}
+
+.month button:last-child,
+.year button:last-child {
+  border: 0;
+}
+
+.month button:hover,
+.year button:hover {
+  background-color: #FFCC00;
+}
+
+/* Button side */
+
+.button-console {
+  position: relative;
+  display: table-cell;
+  width: 125px;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.button-console button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #CCC;
+  background-color: #FFF;
+  margin-bottom: 5px;
+}
+
+.button-console button:hover {
+  background-color: #EEE;
+}
+
+.button-console .actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+}
+
+.button-console .actions button {
+  width: calc(50% - 3px);
+  float: left;
+  margin: 0;
+  text-align: center;
+}
+
+.button-console .actions button:last-child {
+  float: right;
 }

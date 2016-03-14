@@ -1,32 +1,38 @@
-{{input value=rangeFormatted
-        class="date-range-picker-input"
-        focus-in="toggleIsExpanded"}}
-
-{{#if isExpanded}}
-  <div class="half">
-    {{presets-picker presets=presets
-                     startSelected="startSelected"
-                     endSelected="endSelected"}}
-
-    <button {{action "cancel"}}>Cancel</button>
-    <button {{action "apply"}}>Apply</button>
+<div class="daterange-picker">
+  <div class="top">
+    {{input value=rangeFormatted
+            class="date-range-picker-input"
+            focus-in="toggleIsExpanded"}}
   </div>
 
-  <div class="half">
-    {{calendar-display classNames="left-calendar"
-                       selectionStart=startDate
-                       selectionEnd=endDate
-                       month=startMonth
-                       daySelected="startSelected"
-                       prevMonth="prevStartMonth"
-                       nextMonth="nextStartMonth"}}
+  {{#if isExpanded}}
+    <div class="button-console">
+      {{presets-picker presets=presets
+                       startSelected="startSelected"
+                       endSelected="endSelected"}}
 
-    {{calendar-display classNames="right-calendar"
-                       selectionStart=startDate
-                       selectionEnd=endDate
-                       month=endMonth
-                       daySelected="endSelected"
-                       prevMonth="prevEndMonth"
-                       nextMonth="nextEndMonth"}}
-  </div>
-{{/if}}
+      <div class="actions">
+        <button {{action "cancel"}}>Cancel</button>
+        <button {{action "apply"}}>Apply</button>
+      </div>
+    </div>
+
+    <div class="calendars">
+      {{calendar-display classNames="calendar left-calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=startMonth
+                         daySelected="startSelected"
+                         prevMonth="prevStartMonth"
+                         nextMonth="nextStartMonth"}}
+
+      {{calendar-display classNames="calendar right-calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=endMonth
+                         daySelected="endSelected"
+                         prevMonth="prevEndMonth"
+                         nextMonth="nextEndMonth"}}
+    </div>
+  {{/if}}
+</div>
