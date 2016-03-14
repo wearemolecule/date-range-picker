@@ -1,30 +1,36 @@
-$cal-width:     175px;
+$cal-width:           175px;
 
-$panel:              #FFF;
-$panel-border:       #CCC;
+$panel:               #FFF;
+$panel-border:        #CCC;
 
-$preset-btn:         #DDD;
-$preset-btn-border:  #CCC;
-$preset-btn-hover:   #EEE;
+$preset-btn:          #DDD;
+$preset-btn-txt:      #000;
+$preset-btn-border:   #CCC;
+$preset-btn-hover:    #EEE;
 
-$cal-border:         #CCC;
-$cal-header:         #FFF;
-$cal-arrow:          #CCC;
-$cal-arrow-hover:    #FFCC00;
-$day-hover:          #FFCC00;
-$day-selected:       #FFCC00;
-$day-in-range:       #FFE992;
-$day-other-month:    #DDD;
-$other-month-text:   #999;
+$cal:                 #FFF;
+$cal-border:          #CCC;
+$cal-header:          #FFF;
+$cal-arrow:           #CCC;
+$cal-arrow-hover:     #FFCC00;
+$day:                 #FFF;
+$day-txt:             #000;
+$day-hover:           #FFCC00;
+$day-selected:        #FFCC00;
+$day-in-range:        #FFE992;
+$day-other-month:     #DDD;
+$other-month-txt:     #999;
 
-$mon-yr-btn:         #FFF;
-$mon-yr-btn-hover:   #FFCC00;
+$mon-yr-btn:          #FFF;
+$mon-yr-btn-txt:      #000;
+$mon-yr-btn-hover:    #FFCC00;
 
-$action-console:     #FFF;
-$action-border:      #CCC;
-$action-btn:         #DDD;
-$action-btn-border:  #CCC;
-$action-btn-hover:   #EEE;
+$action-console:      #FFF;
+$action-border:       #CCC;
+$action-btn:          #DDD;
+$action-btn-txt:      #000;
+$action-btn-border:   #CCC;
+$action-btn-hover:    #EEE;
 
 * {
   box-sizing: border-box;
@@ -71,6 +77,7 @@ button:focus {
   .calendar {
     float: left;
     width: $cal-width;
+    background-color: $cal;
     border: 1px solid $cal-border;
     margin: 8px 8px 8px 0;
 
@@ -101,6 +108,7 @@ button:focus {
       button {
         padding: 0;
         font-weight: bold;
+        color: $mon-yr-btn-txt;
       }
     }
 
@@ -157,11 +165,13 @@ button:focus {
       display: table-cell;
       height: 20px;
       width: calc(100% / 7);
-      vertical-align: middle;
+      background-color: $day;
       border-left: 1px solid $cal-border;
       border-top: 1px solid $cal-border;
-      font-size: 11px;
+      vertical-align: middle;
       text-align: center;
+      font-size: 11px;
+      color: $day-txt;
       cursor: pointer;
 
       &:hover {
@@ -178,7 +188,7 @@ button:focus {
 
       &.other-month {
         background-color: $day-other-month;
-        color: $other-month-text;
+        color: $other-month-txt;
       }
     }
 
@@ -223,6 +233,7 @@ button:focus {
     border: 1px solid $preset-btn-border;
     background-color: $preset-btn;
     margin-bottom: 7px;
+    color: $preset-btn-txt;
     font-weight: bold;
     text-align: left;
 
@@ -250,6 +261,7 @@ button:focus {
     border: 1px solid $action-btn-border;
     background-color: $action-btn;
     margin-left: 5px;
+    color: $action-btn-txt;
     font-weight: bold;
 
     &:hover {
