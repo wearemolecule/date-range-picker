@@ -1,4 +1,4 @@
-# Date-range-picker
+# Date-range-picker [![Build Status](https://travis-ci.org/wearemolecule/date-range-picker.svg?branch=master)](https://travis-ci.org/wearemolecule/date-range-picker)
 
 This README outlines the details of collaborating on this Ember addon.
 
