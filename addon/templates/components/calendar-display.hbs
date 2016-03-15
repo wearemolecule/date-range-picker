@@ -2,9 +2,13 @@
   <button class="btn-previous-month" {{action "prevMonth"}}/>
 
   <div class="month-year">
-    <button class="btn-month" {{action "toggleMonthPicker"}}>{{moment-format month "MMM"}}</button>
+    <button class="btn-month {{if monthPickerExpanded 'active'}}" {{action "toggleMonthPicker"}}>
+      {{moment-format month "MMM"}}
+    </button>
 
-    <button class="btn-year" {{action "toggleYearPicker"}}>{{moment-format month "YYYY"}}</button>
+    <button class="btn-year {{if yearPickerExpanded 'active'}}" {{action "toggleYearPicker"}}>
+      {{moment-format month "YYYY"}}
+    </button>
   </div>
 
   <button class="btn-next-month" {{action "nextMonth"}}/>

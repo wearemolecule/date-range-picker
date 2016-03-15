@@ -56,10 +56,12 @@ export default Ember.Component.extend({
 
     toggleMonthPicker() {
       this.toggleProperty('monthPickerExpanded');
+      this.set('yearPickerExpanded', false);
     },
 
     toggleYearPicker() {
       this.toggleProperty('yearPickerExpanded');
+      this.set('monthPickerExpanded', false);
     },
 
     prevMonth() {
