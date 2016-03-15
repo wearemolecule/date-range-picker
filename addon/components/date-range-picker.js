@@ -29,10 +29,20 @@ export default Ember.Component.extend(ClickOutside, {
     },
 
     startSelected(day) {
+      let endDate = this.get('endDate');
+      if (day.isAfter(endDate)) {
+        this.set('endDate', day);
+      }
+
       this.set('startDate', day);
     },
 
     endSelected(day) {
+      let startDate = this.get('startDate');
+      if (day.isBefore(startDate)) {
+        this.set('startDate', day);
+      }
+
       this.set('endDate', day);
     },
 
