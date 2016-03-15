@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import layout from '../templates/components/date-range-picker';
+import ClickOutside from 'date-range-picker/mixins/click-outside';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ClickOutside, {
   layout,
   startDate: moment().startOf('day'),
   endDate: moment().startOf('day').add(1, 'month'),
