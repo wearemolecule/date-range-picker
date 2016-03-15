@@ -1,7 +1,9 @@
 <div class="date-range-picker">
-  {{input value=rangeFormatted
-          class="date-range-picker-input"
-          focus-in="toggleIsExpanded"}}
+  {{input-mask value=rangeFormatted
+               mask="99/99/9999 - 99/99/9999"
+               class="date-range-picker-input"
+               focus-in="toggleIsExpanded"
+               key-press="parseInput"}}
 
   <div class="date-range-panel">
     {{#if isExpanded}}

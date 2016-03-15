@@ -35,6 +35,17 @@ export default Ember.Component.extend({
       this.set('endDate', day);
     },
 
+    parseInput() {
+      let [ start, end ] = this.get('rangeFormatted').split(' - ');
+
+      this.setProperties({
+        startDate: moment(start, 'MM/DD/YYYY'),
+        endDate: moment(end, 'MM/DD/YYYY'),
+        startMonth: moment(start, 'MM/DD/YYYY'),
+        endMonth: moment(end, 'MM/DD/YYYY'),
+      });
+    },
+
     prevStartMonth() {
       this.set('startMonth', this.get('startMonth').add(-1, 'month').clone());
     },
