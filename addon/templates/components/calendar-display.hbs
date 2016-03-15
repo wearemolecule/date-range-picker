@@ -28,7 +28,9 @@
   {{#if monthPickerExpanded}}
     <div class="month">
       {{#each allMonths as |month|}}
-        <button {{action "setMonth" month}}>{{month}}</button>
+        <button {{action "setMonth" month}}>
+          {{friendly-month month}}
+        </button>
       {{/each}}
     </div>
   {{/if}}
