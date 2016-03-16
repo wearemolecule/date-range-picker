@@ -68,6 +68,7 @@ button:focus {
       height: 30px;
       width: 95px;
       padding: 0 5px;
+      text-align: center;
       vertical-align: middle;;
       font-size: 14px;
       font-weight: bold;
@@ -79,6 +80,11 @@ button:focus {
     }
 
     .separator {
+      display: table-cell;
+      height: 30px;
+      width: 10px;
+      text-align: center;
+      vertical-align: middle;
       font-size: 14px;
       font-weight: bold;
     }
@@ -86,7 +92,6 @@ button:focus {
     .preset-trigger {
       display: table-cell;
       height: 30px;
-      margin-right: -1px;
       border: 0;
       border-left: 1px solid #CCC;
       background-color: #EEE;
