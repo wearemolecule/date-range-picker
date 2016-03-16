@@ -187,7 +187,7 @@ button:focus {
 
     .day {
       display: table-cell;
-      height: 20px;
+      height: 25px;
       width: calc(100% / 7);
       background-color: $day;
       border-left: 1px solid $cal-border;
@@ -251,6 +251,7 @@ button:focus {
 
   button {
     display: block;
+    height: 25px;
     width: 100%;
     border: 1px solid $preset-btn-border;
     background-color: $preset-btn;
@@ -279,6 +280,7 @@ button:focus {
 
   button {
     display: inline-block;
+    height: 25px;
     border: 1px solid $action-btn-border;
     background-color: $action-btn;
     margin-left: 5px;

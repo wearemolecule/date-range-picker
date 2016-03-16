@@ -55,7 +55,6 @@ export default Ember.Component.extend(ClickOutside, {
       this.sendAction('cancel');
     },
 
-
     startSelected(day) {
       let endDate = this.get('endDate');
       if (day.isAfter(endDate)) {
