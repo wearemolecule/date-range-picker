@@ -1,8 +1,8 @@
 <div class="date-range-picker">
-  <div class="input-wrapper">
+  <div class="input-wrapper {{if isExpandedStart 'expandedStart'}} {{if isExpandedEnd 'expandedEnd'}}">
     {{input-mask value=rangeStart
                  mask="99/99/9999"
-                 class="date-range-picker-input"
+                 class="start-date-input"
                  focus-in="toggleIsExpandedStart"
                  key-press="parseInput"}}
 
@@ -10,7 +10,7 @@
 
     {{input-mask value=rangeEnd
                  mask="99/99/9999"
-                 class="date-range-picker-input"
+                 class="end-date-input"
                  focus-in="toggleIsExpandedEnd"
                  key-press="parseInput"}}
 

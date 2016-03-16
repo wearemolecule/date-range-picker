@@ -57,7 +57,13 @@ button:focus {
     display: table;
     border: 1px solid #CCC;
 
-    .date-range-picker-input {
+    &.expandedStart .start-date-input,
+    &.expandedEnd .end-date-input {
+      color: #ff6600;
+    }
+
+    .start-date-input,
+    .end-date-input {
       display: table-cell;
       height: 30px;
       width: 95px;
@@ -68,11 +74,13 @@ button:focus {
       border: 0;
 
       &:hover {
-        color: #4dafd4;
+        color: #ff6600;
       }
     }
 
     .separator {
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .preset-trigger {
