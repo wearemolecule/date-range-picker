@@ -12,10 +12,10 @@ $cal:                 #FFF;
 $cal-border:          #CCC;
 $cal-header:          #FFF;
 $cal-arrow:           #CCC;
-$cal-arrow-hover:     #FFCC00;
+$cal-arrow-hover:     #FF9900;
 $day:                 #FFF;
 $day-txt:             #000;
-$day-hover:           #FFCC00;
+$day-hover:           #FF9900;
 $day-selected:        #FF9900;
 $day-in-range:        #FFE5BF;
 $day-other-month:     #DDD;
@@ -23,7 +23,7 @@ $other-month-txt:     #999;
 
 $mon-yr-btn:          #FFF;
 $mon-yr-btn-txt:      #000;
-$mon-yr-btn-hover:    #FFCC00;
+$mon-yr-btn-hover:    #FF9900;
 
 $action-console:      #FFF;
 $action-border:       #CCC;
@@ -141,6 +141,14 @@ button:focus {
       display: table-cell;
       width: 100%;
       text-align: center;
+
+      .btn-month,
+      .btn-year {
+
+        &:hover {
+          color: #ff6600;
+        }
+      }
 
       .active {
         color: #ff6600;
