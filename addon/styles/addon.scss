@@ -1,4 +1,4 @@
-$cal-width:           175px;
+$cal-width:           100%;
 
 $panel:               #FFF;
 $panel-border:        #CCC;
@@ -51,13 +51,41 @@ button:focus {
 
 .date-range-picker {
   position: relative;
+  display: table;
 
-  .date-range-picker-input {
-    display: block;
-    width: 200px;
-    padding: 5px;
-    font-size: 14px;
-    font-weight: bold;
+  .input-wrapper {
+    display: table;
+    border: 1px solid #CCC;
+
+    .date-range-picker-input {
+      display: table-cell;
+      height: 30px;
+      width: 95px;
+      padding: 0 5px;
+      vertical-align: middle;;
+      font-size: 14px;
+      font-weight: bold;
+      border: 0;
+
+      &:hover {
+        color: #4dafd4;
+      }
+    }
+
+    .separator {
+    }
+
+    .preset-trigger {
+      display: table-cell;
+      height: 30px;
+      margin-right: -1px;
+      border: 0;
+      border-left: 1px solid #CCC;
+      background-color: #EEE;
+      font-size: 14px;
+      font-weight: bold;
+      vertical-align: middle;
+    }
   }
 }
 
@@ -70,22 +98,15 @@ button:focus {
   font-family: arial;
   background-color: $panel;
   box-shadow: 8px 8px 20px #DDD;
+
+  min-width: 100%;
 }
 
 .calendars-console {
-  display: table-cell;
-  vertical-align: top;
 
   .calendar {
-    float: left;
     width: $cal-width;
     background-color: $cal;
-    border: 1px solid $cal-border;
-    margin: 8px 8px 8px 0;
-
-    &:first-child {
-      margin-right: 8px;
-    }
   }
 
   .calendar-header {
@@ -110,6 +131,7 @@ button:focus {
       button {
         padding: 0;
         font-weight: bold;
+        font-size: 12px;
         color: $mon-yr-btn-txt;
       }
     }
@@ -225,19 +247,16 @@ button:focus {
 }
 
 .button-console {
-  display: table-cell;
   padding: 8px;
-  vertical-align: top;
 
   button {
     display: block;
     width: 100%;
     border: 1px solid $preset-btn-border;
     background-color: $preset-btn;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
     color: $preset-btn-txt;
     font-weight: bold;
-    text-align: left;
 
     &:last-child {
       margin-bottom: 0;
