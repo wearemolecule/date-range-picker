@@ -79,8 +79,8 @@ function buildWeek(month, week) {
   var daysInMonth = month.daysInMonth();
   var days = [];
   for (var i = 0; i < 7; i++) {
-    var d = (i - firstDay + week * 7)
-    days[i] = month.startOf('month').clone().add(d, 'day')
+    var d = (i - firstDay + week * 7);
+    days[i] = month.startOf('month').clone().add(d, 'day');
   }
   return days;
 }
