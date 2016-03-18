@@ -8,23 +8,50 @@ export default Ember.Component.extend(ClickOutside, {
   endDate: moment().startOf('day').add(1, 'month'),
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month').add(1, 'month'),
-  isExpanded: true,
+  isExpandedStart: false,
+  isExpandedEnd: false,
+  isExpandedPreset: false,
 
-  rangeFormatted: Ember.computed('startDate', 'endDate', function() {
+  rangeStart: Ember.computed('startDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
+
+    return `${startDate}`;
+  }),
+
+  rangeEnd: Ember.computed('endDate', function() {
     let endDate = this.get('endDate').format('MM/DD/YYYY');
 
-    return `${startDate} - ${endDate}`;
+    return `${endDate}`;
   }),
 
   actions: {
-    apply() {
-      this.send('toggleIsExpanded');
+    applyStart() {
+      this.send('toggleIsExpandedStart');
       this.sendAction('apply');
     },
 
-    cancel() {
-      this.send('toggleIsExpanded');
+    cancelStart() {
+      this.send('toggleIsExpandedStart');
+      this.sendAction('cancel');
+    },
+
+    applyEnd() {
+      this.send('toggleIsExpandedEnd');
+      this.sendAction('apply');
+    },
+
+    cancelEnd() {
+      this.send('toggleIsExpandedEnd');
+      this.sendAction('cancel');
+    },
+
+    applyPreset() {
+      this.send('toggleIsExpandedPreset');
+      this.sendAction('apply');
+    },
+
+    cancelPreset() {
+      this.send('toggleIsExpandedPreset');
       this.sendAction('cancel');
     },
 
@@ -73,8 +100,22 @@ export default Ember.Component.extend(ClickOutside, {
       this.set('endMonth', this.get('endMonth').add(1, 'month').clone());
     },
 
-    toggleIsExpanded() {
-      this.toggleProperty('isExpanded');
+    toggleIsExpandedStart() {
+      this.toggleProperty('isExpandedStart');
+      this.set('isExpandedEnd', false);
+      this.set('isExpandedPreset', false);
+    },
+
+    toggleIsExpandedEnd() {
+      this.toggleProperty('isExpandedEnd');
+      this.set('isExpandedStart', false);
+      this.set('isExpandedPreset', false);
+    },
+
+    toggleIsExpandedPreset() {
+      this.toggleProperty('isExpandedPreset');
+      this.set('isExpandedStart', false);
+      this.set('isExpandedEnd', false);
     }
   }
 });

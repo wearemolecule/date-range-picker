@@ -1,18 +1,25 @@
 <div class="date-range-picker">
-  {{input-mask value=rangeFormatted
-               mask="99/99/9999 - 99/99/9999"
-               class="date-range-picker-input"
-               focus-in="toggleIsExpanded"
-               key-press="parseInput"}}
+  <div class="input-wrapper {{if isExpandedStart 'expandedStart'}} {{if isExpandedEnd 'expandedEnd'}}">
+    {{input-mask value=rangeStart
+                 mask="99/99/9999"
+                 class="start-date-input"
+                 focus-in="toggleIsExpandedStart"
+                 key-press="parseInput"}}
 
-  <div class="date-range-panel">
-    {{#if isExpanded}}
-      <div class="button-console">
-        {{presets-picker presets=presets
-                         startSelected="startSelected"
-                         endSelected="endSelected"}}
-      </div>
+    <span class="separator">-</span>
 
+    {{input-mask value=rangeEnd
+                 mask="99/99/9999"
+                 class="end-date-input"
+                 focus-in="toggleIsExpandedEnd"
+                 key-press="parseInput"}}
+
+    <button class="preset-trigger" {{action "toggleIsExpandedPreset"}}>=</button>
+  </div>
+
+
+  {{#if isExpandedStart}}
+    <div class="date-range-panel">
       <div class="calendars-console">
         {{calendar-display classNames="calendar"
                            selectionStart=startDate
@@ -21,6 +28,19 @@
                            daySelected="startSelected"
                            prevMonth="prevStartMonth"
                            nextMonth="nextStartMonth"}}
+
+      </div>
+
+      <div class="action-console">
+        <button {{action "cancelStart"}}>Cancel</button>
+        <button {{action "applyStart"}}>Apply</button>
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if isExpandedEnd}}
+    <div class="date-range-panel">
+      <div class="calendars-console">
 
         {{calendar-display classNames="calendar"
                            selectionStart=startDate
@@ -32,9 +52,24 @@
       </div>
 
       <div class="action-console">
-        <button {{action "cancel"}}>Cancel</button>
-        <button {{action "apply"}}>Apply</button>
+        <button {{action "cancelEnd"}}>Cancel</button>
+        <button {{action "applyEnd"}}>Apply</button>
       </div>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
+
+  {{#if isExpandedPreset}}
+    <div class="date-range-panel">
+      <div class="button-console">
+        {{presets-picker presets=presets
+                         startSelected="startSelected"
+                         endSelected="endSelected"}}
+      </div>
+
+      <div class="action-console">
+        <button {{action "cancelPreset"}}>Cancel</button>
+        <button {{action "applyPreset"}}>Apply</button>
+      </div>
+    </div>
+  {{/if}}
 </div>
