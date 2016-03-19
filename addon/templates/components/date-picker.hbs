@@ -1,0 +1,26 @@
+<div class="date-picker">
+  {{#if showInput}}
+  {{input-mask value=dateFormatted
+               mask="99/99/9999"
+               class="date-picker-input"
+               focus-in="setIsExpanded"
+               key-press="parseInput"}}
+  {{else}}
+  <div class='date-picker-input' {{action "toggleIsExpanded"}}>{{dateFormatted}}</div>
+  {{/if}}
+  <div class="date-range-panel">
+    {{#if isExpanded}}
+    <div class="calendars-console">
+      {{calendar-display classNames="calendar"
+      selectionStart=date
+      month=month
+      daySelected="daySelected"
+      prevMonth="prevMonth"
+      nextMonth="nextMonth"}}
+    </div>
+    <div class="action-console">
+      <button {{action "today"}}>Today</button>
+    </div>
+    {{/if}}
+  </div>
+</div>

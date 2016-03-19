@@ -49,10 +49,12 @@ button:focus {
   outline: 0 none;
 }
 
-.date-range-picker {
+.date-range-picker,
+.date-picker {
   position: relative;
 
-  .date-range-picker-input {
+  .date-range-picker-input,
+  .date-picker-input {
     display: block;
     width: 200px;
     padding: 5px;
@@ -70,6 +72,7 @@ button:focus {
   font-family: arial;
   background-color: $panel;
   box-shadow: 8px 8px 20px #DDD;
+  z-index: 50;
 }
 
 .calendars-console {
