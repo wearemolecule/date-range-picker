@@ -20,7 +20,7 @@
 
   {{#if isExpandedStart}}
     <div class="date-range-panel">
-      <div class="calendars-console">
+
         {{calendar-display classNames="calendar"
                            selectionStart=startDate
                            selectionEnd=endDate
@@ -29,7 +29,6 @@
                            prevMonth="prevStartMonth"
                            nextMonth="nextStartMonth"}}
 
-      </div>
 
       <div class="action-console">
         <button {{action "cancelStart"}}>Cancel</button>

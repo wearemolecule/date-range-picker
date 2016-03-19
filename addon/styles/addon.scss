@@ -1,4 +1,4 @@
-$cal-width:           100%;
+$cal-width:           80%;
 
 $panel:               #FFF;
 $panel-border:        #CCC;
@@ -116,11 +116,72 @@ button:focus {
   min-width: 100%;
 }
 
-.calendars-console {
+.calendar {
+  display: table;
+  width: 100%;
+  height: 100%;
 
-  .calendar {
+  .previous,
+  .next {
+    display: table-cell;
+    position: relative;
+    width: 10%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+
+    .btn-previous-month,
+    .btn-next-month {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      border: 0;
+      background-color: #FFF;
+
+      &:hover {
+        background-color: #EEE;
+      }
+    }
+
+    .btn-previous-month {
+
+      &:before {
+        content: "";
+        display: inline-block;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid $cal-arrow;
+      }
+
+      &:hover:before {
+        border-right: 5px solid $cal-arrow-hover;
+      }
+    }
+
+    .btn-next-month {
+
+      &:before {
+        content: "";
+        display: inline-block;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid $cal-arrow;
+      }
+
+      &:hover:before {
+        border-left: 5px solid $cal-arrow-hover;
+      }
+    }
+  }
+
+  .calendar-view {
+    display: table-cell;
     width: $cal-width;
     background-color: $cal;
+    border-right: 1px solid $cal-border;
+    border-left: 1px solid $cal-border;
   }
 
   .calendar-header {
@@ -159,36 +220,6 @@ button:focus {
         font-weight: bold;
         font-size: 12px;
         color: $mon-yr-btn-txt;
-      }
-    }
-
-    .btn-previous-month {
-
-      &:before {
-        content: "";
-        display: block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-right: 5px solid $cal-arrow;
-      }
-
-      &:hover:before {
-        border-right: 5px solid $cal-arrow-hover;
-      }
-    }
-
-    .btn-next-month {
-
-      &:before {
-        content: "";
-        display: block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 5px solid $cal-arrow;
-      }
-
-      &:hover:before {
-        border-left: 5px solid $cal-arrow-hover;
       }
     }
   }
@@ -299,6 +330,7 @@ button:focus {
 }
 
 .action-console {
+  display: none;
   padding: 8px;
   background-color: $action-console;
   border-top: 1px solid $action-border;
