@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
   month: moment().startOf('month'),
   start: moment().startOf('day'),
   end: moment().startOf('day').add(2, 'days'),
+  date: moment().startOf('day'),
 
   nextMonth: Ember.computed('month', function() {
     return this.get('month').clone().add(1, 'month');
@@ -40,7 +41,7 @@ export default Ember.Controller.extend({
 
   actions: {
     apply() {
-      console.log('ApplicationController#cancel');
+      console.log('ApplicationController#apply');
       console.log('start: ', this.get('start'));
       console.log('end: ', this.get('end'));
     },
@@ -55,6 +56,11 @@ export default Ember.Controller.extend({
 
     prevMonth() {
       this.set('month', this.get('month').add(-1, 'month').clone());
+    },
+
+    selected() {
+      console.log('ApplicationController#selected');
+      console.log('date: ', this.get('date'));
     }
   }
 });
