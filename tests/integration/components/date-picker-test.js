@@ -1,24 +1,17 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import moment from 'moment';
 
 moduleForComponent('date-picker', 'Integration | Component | date picker', {
   integration: true
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  let today = moment('2016-03-11', 'YYYY-MM-DD');
 
-  this.render(hbs`{{date-picker}}`);
+  this.set('today', today);
+
+  this.render(hbs`{{date-picker date=today}}`);
 
   assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#date-picker}}
-      template block text
-    {{/date-picker}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
