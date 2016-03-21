@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/presets-picker';
+import layout from './template';
 
 export default Ember.Component.extend({
   layout,

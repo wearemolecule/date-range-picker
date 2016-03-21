@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/day-display';
+import layout from './template';
 
 const { computed } = Ember;
 

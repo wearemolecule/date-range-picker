@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/date-range-picker';
+import layout from './template';
 import ClickOutside from 'date-range-picker/mixins/click-outside';
 
 export default Ember.Component.extend(ClickOutside, {

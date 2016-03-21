@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../templates/components/calendar-display';
+import layout from './template';
 import _ from 'lodash/lodash';
 
 const { computed } = Ember;
