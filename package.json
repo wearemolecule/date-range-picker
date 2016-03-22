@@ -1,7 +1,7 @@
 {
   "name": "date-range-picker",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Ember addon that provides various date pickers.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,11 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "git@github.com:wearemolecule/date-range-picker.git",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "osxi",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
