@@ -2,5 +2,8 @@
 'use strict';
 
 module.exports = function(/* environment, appConfig */) {
-  return { };
+  return {
+    modulePrefix: 'date-range-picker',
+    podModulePrefix: 'date-range-picker/pods',
+  };
 };

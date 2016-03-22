@@ -1,14 +1,34 @@
 import Ember from 'ember';
-import layout from '../templates/components/date-range-picker';
+import layout from './template';
 import ClickOutside from 'date-range-picker/mixins/click-outside';
+
+const {
+  observer,
+} = Ember;
 
 export default Ember.Component.extend(ClickOutside, {
   layout,
   startDate: moment().startOf('day'),
-  endDate: moment().startOf('day').add(1, 'month'),
+  endDate: moment().startOf('day'),
   startMonth: moment().startOf('month'),
-  endMonth: moment().startOf('month').add(1, 'month'),
-  isExpanded: true,
+  endMonth: moment().startOf('month'),
+  isExpanded: false,
+
+  _startDateToMoment: observer('startDate', function() {
+    let startDate = this.get('startDate');
+
+    if (!startDate._isAMomentObject) {
+      this.set('startDate', moment(startDate));
+    }
+  }),
+
+  _endDateToMoment: observer('endDate', function() {
+    let endDate = this.get('endDate');
+
+    if (!endDate._isAMomentObject) {
+      this.set('endDate', moment(endDate));
+    }
+  }),
 
   rangeFormatted: Ember.computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
@@ -20,7 +40,7 @@ export default Ember.Component.extend(ClickOutside, {
   actions: {
     apply() {
       this.send('toggleIsExpanded');
-      this.sendAction('apply');
+      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
 
     cancel() {

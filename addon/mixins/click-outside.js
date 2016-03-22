@@ -12,7 +12,9 @@ export default Ember.Mixin.create(ClickOutside, {
   }),
 
   _removeClickOutsideHandler: on('willDestroyElement', function() {
-    this.removeClickOutsideListener();
+    if (!this.get('isDestroying') || !this.get('isDestroyed')) {
+      this.removeClickOutsideListener();
+    }
   }),
 
   clickOutside() {
