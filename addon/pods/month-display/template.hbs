@@ -1,0 +1,15 @@
+<button class="btn-month {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
+  {{moment-format month "MMM"}}
+</button>
+
+{{#if isExpanded}}
+  {{#ember-wormhole to="month-display-buttons"}}
+    <div class="month">
+      {{#each allMonths as |month|}}
+        <button {{action "setMonth" month}}>
+          {{friendly-month month}}
+        </button>
+      {{/each}}
+    </div>
+  {{/ember-wormhole}}
+{{/if}}
