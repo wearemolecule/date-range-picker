@@ -1,0 +1,23 @@
+{{#if showInput}}
+  {{input-mask value=rangeFormatted
+               mask="99/9999 - 99/9999"
+               class="date-range-picker-input"
+               focus-in="toggleIsExpanded"
+               key-press="parseInput"}}
+{{/if}}
+
+{{#if isExpanded}}
+  {{month-display startDate=startDate month=startDate}}
+
+  {{year-display startDate=startDate}}
+
+  {{month-display startDate=endDate month=endDate}}
+
+  {{year-display startDate=endDate}}
+
+  <div id="month-display-buttons"></div>
+
+  <div id="year-display-buttons"></div>
+
+  <button {{action "cancel"}}>Cancel</button>
+{{/if}}

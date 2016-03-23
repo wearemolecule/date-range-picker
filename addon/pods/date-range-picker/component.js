@@ -1,36 +1,20 @@
 import Ember from 'ember';
 import layout from './template';
 import ClickOutside from 'date-range-picker/mixins/click-outside';
+import Picker from 'date-range-picker/mixins/picker';
+import moment from 'moment';
 
 const {
-  observer,
+  computed,
+  Component,
 } = Ember;
 
-export default Ember.Component.extend(ClickOutside, {
+export default Component.extend(ClickOutside, Picker, {
   layout,
-  startDate: moment().startOf('day'),
-  endDate: moment().startOf('day'),
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
-  isExpanded: false,
 
-  _startDateToMoment: observer('startDate', function() {
-    let startDate = this.get('startDate');
-
-    if (!startDate._isAMomentObject) {
-      this.set('startDate', moment(startDate));
-    }
-  }),
-
-  _endDateToMoment: observer('endDate', function() {
-    let endDate = this.get('endDate');
-
-    if (!endDate._isAMomentObject) {
-      this.set('endDate', moment(endDate));
-    }
-  }),
-
-  rangeFormatted: Ember.computed('startDate', 'endDate', function() {
+  rangeFormatted: computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
     let endDate = this.get('endDate').format('MM/DD/YYYY');
 
@@ -92,9 +76,5 @@ export default Ember.Component.extend(ClickOutside, {
     nextEndMonth() {
       this.set('endMonth', this.get('endMonth').add(1, 'month').clone());
     },
-
-    toggleIsExpanded() {
-      this.toggleProperty('isExpanded');
-    }
   }
 });

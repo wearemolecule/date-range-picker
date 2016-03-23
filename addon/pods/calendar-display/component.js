@@ -9,17 +9,6 @@ export default Ember.Component.extend({
   selectionStart: null,
   selectionEnd: null,
   month: moment(),
-  monthPickerExpanded: false,
-  yearPickerExpanded: false,
-  allMonths: _.range(1, 13),
-  allYearsOffset: 5,
-
-  allYears: computed('month', function() {
-    let year = this.get('month').year();
-    let offset = this.get('allYearsOffset');
-
-    return _.range(year - offset, year + offset + 1);
-  }),
 
   calendarExpanded: computed('monthPickerExpanded', 'yearPickerExpanded', function() {
     return !this.get('monthPickerExpanded') && !this.get('yearPickerExpanded');
@@ -38,20 +27,6 @@ export default Ember.Component.extend({
   actions: {
     daySelected(day) {
       this.sendAction('daySelected', day);
-    },
-
-    setMonth(month) {
-      let day = this.get('month').day();
-      let year = this.get('month').year();
-      this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD'));
-      this.send('toggleMonthPicker');
-    },
-
-    setYear(year) {
-      let day = this.get('month').day();
-      let month = this.get('month').month();
-      this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD'));
-      this.send('toggleYearPicker');
     },
 
     toggleMonthPicker() {

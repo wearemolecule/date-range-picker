@@ -18,3 +18,20 @@ test('it renders', function(assert) {
 
   assert.equal(text.match(new RegExp('[0-9]{1,4}', 'g')).length, 72, 'Has 72 1-4 digit numbers...');
 });
+
+test('will accept strings as startDate and endDate', function(assert) {
+  let format = 'MM/DD/YYYY';
+  let startDate = moment().startOf('month');
+  let endDate = moment().endOf('month');
+
+  this.setProperties({startDate, endDate});
+
+  this.render(hbs`{{date-range-picker startDate=startDate
+                                      endDate=endDate
+                                      isExpanded=true}}`);
+
+  let dateInput = this.$('input.month-picker-input').val();
+  let expectedDateRangeText = `${startDate.format(format)} - ${endDate.format(format)}`;
+
+  assert.equal(dateInput, expectedDateRangeText, 'displays correct range in range input');
+});

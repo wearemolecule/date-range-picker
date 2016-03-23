@@ -1,0 +1,14 @@
+{{#if showInput}}
+  {{input-mask value=rangeFormatted
+               mask="9999"
+               class="year-picker-input"
+               focus-in="toggleIsExpanded"
+               key-press="parseInput"}}
+{{/if}}
+
+{{#if isExpanded}}
+  {{year-display startDate=startDate
+                 endDate=endDate}}
+
+  <div id="year-display-buttons"></div>
+{{/if}}

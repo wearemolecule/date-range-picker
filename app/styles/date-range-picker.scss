@@ -32,6 +32,8 @@ $action-btn-txt:      #000;
 $action-btn-border:   #CCC;
 $action-btn-hover:    #EEE;
 
+$btn-console-input:   #000;
+
 $mobile-touch-height: 35px;
 
 * {
@@ -228,6 +230,11 @@ button:focus {
   display: table-cell;
   padding: 8px;
   vertical-align: top;
+
+  input {
+    color: $btn-console-input;
+    margin-top: 8px;
+  }
 
   button {
     display: block;
