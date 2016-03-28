@@ -11,8 +11,6 @@ const {
 
 export default Component.extend(ClickOutside, Picker, {
   layout,
-  startDate: moment().startOf('day'),
-  endDate: moment().startOf('day'),
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
 
