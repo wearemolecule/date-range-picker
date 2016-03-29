@@ -3,7 +3,6 @@ import layout from './template';
 
 export default Ember.Component.extend({
   layout,
-  classNames: ['presets-picker'],
 
   actions: {
     applyPreset(preset) {

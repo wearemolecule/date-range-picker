@@ -1,49 +1,45 @@
 <div class="date-range-picker">
   {{#if showInput}}
-    {{#unless isExpanded}}
+    {{input-mask value=rangeFormatted
+                 mask="99/99/9999 - 99/99/9999"
+                 class="month-picker-input"
+                 focus-in="toggleIsExpanded"
+                 key-press="parseInput"}}
+  {{/if}}
+
+  {{#if isExpanded}}
+    <div class="date-range-panel">
+      {{presets-picker classNames="presets"
+                       presets=presets
+                       startSelected="startSelected"
+                       endSelected="endSelected"}}
+
       {{input-mask value=rangeFormatted
                    mask="99/99/9999 - 99/99/9999"
                    class="month-picker-input"
-                   focus-in="toggleIsExpanded"
                    key-press="parseInput"}}
-    {{/unless}}
-  {{/if}}
 
-  <div class="date-range-panel">
-    {{#if isExpanded}}
-      <div class="button-console">
-        {{presets-picker presets=presets
-                         startSelected="startSelected"
-                         endSelected="endSelected"}}
 
-        {{input-mask value=rangeFormatted
-                     mask="99/99/9999 - 99/99/9999"
-                     class="month-picker-input"
-                     key-press="parseInput"}}
-      </div>
+      {{calendar-display classNames="calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=startMonth
+                         daySelected="startSelected"
+                         prevMonth="prevStartMonth"
+                         nextMonth="nextStartMonth"}}
 
-      <div class="calendars-console">
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=startMonth
-                           daySelected="startSelected"
-                           prevMonth="prevStartMonth"
-                           nextMonth="nextStartMonth"}}
-
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=endMonth
-                           daySelected="endSelected"
-                           prevMonth="prevEndMonth"
-                           nextMonth="nextEndMonth"}}
-      </div>
+      {{calendar-display classNames="calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=endMonth
+                         daySelected="endSelected"
+                         prevMonth="prevEndMonth"
+                         nextMonth="nextEndMonth"}}
 
       <div class="action-console">
         <button {{action "cancel"}} class="cancel">Cancel</button>
         <button {{action "apply"}} class="apply">Apply</button>
       </div>
+    </div>
     {{/if}}
-  </div>
 </div>
