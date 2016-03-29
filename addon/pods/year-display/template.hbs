@@ -1,0 +1,13 @@
+<button class="btn-year {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
+  {{moment-format month "YYYY"}}
+</button>
+
+{{#if isExpanded}}
+  {{#ember-wormhole to=wormholeTarget}}
+    <div class="year">
+      {{#each allYears as |year|}}
+        <button {{action "setYear" year}}>{{year}}</button>
+      {{/each}}
+    </div>
+  {{/ember-wormhole}}
+{{/if}}

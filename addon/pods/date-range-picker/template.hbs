@@ -2,41 +2,45 @@
   {{#if showInput}}
     {{input-mask value=rangeFormatted
                  mask="99/99/9999 - 99/99/9999"
-                 class="date-range-picker-input"
+                 class="month-picker-input"
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"}}
   {{/if}}
 
-  <div class="date-range-panel">
-    {{#if isExpanded}}
-      <div class="button-console">
-        {{presets-picker presets=presets
-                         startSelected="startSelected"
-                         endSelected="endSelected"}}
-      </div>
+  {{#if isExpanded}}
+    <div class="date-range-panel">
+      {{presets-picker classNames="presets"
+                       presets=presets
+                       startSelected="startSelected"
+                       endSelected="endSelected"}}
 
-      <div class="calendars-console">
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=startMonth
-                           daySelected="startSelected"
-                           prevMonth="prevStartMonth"
-                           nextMonth="nextStartMonth"}}
+      {{input-mask value=rangeFormatted
+                   mask="99/99/9999 - 99/99/9999"
+                   class="month-picker-input"
+                   key-press="parseInput"}}
 
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=endMonth
-                           daySelected="endSelected"
-                           prevMonth="prevEndMonth"
-                           nextMonth="nextEndMonth"}}
-      </div>
+      {{calendar-display classNames="calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=startMonth
+                         wormholePostfix="-left"
+                         daySelected="startSelected"
+                         prevMonth="prevStartMonth"
+                         nextMonth="nextStartMonth"}}
+
+      {{calendar-display classNames="calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=endMonth
+                         wormholePostfix="-right"
+                         daySelected="endSelected"
+                         prevMonth="prevEndMonth"
+                         nextMonth="nextEndMonth"}}
 
       <div class="action-console">
-        <button {{action "cancel"}}>Cancel</button>
-        <button {{action "apply"}}>Apply</button>
+        <button {{action "cancel"}} class="cancel">Cancel</button>
+        <button {{action "apply"}} class="apply">Apply</button>
       </div>
+    </div>
     {{/if}}
-  </div>
 </div>

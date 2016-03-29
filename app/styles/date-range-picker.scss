@@ -38,8 +38,24 @@ $mobile-touch-height: 35px;
   box-sizing: border-box;
 }
 
+h1 {
+  font-family: arial;
+  font-size: 12px;
+  font-weight: bold;
+
+}
+
 button {
+  display: block;
+  border: 1px solid $preset-btn-border;
+  background-color: $preset-btn;
+  color: $preset-btn-txt;
+  font-weight: bold;
   cursor: pointer;
+
+  &:hover {
+    background-color: $preset-btn-hover;
+  }
 }
 
 input:focus,
@@ -62,31 +78,42 @@ button:focus {
 }
 
 .date-range-panel {
+  display: block;
   position: absolute;
   left: 0;
   top: calc(100% - 1px);
-  display: inline-block;
   border: 1px solid $panel-border;
   font-family: arial;
   background-color: $panel;
   box-shadow: 8px 8px 20px #DDD;
 }
 
-.calendars-console {
-  display: table-cell;
+// PRESETS
+
+.presets {
+  float: left;
+  margin: 5px;
   vertical-align: top;
 
-  .calendar {
-    float: left;
-    width: $cal-width;
-    background-color: $cal;
-    border: 1px solid $cal-border;
-    margin: 8px 8px 8px 0;
+  button {
+    width: 100%;
+    margin-bottom: 7px;
+    text-align: left;
 
-    &:first-child {
-      margin-right: 8px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
+}
+
+// CALENDAR
+
+.calendar {
+  float: left;
+  width: $cal-width;
+  background-color: $cal;
+  border: 1px solid $cal-border;
+  margin:  5px;
 
   .calendar-header {
     display: table;
@@ -224,35 +251,12 @@ button:focus {
   }
 }
 
-.button-console {
-  display: table-cell;
-  padding: 8px;
-  vertical-align: top;
-
-  button {
-    display: block;
-    width: 100%;
-    border: 1px solid $preset-btn-border;
-    background-color: $preset-btn;
-    margin-bottom: 7px;
-    color: $preset-btn-txt;
-    font-weight: bold;
-    text-align: left;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    &:hover {
-      background-color: $preset-btn-hover;
-    }
-  }
-
-  .presets-picker {
-  }
-}
+// ACTION CONSOLE
 
 .action-console {
+  float: left;
+  clear: both;
+  width: 100%;
   padding: 8px;
   background-color: $action-console;
   border-top: 1px solid $action-border;
@@ -260,15 +264,7 @@ button:focus {
 
   button {
     display: inline-block;
-    border: 1px solid $action-btn-border;
-    background-color: $action-btn;
     margin-left: 5px;
-    color: $action-btn-txt;
-    font-weight: bold;
-
-    &:hover {
-      background-color: $action-btn-hover;
-    }
   }
 }
 
@@ -376,3 +372,58 @@ button:focus {
     }
   }
 }
+
+
+// Common  /////////////////
+
+.input-wrapper {}
+
+.panel {}
+
+.presets {}
+
+.calendar {
+
+  .header {
+
+    .btn-previous-month {}
+
+    .btn-next-month {}
+
+    .btn-month-select {}
+
+    .btn-year-select {}
+  }
+
+  .calendar-body {
+
+    .week {}
+
+    .day {}
+
+    .month {
+
+      button {}
+    }
+
+    .year {
+
+      button {}
+    }
+  }
+}
+
+.action-console {}
+
+
+// Wrappers /////////////////
+
+.date-range-picker {}
+
+.single-date-picker {}
+
+.month-year-picker {}
+
+.year-picker {}
+
+.preset-picker {}
