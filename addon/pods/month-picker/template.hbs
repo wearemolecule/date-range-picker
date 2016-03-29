@@ -1,23 +1,46 @@
-{{#if showInput}}
-  {{input-mask value=rangeFormatted
-               mask="99/9999 - 99/9999"
-               class="date-range-picker-input"
-               focus-in="toggleIsExpanded"
-               key-press="parseInput"}}
-{{/if}}
+<div class="month-year-picker">
+  {{#if showInput}}
+    {{input-mask value=rangeFormatted
+                 mask="99/9999 - 99/9999"
+                 classNames="date-input date-range-picker-input"
+                 focus-in="toggleIsExpanded"
+                 key-press="parseInput"}}
+  {{/if}}
 
-{{#if isExpanded}}
-  {{month-display startDate=startDate month=startDate}}
+  {{#if isExpanded}}
+    <div class="panel">
 
-  {{year-display startDate=startDate}}
+      <div class="calendar">
 
-  {{month-display startDate=endDate month=endDate}}
+        <div class="header">
 
-  {{year-display startDate=endDate}}
+          {{month-display class="month-select"
+                          startDate=startDate
+                          month=startDate}}
 
-  <div id="month-display-buttons"></div>
+          {{year-display class="year-select"
+                         startDate=startDate}}
 
-  <div id="year-display-buttons"></div>
+        </div>
 
-  <button {{action "cancel"}}>Cancel</button>
-{{/if}}
+       </div>
+
+       <div class="calendar">
+
+        {{month-display startDate=endDate month=endDate}}
+
+        {{year-display startDate=endDate}}
+
+        <div id="month-display-buttons"></div>
+
+        <div id="year-display-buttons"></div>
+
+      </div>
+
+      <div class="action-console">
+        <button {{action "cancel"}}>Cancel</button>
+      </div>
+
+    </div>
+  {{/if}}
+</div>

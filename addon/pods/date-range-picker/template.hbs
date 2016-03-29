@@ -1,28 +1,24 @@
 <div class="date-range-picker">
   {{#if showInput}}
-    {{#unless isExpanded}}
-      {{input-mask value=rangeFormatted
+      {{input-mask classNames="date-input month-picker-input"
+                   value=rangeFormatted
                    mask="99/99/9999 - 99/99/9999"
-                   class="month-picker-input"
                    focus-in="toggleIsExpanded"
                    key-press="parseInput"}}
-    {{/unless}}
   {{/if}}
 
-  <div class="date-range-panel">
-    {{#if isExpanded}}
-      <div class="button-console">
-        {{presets-picker presets=presets
+  {{#if isExpanded}}
+    <div class="panel">
+        {{presets-picker classNames="presets"
+                         presets=presets
                          startSelected="startSelected"
                          endSelected="endSelected"}}
 
-        {{input-mask value=rangeFormatted
+{{!--         {{input-mask value=rangeFormatted
                      mask="99/99/9999 - 99/99/9999"
                      class="month-picker-input"
-                     key-press="parseInput"}}
-      </div>
+                     key-press="parseInput"}} --}}
 
-      <div class="calendars-console">
         {{calendar-display classNames="calendar"
                            selectionStart=startDate
                            selectionEnd=endDate
@@ -40,12 +36,11 @@
                            daySelected="endSelected"
                            prevMonth="prevEndMonth"
                            nextMonth="nextEndMonth"}}
-      </div>
 
       <div class="action-console">
         <button {{action "cancel"}} class="cancel">Cancel</button>
         <button {{action "apply"}} class="apply">Apply</button>
       </div>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>

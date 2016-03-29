@@ -1,47 +1,42 @@
-$cal-width:           175px;
+$input-width:             200px;
 
-$panel:               #FFF;
-$panel-border:        #CCC;
+$border-color:            #CCC;
 
-$preset-btn:          #DDD;
-$preset-btn-txt:      #000;
-$preset-btn-border:   #CCC;
-$preset-btn-hover:    #EEE;
+$panel-color:             #FFF;
+$panel-shadow-color:      #DDD;
 
-$cal:                 #FFF;
-$cal-border:          #CCC;
-$cal-header:          #FFF;
-$cal-arrow:           #CCC;
-$cal-arrow-hover:     #FFCC00;
-$day:                 #FFF;
-$day-txt:             #000;
-$day-hover:           #FFCC00;
-$day-selected:        #FFCC00;
-$day-in-range:        #FFE992;
-$day-other-month:     #DDD;
-$other-month-txt:     #999;
+$preset-btn-color:        #DDD;
+$preset-btn-txt-color:    #000;
+$preset-btn-hover-color:  #FFCC00;
 
-$mon-yr-btn:          #FFF;
-$mon-yr-btn-txt:      #000;
-$mon-yr-btn-hover:    #FFCC00;
+$cal-width:               175px;
+$cal-color:               #FFF;
+$cal-header-color:        #FFF;
+$cal-arrow-color:         #CCC;
+$cal-arrow-hover-color:   #FFCC00;
 
-$action-console:      #FFF;
-$action-border:       #CCC;
-$action-btn:          #DDD;
-$action-btn-txt:      #000;
-$action-btn-border:   #CCC;
-$action-btn-hover:    #EEE;
+$day-color:               #FFF;
+$day-txt-color:           #000;
+$day-hover-color:         #FFCC00;
+$day-selected-color:      #FFCC00;
+$day-in-range-color:      #FFE992;
+$day-other-month-color:   #DDD;
+$other-month-txt-color:   #999;
 
-$btn-console-input:   #000;
+$mon-yr-btn-color:        #FFF;
+$mon-yr-btn-txt-color:    #000;
+$mon-yr-btn-hover-color:  #FFCC00;
 
-$mobile-touch-height: 35px;
+$action-console-color:    #FFF;
+$action-btn-color:        #DDD;
+$action-btn-txt-color:    #000;
+$action-btn-hover-color:  #FFCC00;
+
+
+// Assummed  /////////////////
 
 * {
   box-sizing: border-box;
-}
-
-button {
-  cursor: pointer;
 }
 
 input:focus,
@@ -51,98 +46,137 @@ button:focus {
   outline: 0 none;
 }
 
-.date-range-picker {
-  position: relative;
-
-  .date-range-picker-input {
-    display: block;
-    width: 200px;
-    padding: 5px;
-    font-size: 14px;
-    font-weight: bold;
-  }
+body {
+  font-family: arial;
 }
 
-.date-range-panel {
+// Common  /////////////////
+
+.date-input {
+  width: $input-width;
+  display: block;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.panel {
+  display: block;
   position: absolute;
   left: 0;
   top: calc(100% - 1px);
-  display: inline-block;
-  border: 1px solid $panel-border;
-  font-family: arial;
-  background-color: $panel;
-  box-shadow: 8px 8px 20px #DDD;
+  border: 1px solid $border-color;
+  background-color: $panel-color;
+  z-index: 1000;
+  box-shadow: 8px 8px 20px $panel-shadow-color;
 }
 
-.calendars-console {
-  display: table-cell;
+.presets {
+  float: left;
+  margin: 5px;
   vertical-align: top;
 
-  .calendar {
-    float: left;
-    width: $cal-width;
-    background-color: $cal;
-    border: 1px solid $cal-border;
-    margin: 8px 8px 8px 0;
+  button {
+    display: block;
+    width: 100%;
+    margin-bottom: 7px;
+    border: 1px solid $border-color;
+    background-color: $preset-btn-color;
+    text-align: left;
+    color: $preset-btn-txt-color;
+    font-weight: bold;
+    cursor: pointer;
 
-    &:first-child {
-      margin-right: 8px;
+    &:hover {
+      background-color: $preset-btn-hover-color;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
+}
 
-  .calendar-header {
+.calendar {
+  float: left;
+  width: $cal-width;
+  background-color: $cal-color;
+  border: 1px solid $border-color;
+  margin:  5px;
+
+  .header {
     display: table;
     width: 100%;
-    background-color: $cal-header;
-    border-bottom: 1px solid $cal-border;
+    height: 25px;
+    background-color: $cal-header-color;
+    border-bottom: 1px solid $border-color;
 
     button {
-      display: table-cell;
+      display: inline-block;
+      width: 100%;
       height: 25px;
       border: 0;
       vertical-align: middle;
       background-color: transparent;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    .month-year {
+    .previous-month {
       display: table-cell;
-      width: 100%;
-      text-align: center;
+      width: 15px;
 
       button {
-        padding: 0;
-        font-weight: bold;
-        color: $mon-yr-btn-txt;
+
+        &:before {
+          content: "";
+          display: block;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-right: 5px solid $cal-arrow-color;
+        }
+
+        &:hover:before {
+          border-right: 5px solid $cal-arrow-hover-color;
+        }
       }
     }
 
-    .btn-previous-month {
+    .next-month {
+      display: table-cell;
+      width: 15px;
 
-      &:before {
-        content: "";
-        display: block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-right: 5px solid $cal-arrow;
-      }
+      button {
 
-      &:hover:before {
-        border-right: 5px solid $cal-arrow-hover;
+        &:before {
+          content: "";
+          display: block;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 5px solid $cal-arrow-color;
+        }
+
+        &:hover:before {
+          border-left: 5px solid $cal-arrow-hover-color;
+        }
       }
     }
 
-    .btn-next-month {
+    .month-select {
+      display: table-cell;
 
-      &:before {
-        content: "";
-        display: block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-left: 5px solid $cal-arrow;
+      button {
+        text-align: right;
+        padding-right: 2px;
       }
+    }
 
-      &:hover:before {
-        border-left: 5px solid $cal-arrow-hover;
+    .year-select {
+      display: table-cell;
+
+      button {
+        text-align: left;
+        padding-left: 2px;
       }
     }
   }
@@ -150,236 +184,136 @@ button:focus {
   .calendar-body {
     width: 100%;
     display: table;
-
-    div:first-child .day {
-      border-top: 0;
-    }
+    position: relative;
 
     .week {
       display: table-row;
       width: 100%;
       clear: both;
-
-      div:first-child {
-        border-left: 0;
-      }
     }
 
     .day {
       display: table-cell;
       height: 20px;
       width: calc(100% / 7);
-      background-color: $day;
-      border-left: 1px solid $cal-border;
-      border-top: 1px solid $cal-border;
+      background-color: $day-color;
       vertical-align: middle;
       text-align: center;
       font-size: 11px;
-      color: $day-txt;
+      color: $day-txt-color;
       cursor: pointer;
 
       &:hover {
-        background-color: $day-hover;
+        background-color: $day-hover-color;
       }
 
       &.selected {
-        background-color: $day-selected;
+        background-color: $day-selected-color;
       }
 
       &.in-range {
-        background-color: $day-in-range;
+        background-color: $day-in-range-color;
       }
 
       &.other-month {
-        background-color: $day-other-month;
-        color: $other-month-txt;
+        background-color: $day-other-month-color;
+        color: $other-month-txt-color;
       }
     }
 
-    .month,
-    .year {
-      float: left;
-      height: calc(20px * 5);
-      //width: calc(#{$cal-width} / 2);
+    .month {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
       width: 100%;
-      overflow-y: auto;
+      background-color: lime;
+      overflow: auto;
 
       button {
-        width: 100%;
-        height: 20px;
         display: block;
-        float: left;
-        clear: both;
+        width: 100%;
         border: 0;
-        border-bottom: 1px solid $cal-border;
-        background-color: $mon-yr-btn;
-
-        &:last-child {
-          border: 0
-        }
+        border-bottom: 1px solid $border-color;
+        background-color: $mon-yr-btn-color;
+        text-align: center;
+        color: $mon-yr-btn-txt-color;
+        font-weight: bold;
+        cursor: pointer;
 
         &:hover {
-          background-color: $mon-yr-btn-hover;
+          background-color: $mon-yr-btn-hover-color;
         }
       }
     }
-  }
-}
 
-.button-console {
-  display: table-cell;
-  padding: 8px;
-  vertical-align: top;
+    .year {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: lime;
+      overflow: auto;
 
-  input {
-    color: $btn-console-input;
-    margin-top: 8px;
-  }
+      button {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid $border-color;
+        background-color: $mon-yr-btn-color;
+        text-align: left;
+        color: $mon-yr-btn-txt-color;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
 
-  button {
-    display: block;
-    width: 100%;
-    border: 1px solid $preset-btn-border;
-    background-color: $preset-btn;
-    margin-bottom: 7px;
-    color: $preset-btn-txt;
-    font-weight: bold;
-    text-align: left;
-
-    &:last-child {
-      margin-bottom: 0;
+        &:hover {
+          background-color: $mon-yr-btn-hover-color;
+        }
+      }
     }
-
-    &:hover {
-      background-color: $preset-btn-hover;
-    }
-  }
-
-  .presets-picker {
   }
 }
 
 .action-console {
+  float: left;
+  clear: both;
+  width: 100%;
   padding: 8px;
-  background-color: $action-console;
-  border-top: 1px solid $action-border;
+  background-color: $action-console-color;
+  border-top: 1px solid $border-color;
   text-align: right;
 
   button {
     display: inline-block;
-    border: 1px solid $action-btn-border;
-    background-color: $action-btn;
     margin-left: 5px;
-    color: $action-btn-txt;
+    border: 1px solid $border-color;
+    background-color: $action-btn-color;
+    text-align: left;
+    color: $action-btn-txt-color;
     font-weight: bold;
+    cursor: pointer;
 
     &:hover {
-      background-color: $action-btn-hover;
+      background-color: $action-btn-hover-color;
     }
   }
 }
 
-@media (max-width: 480px) {
 
-  .calendars-console {
-    display: block;
-    float: left;
-    padding: 8px;
+// Wrappers /////////////////
 
-    .calendar {
-      width: 100%;
-      border: 1px solid $cal-border;
-      margin: 0 0 8px 0;
-
-      &:first-child {
-        margin-right: auto;
-      }
-    }
-
-    .calendar-header {
-      display: table;
-      width: 100%;
-      border-bottom: 1px solid $cal-border;
-
-      button {
-        height: $mobile-touch-height;
-        font-size: 14px;
-      }
-
-      .btn-previous-month {
-
-        &:before {
-          content: "";
-          display: block;
-          border-top: 8px solid transparent;
-          border-bottom: 8px solid transparent;
-          border-right: 8px solid $cal-arrow;
-        }
-
-        &:hover:before {
-          border-right: 8px solid $cal-arrow-hover;
-        }
-      }
-
-      .btn-next-month {
-
-        &:before {
-          content: "";
-          display: block;
-          border-top: 8px solid transparent;
-          border-bottom: 8px solid transparent;
-          border-left: 8px solid $cal-arrow;
-        }
-
-        &:hover:before {
-          border-left: 8px solid $cal-arrow-hover;
-        }
-      }
-    }
-
-    .calendar-body {
-
-      .day {
-        height: $mobile-touch-height;
-        font-size: 14px;
-      }
-
-      .month,
-      .year {
-        height: calc(#{$mobile-touch-height} * 5);
-
-        button {
-          height: $mobile-touch-height;
-          font-size: 14px;
-        }
-      }
-    }
-  }
-
-  .button-console {
-    display: block;
-    width: 100%;
-
-    button {
-      height: $mobile-touch-height;
-      font-size: 14px;
-      text-align: center;
-      font-weight: bold;
-    }
-  }
-
-  .action-console {
-    float: left;
-    width: 100%;
-
-    button {
-      width: calc(50% - 5px);
-      height: $mobile-touch-height;
-      font-size: 14px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
+.date-range-picker {
+  position: relative;
 }
+
+.single-date-picker {}
+
+.month-year-picker {
+  position: relative;
+}
+
+.year-picker {}
+
+.preset-picker {}
