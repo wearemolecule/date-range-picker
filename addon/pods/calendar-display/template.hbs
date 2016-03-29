@@ -2,9 +2,11 @@
   <button class="btn-previous-month" {{action "prevMonth"}}/>
 
   <div class="month-year">
-    {{month-display}}
+    {{month-display month=month
+                    wormholePostfix=wormholePostfix}}
 
-    {{year-display}}
+    {{year-display startDate=selectionStart
+                   wormholePostfix=wormholePostfix}}
   </div>
 
   <button class="btn-next-month" {{action "nextMonth"}}/>
@@ -25,7 +27,7 @@
     {{/each}}
   {{/if}}
 
-  <div id="month-display-buttons"></div>
+  <div id="month-display-buttons{{wormholePostfix}}"></div>
 
-  <div id="year-display-buttons"></div>
+  <div id="year-display-buttons{{wormholePostfix}}"></div>
 </div>

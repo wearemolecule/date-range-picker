@@ -1,61 +1,85 @@
 {
   "stats": {
-    "suites": 1,
-    "tests": 2,
-    "passes": 1,
+    "suites": 32,
+    "tests": 37,
+    "passes": 37,
     "pending": 0,
-    "failures": 1,
-    "start": "2016-03-28T23:44:32.156Z",
-    "end": "2016-03-28T23:44:38.204Z"
+    "failures": 0,
+    "start": "2016-03-29T17:15:43.282Z",
+    "end": "2016-03-29T17:15:46.036Z"
   },
   "coverage": {
     "total": {
-      "statementsTotal": 94,
-      "statementsCovered": 65,
-      "percentage": 69.15
+      "statementsTotal": 190,
+      "statementsCovered": 110,
+      "percentage": 57.89
     },
     "files": [
       {
         "name": "date-range-picker/helpers/friendly-month",
         "statementsTotal": 7,
-        "statementsCovered": 6,
-        "percentage": 85.71
+        "statementsCovered": 7,
+        "percentage": 100
       },
       {
         "name": "date-range-picker/mixins/click-outside",
         "statementsTotal": 9,
-        "statementsCovered": 8,
-        "percentage": 88.89
+        "statementsCovered": 9,
+        "percentage": 100
       },
       {
         "name": "date-range-picker/mixins/picker",
         "statementsTotal": 13,
-        "statementsCovered": 6,
-        "percentage": 46.15
+        "statementsCovered": 13,
+        "percentage": 100
       },
       {
         "name": "date-range-picker/pods/calendar-display/component",
         "statementsTotal": 27,
-        "statementsCovered": 21,
-        "percentage": 77.78
+        "statementsCovered": 20,
+        "percentage": 74.07
       },
       {
         "name": "date-range-picker/pods/month-display/component",
-        "statementsTotal": 8,
-        "statementsCovered": 3,
-        "percentage": 37.5
+        "statementsTotal": 11,
+        "statementsCovered": 11,
+        "percentage": 100
       },
       {
         "name": "date-range-picker/pods/year-display/component",
-        "statementsTotal": 14,
+        "statementsTotal": 16,
         "statementsCovered": 5,
-        "percentage": 35.71
+        "percentage": 31.25
       },
       {
         "name": "date-range-picker/pods/day-display/component",
         "statementsTotal": 16,
-        "statementsCovered": 16,
-        "percentage": 100
+        "statementsCovered": 15,
+        "percentage": 93.75
+      },
+      {
+        "name": "date-range-picker/pods/date-range-picker/component",
+        "statementsTotal": 45,
+        "statementsCovered": 11,
+        "percentage": 24.44
+      },
+      {
+        "name": "date-range-picker/pods/presets-picker/component",
+        "statementsTotal": 5,
+        "statementsCovered": 3,
+        "percentage": 60
+      },
+      {
+        "name": "date-range-picker/pods/month-picker/component",
+        "statementsTotal": 30,
+        "statementsCovered": 11,
+        "percentage": 36.67
+      },
+      {
+        "name": "date-range-picker/pods/year-picker/component",
+        "statementsTotal": 11,
+        "statementsCovered": 5,
+        "percentage": 45.45
       }
     ]
   }

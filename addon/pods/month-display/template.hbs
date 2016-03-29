@@ -3,7 +3,7 @@
 </button>
 
 {{#if isExpanded}}
-  {{#ember-wormhole to="month-display-buttons"}}
+  {{#ember-wormhole to=wormholeTarget setMonth=(action "setMonth") renderInPlace=renderInPlace}}
     <div class="month">
       {{#each allMonths as |month|}}
         <button {{action "setMonth" month}}>

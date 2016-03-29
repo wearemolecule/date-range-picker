@@ -3,7 +3,7 @@
 </button>
 
 {{#if isExpanded}}
-  {{#ember-wormhole to="year-display-buttons"}}
+  {{#ember-wormhole to=wormholeTarget}}
     <div class="year">
       {{#each allYears as |year|}}
         <button {{action "setYear" year}}>{{year}}</button>

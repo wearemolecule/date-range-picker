@@ -2,10 +2,20 @@ import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
 
+const {
+  computed,
+} = Ember;
+
 export default Ember.Component.extend({
   layout,
   isExpanded: false,
   allMonths: _.range(1, 13),
+  wormholePrefix: '',
+
+  wormholeTarget: computed('wormholePostfix', function() {
+    let postfix = this.get('wormholePostfix');
+    return `month-display-buttons${postfix}`;
+  }),
 
   actions: {
     setMonth(month) {
