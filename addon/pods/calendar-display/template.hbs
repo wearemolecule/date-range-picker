@@ -1,21 +1,15 @@
-<div class="calendar-header">
-  <button class="btn-previous-month" {{action "prevMonth"}}/>
+<button class="dp-previous-month" {{action "prevMonth"}}/>
 
-  <div class="month-year">
-    {{month-display month=month
-                    wormholePostfix=wormholePostfix}}
+{{month-display month=month}}
 
-    {{year-display startDate=selectionStart
-                   wormholePostfix=wormholePostfix}}
-  </div>
+{{year-display startDate=selectionStart}}
 
-  <button class="btn-next-month" {{action "nextMonth"}}/>
-</div>
+<button class="dp-next-month" {{action "nextMonth"}}/>
 
-<div class="calendar-body">
+<div class="dp-calendar-body">
   {{#if calendarExpanded}}
     {{#each weeks as |week|}}
-      <div class='week'>
+      <div class="dp-week">
         {{#each week as |day|}}
           {{day-display selectionStart=selectionStart
                         selectionEnd=selectionEnd
@@ -26,8 +20,4 @@
       </div>
     {{/each}}
   {{/if}}
-
-  <div id="month-display-buttons{{wormholePostfix}}"></div>
-
-  <div id="year-display-buttons{{wormholePostfix}}"></div>
 </div>

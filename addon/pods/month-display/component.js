@@ -10,12 +10,7 @@ export default Ember.Component.extend({
   layout,
   isExpanded: false,
   allMonths: _.range(1, 13),
-  wormholePrefix: '',
-
-  wormholeTarget: computed('wormholePostfix', function() {
-    let postfix = this.get('wormholePostfix');
-    return `month-display-buttons${postfix}`;
-  }),
+  tagName: "span",
 
   actions: {
     setMonth(month) {

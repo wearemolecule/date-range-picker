@@ -5,8 +5,8 @@ const { computed } = Ember;
 
 export default Ember.Component.extend({
   layout,
-  classNames: ['day'],
-  classNameBindings: ['isSelected:selected', 'inRange:in-range', 'otherMonth:other-month'],
+  classNames: ['dp-day'],
+  classNameBindings: ['isSelected:dp-selected', 'inRange:dp-in-range', 'otherMonth:dp-other-month'],
 
   isSelected: computed('day', 'selectionStart', 'selectionEnd', function() {
     let {day, selectionStart, selectionEnd} = this.getProperties('day', 'selectionStart', 'selectionEnd');

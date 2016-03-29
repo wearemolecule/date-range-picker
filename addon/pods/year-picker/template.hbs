@@ -1,14 +1,26 @@
-{{#if showInput}}
-  {{input-mask value=rangeFormatted
-               mask="9999"
-               class="year-picker-input"
-               focus-in="toggleIsExpanded"
-               key-press="parseInput"}}
-{{/if}}
+<div class="dp-year-picker">
+	{{#if showInput}}
+	  {{input-mask value=rangeFormatted
+	               mask="9999"
+	               class="dp-date-input"
+	               focus-in="toggleIsExpanded"
+	               key-press="parseInput"}}
+	{{/if}}
 
-{{#if isExpanded}}
-  {{year-display startDate=startDate
-                 endDate=endDate}}
+	{{#if isExpanded}}
+		<div class="dp-panel">
 
-  <div id="year-display-buttons"></div>
-{{/if}}
+			<div class="dp-display-month-year">
+
+				{{year-display startDate=startDate
+				               endDate=endDate
+				               isExpanded=true}}
+			</div>
+
+			<div class="dp-action-console">
+			  <button {{action "cancel"}}>Cancel</button>
+			</div>
+
+		</div>
+	{{/if}}
+</div>
