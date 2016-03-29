@@ -13,12 +13,18 @@ export default Component.extend(ClickOutside, {
   layout,
   isExpanded: false,
   allYearsOffset: 5,
+  wormholePrefix: '',
 
   allYears: computed('startDate', function() {
     let year = this.get('startDate').year();
     let offset = this.get('allYearsOffset');
 
     return _.range(year - offset, year + offset + 1);
+  }),
+
+  wormholeTarget: computed('wormholePostfix', function() {
+    let postfix = this.get('wormholePostfix');
+    return `year-display-buttons${postfix}`;
   }),
 
   actions: {

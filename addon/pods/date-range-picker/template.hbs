@@ -20,6 +20,7 @@
                    key-press="parseInput"}}
 
 
+<<<<<<< HEAD
       {{calendar-display classNames="calendar"
                          selectionStart=startDate
                          selectionEnd=endDate
@@ -35,6 +36,33 @@
                          daySelected="endSelected"
                          prevMonth="prevEndMonth"
                          nextMonth="nextEndMonth"}}
+=======
+        {{input-mask value=rangeFormatted
+                     mask="99/99/9999 - 99/99/9999"
+                     class="month-picker-input"
+                     key-press="parseInput"}}
+      </div>
+
+      <div class="calendars-console">
+        {{calendar-display classNames="calendar"
+                           selectionStart=startDate
+                           selectionEnd=endDate
+                           month=startMonth
+                           wormholePostfix="-left"
+                           daySelected="startSelected"
+                           prevMonth="prevStartMonth"
+                           nextMonth="nextStartMonth"}}
+
+        {{calendar-display classNames="calendar"
+                           selectionStart=startDate
+                           selectionEnd=endDate
+                           month=endMonth
+                           wormholePostfix="-right"
+                           daySelected="endSelected"
+                           prevMonth="prevEndMonth"
+                           nextMonth="nextEndMonth"}}
+      </div>
+>>>>>>> topic/month-and-year-pickers
 
       <div class="action-console">
         <button {{action "cancel"}} class="cancel">Cancel</button>
