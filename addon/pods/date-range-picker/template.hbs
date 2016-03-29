@@ -9,16 +9,20 @@
 
   {{#if isExpanded}}
     <div class="dp-panel">
-        {{presets-picker class="dp-presets"
-                         presets=presets
-                         startSelected="startSelected"
-                         endSelected="endSelected"}}
+        {{#presets-picker class="dp-presets"
+                          presets=presets
+                          startSelected="startSelected"
+                          endSelected="endSelected"}}
+          {{input-mask class="dp-date-input"
+                       value=rangeFormatted
+                       mask="99/99/9999 - 99/99/9999"
+                       key-press="parseInput"}}
+        {{/presets-picker}}
 
         {{calendar-display class="dp-display-calendar"
                            selectionStart=startDate
                            selectionEnd=endDate
                            month=startMonth
-                           wormholePostfix="-left"
                            daySelected="startSelected"
                            prevMonth="prevStartMonth"
                            nextMonth="nextStartMonth"}}
@@ -27,12 +31,12 @@
                            selectionStart=startDate
                            selectionEnd=endDate
                            month=endMonth
-                           wormholePostfix="-right"
                            daySelected="endSelected"
                            prevMonth="prevEndMonth"
                            nextMonth="nextEndMonth"}}
 
       <div class="dp-action-console">
+        <button {{action "clear"}} class="dp-clear">Clear</button>
         <button {{action "cancel"}} class="dp-cancel">Cancel</button>
         <button {{action "apply"}} class="dp-apply">Apply</button>
       </div>

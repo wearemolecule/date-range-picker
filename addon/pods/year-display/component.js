@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
 import moment from 'moment';
 
 const {
@@ -9,7 +8,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, {
+export default Component.extend({
   layout,
   isExpanded: false,
   allYearsOffset: 5,
@@ -28,7 +27,7 @@ export default Component.extend(ClickOutside, {
       let endDate = moment(year, "YYYY").endOf('year');
       this.set('startDate', startDate);
       this.set('endDate', endDate);
-      this.send('toggleIsExpanded');
+      this.sendAction('yearWasSelected');
     },
 
     toggleIsExpanded() {

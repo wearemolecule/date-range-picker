@@ -2,13 +2,28 @@ import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
 
-const { computed } = Ember;
+const { computed, observer } = Ember;
 
 export default Ember.Component.extend({
   layout,
   selectionStart: null,
   selectionEnd: null,
-  month: moment(),
+  month: computed.alias('startDate'),
+  monthIsExpanded: false,
+
+  _monthIsExpandedValidator: observer('monthIsExpanded', function() {
+    if (this.get('monthIsExpanded') === true) {
+      this.set('yearIsExpanded', false);
+    }
+  }),
+
+  yearIsExpanded: false,
+
+  _yearIsExpandedValidator: observer('yearIsExpanded', function() {
+    if (this.get('yearIsExpanded') === true) {
+      this.set('monthIsExpanded', false);
+    }
+  }),
 
   calendarExpanded: computed('monthPickerExpanded', 'yearPickerExpanded', function() {
     return !this.get('monthPickerExpanded') && !this.get('yearPickerExpanded');
@@ -27,16 +42,6 @@ export default Ember.Component.extend({
   actions: {
     daySelected(day) {
       this.sendAction('daySelected', day);
-    },
-
-    toggleMonthPicker() {
-      this.toggleProperty('monthPickerExpanded');
-      this.set('yearPickerExpanded', false);
-    },
-
-    toggleYearPicker() {
-      this.toggleProperty('yearPickerExpanded');
-      this.set('monthPickerExpanded', false);
     },
 
     prevMonth() {

@@ -17,7 +17,6 @@ export default Ember.Component.extend({
       let day = this.get('month').date();
       let year = this.get('month').year();
       this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD').startOf('day'));
-      this.send('toggleIsExpanded');
     },
 
     toggleIsExpanded() {

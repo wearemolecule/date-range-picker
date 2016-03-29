@@ -9,31 +9,30 @@
 
   {{#if isExpanded}}
     <div class="dp-panel">
-
       <div class="dp-display-month-year">
+        {{month-display startDate=startDate
+                        month=startDate
+                        isExpanded=leftMonthIsExpanded}}
 
-          {{month-display startDate=startDate
-                          month=startDate
-                          isExpanded=true}}
-
-          {{year-display startDate=startDate}}
+        {{year-display startDate=startDate
+                       isExpanded=leftYearIsExpanded}}
 
       </div>
 
       <div class="dp-display-month-year">
+        {{month-display startDate=endDate
+                        month=endDate
+                        isExpanded=rightMonthIsExpanded}}
 
-          {{month-display startDate=endDate
-                          month=endDate
-                          isExpanded=true}}
-
-          {{year-display startDate=endDate}}
-
+        {{year-display startDate=endDate
+                       isExpanded=rightYearIsExpanded}}
       </div>
 
       <div class="dp-action-console">
+        <button {{action "clear"}} class="dp-clear">Clear</button>
         <button {{action "cancel"}}>Cancel</button>
+        <button {{action "apply"}}>Apply</button>
       </div>
-
     </div>
   {{/if}}
 </div>

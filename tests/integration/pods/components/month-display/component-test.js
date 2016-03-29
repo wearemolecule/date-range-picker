@@ -19,12 +19,11 @@ test('actions - setMonth', function(assert) {
 
   this.render(hbs`{{month-display month=month
                                   startDate=month
-                                  isExpanded=true
-                                  renderInPlace=true}}`);
+                                  isExpanded=true}}`);
 
-  this.$(".month button:contains('May')").click();
+  this.$(".dp-month-body button:contains('May')").click();
 
-  let actual = this.$('.btn-month').html().trim();
+  let actual = this.$('.dp-btn-month').html().trim();
 
   assert.equal(actual, 'May', 'clicking a month changes the selected month btn');
 });

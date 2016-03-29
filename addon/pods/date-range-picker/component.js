@@ -2,6 +2,7 @@ import Ember from 'ember';
 import layout from './template';
 import ClickOutside from 'date-range-picker/mixins/click-outside';
 import Picker from 'date-range-picker/mixins/picker';
+import Clearable from 'date-range-picker/mixins/clearable';
 import moment from 'moment';
 
 const {
@@ -9,10 +10,26 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, Picker, {
+export default Component.extend(ClickOutside, Picker, Clearable, {
   layout,
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
+
+  didInsertElement() {
+    let {
+      startDate,
+      endDate,
+      startMonth,
+      endMonth
+    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth')
+
+    this.setProperties({
+      initialStartDate: startDate,
+      initialEndDate: endDate,
+      initialStartMonth: startMonth,
+      initialEndMonth: endMonth
+    });
+  },
 
   rangeFormatted: computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');

@@ -1,8 +1,10 @@
 <button class="dp-previous-month" {{action "prevMonth"}}/>
 
-{{month-display month=month}}
+{{month-display month=month
+                isExpanded=monthIsExpanded}}
 
-{{year-display startDate=selectionStart}}
+{{year-display startDate=selectionStart
+               isExpanded=yearIsExpanded}}
 
 <button class="dp-next-month" {{action "nextMonth"}}/>
 

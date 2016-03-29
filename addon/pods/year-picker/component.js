@@ -20,7 +20,7 @@ export default Component.extend(ClickOutside, Picker, {
 
   actions: {
     parseInput() {
-      let year = this.get('rangeFormatted');
+      let year = moment(this.get('rangeFormatted'), 'YYYY');
       let start = year.startOf('year');
       let end = year.endOf('year');
 
@@ -33,6 +33,11 @@ export default Component.extend(ClickOutside, Picker, {
     },
 
     cancel() {
+      this.send('toggleIsExpanded');
+      this.sendAction('cancel');
+    },
+
+    yearWasSelected() {
       this.send('toggleIsExpanded');
     },
   },
