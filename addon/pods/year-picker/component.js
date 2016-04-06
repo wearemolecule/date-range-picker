@@ -31,5 +31,9 @@ export default Component.extend(ClickOutside, Picker, {
         endMonth: end,
       });
     },
+
+    cancel() {
+      this.send('toggleIsExpanded');
+    },
   },
 });

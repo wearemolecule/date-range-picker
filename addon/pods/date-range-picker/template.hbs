@@ -1,6 +1,6 @@
-<div class="date-range-picker">
+<div class="dp-date-range-picker">
   {{#if showInput}}
-      {{input-mask classNames="date-input month-picker-input"
+      {{input-mask class="dp-date-input"
                    value=rangeFormatted
                    mask="99/99/9999 - 99/99/9999"
                    focus-in="toggleIsExpanded"
@@ -8,18 +8,13 @@
   {{/if}}
 
   {{#if isExpanded}}
-    <div class="panel">
-        {{presets-picker classNames="presets"
+    <div class="dp-panel">
+        {{presets-picker class="dp-presets"
                          presets=presets
                          startSelected="startSelected"
                          endSelected="endSelected"}}
 
-{{!--         {{input-mask value=rangeFormatted
-                     mask="99/99/9999 - 99/99/9999"
-                     class="month-picker-input"
-                     key-press="parseInput"}} --}}
-
-        {{calendar-display classNames="calendar"
+        {{calendar-display class="dp-display-calendar"
                            selectionStart=startDate
                            selectionEnd=endDate
                            month=startMonth
@@ -28,7 +23,7 @@
                            prevMonth="prevStartMonth"
                            nextMonth="nextStartMonth"}}
 
-        {{calendar-display classNames="calendar"
+        {{calendar-display class="dp-display-calendar"
                            selectionStart=startDate
                            selectionEnd=endDate
                            month=endMonth
@@ -37,9 +32,9 @@
                            prevMonth="prevEndMonth"
                            nextMonth="nextEndMonth"}}
 
-      <div class="action-console">
-        <button {{action "cancel"}} class="cancel">Cancel</button>
-        <button {{action "apply"}} class="apply">Apply</button>
+      <div class="dp-action-console">
+        <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+        <button {{action "apply"}} class="dp-apply">Apply</button>
       </div>
     </div>
   {{/if}}

@@ -15,6 +15,7 @@ $cal-header-color:        #FFF;
 $cal-arrow-color:         #CCC;
 $cal-arrow-hover-color:   #FFCC00;
 
+$day-height:              20px;
 $day-color:               #FFF;
 $day-txt-color:           #000;
 $day-hover-color:         #FFCC00;
@@ -23,6 +24,8 @@ $day-in-range-color:      #FFE992;
 $day-other-month-color:   #DDD;
 $other-month-txt-color:   #999;
 
+$mon-yr-btn-height:       25px;
+$mon-yr-btn-height-mob:   40px;
 $mon-yr-btn-color:        #FFF;
 $mon-yr-btn-txt-color:    #000;
 $mon-yr-btn-hover-color:  #FFCC00;
@@ -33,7 +36,7 @@ $action-btn-txt-color:    #000;
 $action-btn-hover-color:  #FFCC00;
 
 
-// Assummed  /////////////////
+// Assummptions  /////////////////
 
 * {
   box-sizing: border-box;
@@ -50,9 +53,10 @@ body {
   font-family: arial;
 }
 
+
 // Common  /////////////////
 
-.date-input {
+.dp-date-input {
   width: $input-width;
   display: block;
   padding: 5px;
@@ -60,20 +64,21 @@ body {
   font-weight: bold;
 }
 
-.panel {
-  display: block;
+.dp-panel {
+  min-width: 100%;
   position: absolute;
   left: 0;
   top: calc(100% - 1px);
+  padding: 5px;
+  white-space: nowrap;
   border: 1px solid $border-color;
   background-color: $panel-color;
   z-index: 1000;
   box-shadow: 8px 8px 20px $panel-shadow-color;
 }
 
-.presets {
-  float: left;
-  margin: 5px;
+.dp-presets {
+  display: inline-block;
   vertical-align: top;
 
   button {
@@ -97,190 +102,203 @@ body {
   }
 }
 
-.calendar {
-  float: left;
+.dp-display-calendar {
+  display: inline-block;
+  position: relative;
+  min-height: $mon-yr-btn-height;
   width: $cal-width;
   background-color: $cal-color;
   border: 1px solid $border-color;
-  margin:  5px;
+  vertical-align: top;
+  padding-top: $mon-yr-btn-height;
+}
 
-  .header {
-    display: table;
-    width: 100%;
-    height: 25px;
-    background-color: $cal-header-color;
-    border-bottom: 1px solid $border-color;
+.dp-display-month-year {
+  display: inline-block;
+  position: relative;
+  min-height: $mon-yr-btn-height;
+  width: $cal-width;
+  background-color: $cal-color;
+  border: 1px solid $border-color;
+  vertical-align: top;
+  padding-top: $mon-yr-btn-height;
+}
 
-    button {
-      display: inline-block;
-      width: 100%;
-      height: 25px;
-      border: 0;
-      vertical-align: middle;
-      background-color: transparent;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.dp-previous-month {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: $mon-yr-btn-height;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 2000;
 
-    .previous-month {
-      display: table-cell;
-      width: 15px;
-
-      button {
-
-        &:before {
-          content: "";
-          display: block;
-          border-top: 5px solid transparent;
-          border-bottom: 5px solid transparent;
-          border-right: 5px solid $cal-arrow-color;
-        }
-
-        &:hover:before {
-          border-right: 5px solid $cal-arrow-hover-color;
-        }
-      }
-    }
-
-    .next-month {
-      display: table-cell;
-      width: 15px;
-
-      button {
-
-        &:before {
-          content: "";
-          display: block;
-          border-top: 5px solid transparent;
-          border-bottom: 5px solid transparent;
-          border-left: 5px solid $cal-arrow-color;
-        }
-
-        &:hover:before {
-          border-left: 5px solid $cal-arrow-hover-color;
-        }
-      }
-    }
-
-    .month-select {
-      display: table-cell;
-
-      button {
-        text-align: right;
-        padding-right: 2px;
-      }
-    }
-
-    .year-select {
-      display: table-cell;
-
-      button {
-        text-align: left;
-        padding-left: 2px;
-      }
-    }
+  &:before {
+    content: "";
+    display: block;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid $cal-arrow-color;
   }
 
-  .calendar-body {
+  &:hover:before {
+    border-right: 5px solid $cal-arrow-hover-color;
+  }
+}
+
+.dp-next-month {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: $mon-yr-btn-height;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 2000;
+
+  &:before {
+    content: "";
+    display: block;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid $cal-arrow-color;
+  }
+
+  &:hover:before {
+    border-left: 5px solid $cal-arrow-hover-color;
+  }
+}
+
+.dp-calendar-body {
+  width: 100%;
+  display: table;
+  border-top: 1px solid $border-color;
+  position: relative;
+
+  .dp-week {
+    display: table-row;
     width: 100%;
-    display: table;
-    position: relative;
+    clear: both;
+  }
 
-    .week {
-      display: table-row;
-      width: 100%;
-      clear: both;
+  .dp-day {
+    display: table-cell;
+    height: $day-height;
+    width: calc(100% / 7);
+    background-color: $day-color;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 11px;
+    color: $day-txt-color;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $day-hover-color;
     }
 
-    .day {
-      display: table-cell;
-      height: 20px;
-      width: calc(100% / 7);
-      background-color: $day-color;
-      vertical-align: middle;
-      text-align: center;
-      font-size: 11px;
-      color: $day-txt-color;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $day-hover-color;
-      }
-
-      &.selected {
-        background-color: $day-selected-color;
-      }
-
-      &.in-range {
-        background-color: $day-in-range-color;
-      }
-
-      &.other-month {
-        background-color: $day-other-month-color;
-        color: $other-month-txt-color;
-      }
+    &.dp-selected {
+      background-color: $day-selected-color;
     }
 
-    .month {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: lime;
-      overflow: auto;
-
-      button {
-        display: block;
-        width: 100%;
-        border: 0;
-        border-bottom: 1px solid $border-color;
-        background-color: $mon-yr-btn-color;
-        text-align: center;
-        color: $mon-yr-btn-txt-color;
-        font-weight: bold;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $mon-yr-btn-hover-color;
-        }
-      }
+    &.dp-in-range {
+      background-color: $day-in-range-color;
     }
 
-    .year {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: lime;
-      overflow: auto;
-
-      button {
-        display: block;
-        width: 100%;
-        border: 0;
-        border-bottom: 1px solid $border-color;
-        background-color: $mon-yr-btn-color;
-        text-align: left;
-        color: $mon-yr-btn-txt-color;
-        text-align: center;
-        font-weight: bold;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $mon-yr-btn-hover-color;
-        }
-      }
+    &.dp-other-month {
+      background-color: $day-other-month-color;
+      color: $other-month-txt-color;
     }
   }
 }
 
-.action-console {
-  float: left;
-  clear: both;
-  width: 100%;
+.dp-btn-month {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: $mon-yr-btn-height;
+  padding-right: 2px;
+  border: 0;
+  background-color: transparent;
+  text-align: right;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.active {
+    color: red;
+  }
+}
+
+.dp-btn-year {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: $mon-yr-btn-height;
+  padding-left: 2px;
+  border: 0;
+  background-color: transparent;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.active {
+    color: red;
+  }
+}
+
+.dp-month-body {
+  height: calc(#{$day-height} * 6);
+  border-top: 1px solid $border-color;
+  overflow: auto;
+
+  button {
+    display: block;
+    width: 100%;
+    height: $mon-yr-btn-height;
+    border: 0;
+    background-color: $mon-yr-btn-color;
+    color: $mon-yr-btn-txt-color;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover {
+      background-color: $mon-yr-btn-hover-color;
+    }
+  }
+}
+
+.dp-year-body {
+  height: calc(#{$day-height} * 6);
+  border-top: 1px solid $border-color;
+  overflow: auto;
+
+  button {
+    display: block;
+    width: 100%;
+    height: $mon-yr-btn-height;
+    border: 0;
+    background-color: $mon-yr-btn-color;
+    color: $mon-yr-btn-txt-color;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $mon-yr-btn-hover-color;
+    }
+  }
+}
+
+.dp-action-console {
   padding: 8px;
+  margin: 5px -5px -5px;
   background-color: $action-console-color;
   border-top: 1px solid $border-color;
   text-align: right;
@@ -304,16 +322,130 @@ body {
 
 // Wrappers /////////////////
 
-.date-range-picker {
+.dp-date-range-picker {
+  display: inline-block;
   position: relative;
+
+  .dp-month-body,
+  .dp-year-body {
+    position: absolute;
+    top: $mon-yr-btn-height;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1000;
+  }
 }
 
-.single-date-picker {}
+.dp-single-date-picker {}
 
-.month-year-picker {
+.dp-month-picker {
+  display: inline-block;
   position: relative;
+
+  .dp-month-body,
+  .dp-year-body {
+    height: calc(#{$mon-yr-btn-height} * 5);
+  }
 }
 
-.year-picker {}
+.dp-year-picker {
+  display: inline-block;
+  position: relative;
 
-.preset-picker {}
+  .dp-display {
+    padding-top: 0;
+    width: 100%;
+  }
+
+  .dp-year-body {
+    height: calc(#{$mon-yr-btn-height} * 5);
+    border: 0;
+  }
+
+  .dp-btn-year {
+    display: none;
+  }
+}
+
+.dp-preset-picker {}
+
+
+// Responsive /////////////////
+
+@media (max-width: 480px) {
+
+  .dp-previous-month,
+  .dp-next-month,
+  .dp-btn-month,
+  .dp-btn-year,
+  .dp-month-body button,
+  .dp-year-body button {
+    height: $mon-yr-btn-height-mob;
+  }
+
+  .dp-previous-month,
+  .dp-next-month {
+    width: 25px;
+  }
+
+  .dp-display-calendar {
+    min-height: $mon-yr-btn-height-mob;
+    padding-top: $mon-yr-btn-height-mob;
+  }
+
+  .dp-display-month-year {
+    min-height: $mon-yr-btn-height-mob;
+    padding-top: $mon-yr-btn-height-mob;
+  }
+
+  .dp-presets,
+  .dp-display-calendar,
+  .dp-display-month-year {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .dp-presets button {
+    height: 30px;
+    text-align: center;
+  }
+
+  .dp-action-console button {
+    height: 30px;
+  }
+
+
+  // Wrappers
+
+  .dp-date-range-picker,
+  .dp-month-picker {
+    display: block;
+    width: 100%;
+
+    button {
+      font-size: 14px;
+    }
+
+    .dp-day {
+      height: $mon-yr-btn-height-mob;
+    }
+
+    .dp-month-body,
+    .dp-year-body {
+      top: $mon-yr-btn-height-mob;
+    }
+  }
+
+  .dp-month-picker,
+  .dp-year-picker {
+
+    .dp-month-body,
+    .dp-year-body {
+      height: calc(#{$mon-yr-btn-height-mob} * 5);
+    }
+  }
+}
+
