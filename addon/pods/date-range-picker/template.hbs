@@ -13,10 +13,12 @@
                           presets=presets
                           startSelected="startSelected"
                           endSelected="endSelected"}}
-          {{input-mask class="dp-date-input"
+
+          {{input-mask class="dp-presets-date-input"
                        value=rangeFormatted
                        mask="99/99/9999 - 99/99/9999"
                        key-press="parseInput"}}
+
         {{/presets-picker}}
 
         {{calendar-display class="dp-display-calendar"

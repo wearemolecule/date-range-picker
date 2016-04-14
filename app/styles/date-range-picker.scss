@@ -5,6 +5,7 @@ $border-color:            #CCC;
 $panel-color:             #FFF;
 $panel-shadow-color:      #DDD;
 
+$preset-input-width:      auto;
 $preset-btn-color:        #DDD;
 $preset-btn-txt-color:    #000;
 $preset-btn-hover-color:  #FFCC00;
@@ -15,14 +16,14 @@ $cal-header-color:        #FFF;
 $cal-arrow-color:         #CCC;
 $cal-arrow-hover-color:   #FFCC00;
 
-$day-height:              20px;
-$day-color:               #FFF;
-$day-txt-color:           #000;
-$day-hover-color:         #FFCC00;
-$day-selected-color:      #FFCC00;
-$day-in-range-color:      #FFE992;
-$day-other-month-color:   #DDD;
-$other-month-txt-color:   #999;
+$day-height:                20px;
+$day-color:                 #FFF;
+$day-txt-color:             #000;
+$day-hover-color:           #FFCC00;
+$day-selected-color:        #FFCC00;
+$day-in-range-color:        #FFE992;
+$day-other-month-color:     #DDD;
+$day-other-month-txt-color: #999;
 
 $mon-yr-btn-height:       25px;
 $mon-yr-btn-height-mob:   40px;
@@ -99,6 +100,14 @@ body {
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .dp-presets-date-input {
+    width: $preset-input-width;
+    display: block;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
   }
 }
 
