@@ -23,10 +23,26 @@ export default Component.extend({
 
   actions: {
     setYear(year) {
-      let startDate = moment(year, "YYYY").startOf('year');
+      let day = this.get('startDate').date();
+      let month = this.get('startDate').format("MM");
+      let startDate = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
       let endDate = moment(year, "YYYY").endOf('year');
-      this.set('startDate', startDate);
-      this.set('endDate', endDate);
+
+      if (this.get('ignoreMonthAndDay')) {
+        startDate = moment(year, "YYYY").startOf('year');
+      }
+
+      if (!this.get('onlyUpdateMonth')) {
+        this.set('endDate', endDate);
+        this.set('startDate', startDate);
+      } else {
+        let monthDay = this.get('month').date();
+        let monthMonth = this.get('month').format("MM");
+        let newMonth = moment(`${year}-${monthMonth}-${monthDay}`, 'YYYY-MM-DD');
+
+        this.set('month', newMonth);
+      }
+
       this.sendAction('yearWasSelected');
     },
 

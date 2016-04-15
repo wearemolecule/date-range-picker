@@ -4,6 +4,8 @@
                 isExpanded=monthIsExpanded}}
 
 {{year-display startDate=selectionStart
+               month=month
+               onlyUpdateMonth=true
                isExpanded=yearIsExpanded}}
 
 <button class="dp-next-month" {{action "nextMonth"}}/>

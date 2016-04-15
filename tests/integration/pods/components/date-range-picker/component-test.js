@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
+import Ember from 'ember';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -90,6 +91,76 @@ test('prev/next buttons travel through time', function(assert) {
   assert.equal(leftYear, startDate.format(yearFormat), 'startDate year is initial value.');
   assert.equal(rightMonth, endDate.format(monthFormat), 'endDate month is initial value.');
   assert.equal(rightYear, endDate.format(yearFormat), 'endDate year is intitial value.');
+});
+
+test('has a default start/end date of today', function(assert) {
+  let today = moment().startOf('day').format();
+
+  this.set('startDate', undefined);
+  this.set('endDate', undefined);
+
+  this.render(hbs`{{date-range-picker startDate=startDate
+                                      endDate=endDate
+                                      isExpanded=true}}`);
+
+  Ember.run.next(this, () => {
+    let startDate = this.get('startDate').format();
+    let endDate = this.get('endDate').format();
+
+    assert.equal(startDate, today, 'startDate defaults to today');
+    assert.equal(endDate, today, 'endDate defaults to today.');
+  });
+});
+
+test('can choose a new startDate month & year', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-04-19', 'YYYY-MM-DD'),
+    endDate: moment('2016-05-19', 'YYYY-MM-DD')
+  });
+
+  this.render(hbs`{{date-range-picker startDate=startDate
+                                      endDate=endDate
+                                      showInput=true
+                                      isExpanded=true}}`);
+
+  let $leftCal = this.$('.dp-display-calendar:first');
+  let $rightCal = this.$('.dp-display-calendar:last');
+
+  // Left side
+
+  $leftCal.find('.dp-btn-month').click();
+  $leftCal.find(".dp-month-body button:contains('Mar')").click();
+  assert.equal($leftCal.find(".dp-btn-month").text().trim(), 'Mar', 'Start month button displays Mar.');
+
+  $leftCal.find('.dp-btn-year').click();
+  $leftCal.find(".dp-year-body button:contains('2015')").click();
+  assert.equal($leftCal.find('.dp-btn-year').html().trim(), '2015', 'Start year button display 2015.');
+
+  $leftCal.find('.dp-btn-year').click();
+  $leftCal.find(".dp-day:contains('15')").click();
+
+  assert.equal(this.$('.dp-date-input').val(), '03/15/2015 - 05/19/2016', 'Outer input is updated.');
+  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015 - 05/19/2016', 'Inner input is updated.');
+  assert.equal(this.get('startDate').format(format), '03/15/2015', 'startDate is updated.');
+  assert.equal(this.get('endDate').format(format), '05/19/2016', 'endDate does not change.');
+
+  // Right side
+
+  $rightCal.find('.dp-btn-month').click();
+  $rightCal.find(".dp-month-body button:contains('Jun')").click();
+  assert.equal($rightCal.find(".dp-btn-month").text().trim(), 'Jun', 'End month button displays Jun.');
+
+  $rightCal.find('.dp-btn-year').click();
+  $rightCal.find(".dp-year-body button:contains('2017')").click();
+  assert.equal($rightCal.find('.dp-btn-year').html().trim(), '2017', 'End year button display 2017.');
+
+  $rightCal.find('.dp-btn-year').click();
+  $rightCal.find(".dp-day:contains('20')").click();
+
+  assert.equal(this.$('.dp-date-input').val(), '03/15/2015 - 06/20/2017', 'Outer input is updated.');
+  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015 - 06/20/2017', 'Outer input is updated.');
+  assert.equal(this.get('startDate').format(format), '03/15/2015', 'startDate does not change.');
+  assert.equal(this.get('endDate').format(format), '06/20/2017', 'endDate is updated.');
 });
 
 function allText($leftCalendar, $rightCalendar) {

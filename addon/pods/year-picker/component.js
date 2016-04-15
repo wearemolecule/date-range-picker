@@ -6,11 +6,19 @@ import moment from 'moment';
 
 const {
   computed,
+  run,
   Component,
 } = Ember;
 
 export default Component.extend(ClickOutside, Picker, {
   layout,
+
+  didInsertElement() {
+    run.next(this, () => {
+      this.notifyPropertyChange('startDate');
+      this.notifyPropertyChange('endDate');
+    });
+  },
 
   rangeFormatted: computed('startDate', function() {
     let year = this.get('startDate').format('YYYY');

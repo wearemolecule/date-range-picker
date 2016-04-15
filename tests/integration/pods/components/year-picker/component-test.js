@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
+import Ember from 'ember';
 
 moduleForComponent('year-picker', 'Integration | Component | year picker', {
   integration: true
@@ -42,6 +43,44 @@ test('optional, masked input - string', function(assert) {
                                 showInput=true}}`);
 
   inputExpectations.call(this, assert);
+});
+
+test('has a default start/end date of today', function(assert) {
+  let today = moment().startOf('day').format();
+
+  this.set('startDate', undefined);
+  this.set('endDate', undefined);
+
+  this.render(hbs`{{year-picker startDate=startDate
+                                endDate=endDate
+                                isExpanded=true}}`);
+
+  Ember.run.next(this, () => {
+    let startDate = this.get('startDate').format();
+    let endDate = this.get('endDate').format();
+
+    assert.equal(startDate, today, 'startDate defaults to today');
+    assert.equal(endDate, today, 'endDate defaults to today.');
+  });
+});
+
+test('can select a new year', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-01-01', 'YYYY-MM-DD'),
+    endDate: moment('2016-12-30', 'YYYY-MM-DD'),
+  });
+
+  this.render(hbs`{{year-picker startDate=startDate
+                                endDate=endDate
+                                showInput=true
+                                isExpanded=true}}`);
+
+  this.$(".dp-year-body button:contains('2015')").click();
+
+  let prevYear = moment('2015', 'YYYY');
+
+  assert.equal(this.get('startDate').format(), prevYear.clone().startOf('year').format(), 'Start is updated.');
+  assert.equal(this.get('endDate').format(), prevYear.clone().endOf('year').format(), 'End is updated.');
 });
 
 function inputExpectations(assert) {

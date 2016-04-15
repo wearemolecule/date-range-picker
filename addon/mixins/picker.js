@@ -2,6 +2,7 @@ import Ember from 'ember';
 import moment from 'moment';
 
 const {
+  isBlank,
   observer,
   on,
   Mixin,
@@ -14,16 +15,18 @@ export default Mixin.create({
 
   _startDateToMoment: on('init', observer('startDate', function() {
     let startDate = this.get('startDate');
+    let startIsBlank = isBlank(startDate);
 
-    if (!startDate._isAMomentObject) {
+    if (startIsBlank || startDate && !startDate._isAMomentObject) {
       this.set('startDate', moment(startDate));
     }
   })),
 
   _endDateToMoment: on('init', observer('endDate', function() {
     let endDate = this.get('endDate');
+    let endIsBlank = isBlank(endDate);
 
-    if (!endDate._isAMomentObject) {
+    if (endIsBlank || endDate && !endDate._isAMomentObject) {
       this.set('endDate', moment(endDate));
     }
   })),

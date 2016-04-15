@@ -8,6 +8,7 @@ import moment from 'moment';
 const {
   computed,
   observer,
+  run,
   Component,
 } = Ember;
 
@@ -16,6 +17,13 @@ export default Component.extend(ClickOutside, Picker, Clearable, {
   startMonth: moment().startOf('day'),
   endMonth: moment().startOf('day'),
   leftMonthIsExpanded: true,
+
+  didInsertElement() {
+    run.next(this, () => {
+      this.notifyPropertyChange('startDate');
+      this.notifyPropertyChange('endDate');
+    });
+  },
 
   _leftMonthIsExpandedValidator: observer('leftMonthIsExpanded', function() {
     if (this.get('leftMonthIsExpanded') === true) {

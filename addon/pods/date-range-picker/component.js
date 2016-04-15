@@ -7,6 +7,7 @@ import moment from 'moment';
 
 const {
   computed,
+  run,
   Component,
 } = Ember;
 
@@ -21,13 +22,18 @@ export default Component.extend(ClickOutside, Picker, Clearable, {
       endDate,
       startMonth,
       endMonth
-    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth')
+    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth');
 
     this.setProperties({
       initialStartDate: startDate,
       initialEndDate: endDate,
       initialStartMonth: startMonth,
       initialEndMonth: endMonth
+    });
+
+    run.next(this, () => {
+      this.notifyPropertyChange('startDate');
+      this.notifyPropertyChange('endDate');
     });
   },
 
