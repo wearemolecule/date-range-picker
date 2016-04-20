@@ -1,23 +1,19 @@
-<div class="calendar-header">
-  <button class="btn-previous-month" {{action "prevMonth"}}/>
+<button class="dp-previous-month" {{action "prevMonth"}}/>
 
-  <div class="month-year">
-    <button class="btn-month {{if monthPickerExpanded 'active'}}" {{action "toggleMonthPicker"}}>
-      {{moment-format month "MMM"}}
-    </button>
+{{month-display month=month
+                isExpanded=monthIsExpanded}}
 
-    <button class="btn-year {{if yearPickerExpanded 'active'}}" {{action "toggleYearPicker"}}>
-      {{moment-format month "YYYY"}}
-    </button>
-  </div>
+{{year-display startDate=selectionStart
+               month=month
+               onlyUpdateMonth=true
+               isExpanded=yearIsExpanded}}
 
-  <button class="btn-next-month" {{action "nextMonth"}}/>
-</div>
+<button class="dp-next-month" {{action "nextMonth"}}/>
 
-<div class="calendar-body">
+<div class="dp-calendar-body">
   {{#if calendarExpanded}}
     {{#each weeks as |week|}}
-      <div class='week'>
+      <div class="dp-week">
         {{#each week as |day|}}
           {{day-display selectionStart=selectionStart
                         selectionEnd=selectionEnd
@@ -27,23 +23,5 @@
         {{/each}}
       </div>
     {{/each}}
-  {{/if}}
-
-  {{#if monthPickerExpanded}}
-    <div class="month">
-      {{#each allMonths as |month|}}
-        <button {{action "setMonth" month}}>
-          {{friendly-month month}}
-        </button>
-      {{/each}}
-    </div>
-  {{/if}}
-
-  {{#if yearPickerExpanded}}
-    <div class="year">
-      {{#each allYears as |year|}}
-        <button {{action "setYear" year}}>{{year}}</button>
-      {{/each}}
-    </div>
   {{/if}}
 </div>

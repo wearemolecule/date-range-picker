@@ -36,3 +36,25 @@ test('it renders', function(assert) {
 
   assert.equal(this.$('button').length, 4, 'Renders a button for each preset');
 });
+
+test('actions - applyPreset', function(assert) {
+  const expectedStartDate = moment().startOf('year').format('MM/DD/YYYY');
+
+  const expectedEndDate = moment().endOf('year').format('MM/DD/YYYY');
+
+  this.set('startSelected', startDate => {
+    assert.equal(startDate.format('MM/DD/YYYY'), expectedStartDate, 'startSelected receives correct startDate');
+  });
+
+  this.set('endSelected', endDate => {
+    assert.equal(endDate.format('MM/DD/YYYY'), expectedEndDate, 'endSelected receives correct endDate');
+  });
+
+  this.set('presets', presets);
+
+  this.render(hbs`{{presets-picker presets=presets
+                                   startSelected=(action startSelected)
+                                   endSelected=(action endSelected)}}`);
+
+  this.$("button:contains('This Year')").click();
+});

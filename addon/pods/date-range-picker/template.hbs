@@ -1,42 +1,45 @@
-<div class="date-range-picker">
+<div class="dp-date-range-picker">
   {{#if showInput}}
-    {{input-mask value=rangeFormatted
+    {{input-mask class="dp-date-input"
+                 value=rangeFormatted
                  mask="99/99/9999 - 99/99/9999"
-                 class="date-range-picker-input"
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"}}
   {{/if}}
 
-  <div class="date-range-panel">
-    {{#if isExpanded}}
-      <div class="button-console">
-        {{presets-picker presets=presets
-                         startSelected="startSelected"
-                         endSelected="endSelected"}}
-      </div>
+  {{#if isExpanded}}
+    <div class="dp-panel">
+      {{#presets-picker class="dp-presets"
+                        presets=presets
+                        startSelected="startSelected"
+                        endSelected="endSelected"}}
+        {{input-mask class="dp-presets-date-input"
+                     value=rangeFormatted
+                     mask="99/99/9999 - 99/99/9999"
+                     key-press="parseInput"}}
+      {{/presets-picker}}
 
-      <div class="calendars-console">
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=startMonth
-                           daySelected="startSelected"
-                           prevMonth="prevStartMonth"
-                           nextMonth="nextStartMonth"}}
+      {{calendar-display class="dp-display-calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=startMonth
+                         daySelected="startSelected"
+                         prevMonth="prevStartMonth"
+                         nextMonth="nextStartMonth"}}
 
-        {{calendar-display classNames="calendar"
-                           selectionStart=startDate
-                           selectionEnd=endDate
-                           month=endMonth
-                           daySelected="endSelected"
-                           prevMonth="prevEndMonth"
-                           nextMonth="nextEndMonth"}}
-      </div>
+      {{calendar-display class="dp-display-calendar"
+                         selectionStart=startDate
+                         selectionEnd=endDate
+                         month=endMonth
+                         daySelected="endSelected"
+                         prevMonth="prevEndMonth"
+                         nextMonth="nextEndMonth"}}
 
-      <div class="action-console">
-        <button {{action "cancel"}}>Cancel</button>
-        <button {{action "apply"}}>Apply</button>
+      <div class="dp-action-console">
+        <button {{action "clear"}} class="dp-clear">Clear</button>
+        <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+        <button {{action "apply"}} class="dp-apply">Apply</button>
       </div>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>

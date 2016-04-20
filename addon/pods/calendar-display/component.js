@@ -1,25 +1,16 @@
 import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
+import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
+import { buildWeek } from 'date-range-picker/helpers/build-week';
 
 const { computed } = Ember;
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ExpandedValidators, {
   layout,
-  selectionStart: null,
+  month: computed.alias('startDate'),
   selectionEnd: null,
-  month: moment(),
-  monthPickerExpanded: false,
-  yearPickerExpanded: false,
-  allMonths: _.range(1, 13),
-  allYearsOffset: 5,
-
-  allYears: computed('month', function() {
-    let year = this.get('month').year();
-    let offset = this.get('allYearsOffset');
-
-    return _.range(year - offset, year + offset + 1);
-  }),
+  selectionStart: null,
 
   calendarExpanded: computed('monthPickerExpanded', 'yearPickerExpanded', function() {
     return !this.get('monthPickerExpanded') && !this.get('yearPickerExpanded');
@@ -40,47 +31,12 @@ export default Ember.Component.extend({
       this.sendAction('daySelected', day);
     },
 
-    setMonth(month) {
-      let day = this.get('month').day();
-      let year = this.get('month').year();
-      this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD'));
-      this.send('toggleMonthPicker');
-    },
-
-    setYear(year) {
-      let day = this.get('month').day();
-      let month = this.get('month').month();
-      this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD'));
-      this.send('toggleYearPicker');
-    },
-
-    toggleMonthPicker() {
-      this.toggleProperty('monthPickerExpanded');
-      this.set('yearPickerExpanded', false);
-    },
-
-    toggleYearPicker() {
-      this.toggleProperty('yearPickerExpanded');
-      this.set('monthPickerExpanded', false);
+    nextMonth() {
+      this.sendAction('nextMonth', ...arguments);
     },
 
     prevMonth() {
       this.sendAction('prevMonth', ...arguments);
     },
-
-    nextMonth() {
-      this.sendAction('nextMonth', ...arguments);
-    },
   }
 });
-
-function buildWeek(month, week) {
-  var firstDay = month.weekday();
-  var daysInMonth = month.daysInMonth();
-  var days = [];
-  for (var i = 0; i < 7; i++) {
-    var d = (i - firstDay + week * 7);
-    days[i] = month.startOf('month').clone().add(d, 'day');
-  }
-  return days;
-}

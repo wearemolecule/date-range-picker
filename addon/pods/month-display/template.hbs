@@ -1,0 +1,13 @@
+<button class="dp-btn-month {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
+  {{moment-format month "MMM"}}
+</button>
+
+{{#if isExpanded}}
+  <div class="dp-month-body">
+    {{#each allMonths as |month|}}
+      <button {{action "setMonth" month}}>
+        {{friendly-month month}}
+      </button>
+    {{/each}}
+  </div>
+{{/if}}
