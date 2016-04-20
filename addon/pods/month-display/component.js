@@ -7,9 +7,9 @@ const {
 } = Ember;
 
 export default Ember.Component.extend({
-  layout,
-  isExpanded: false,
   allMonths: _.range(1, 13),
+  isExpanded: false,
+  layout,
   tagName: "span",
 
   actions: {

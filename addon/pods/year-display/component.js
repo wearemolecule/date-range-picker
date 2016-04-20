@@ -9,9 +9,9 @@ const {
 } = Ember;
 
 export default Component.extend({
-  layout,
-  isExpanded: false,
   allYearsOffset: 5,
+  isExpanded: false,
+  layout,
   tagName: "span",
 
   allYears: computed('startDate', function() {

@@ -1,29 +1,16 @@
 import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
+import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
+import { buildWeek } from 'date-range-picker/helpers/build-week';
 
-const { computed, observer } = Ember;
+const { computed } = Ember;
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ExpandedValidators, {
   layout,
-  selectionStart: null,
-  selectionEnd: null,
   month: computed.alias('startDate'),
-  monthIsExpanded: false,
-
-  _monthIsExpandedValidator: observer('monthIsExpanded', function() {
-    if (this.get('monthIsExpanded') === true) {
-      this.set('yearIsExpanded', false);
-    }
-  }),
-
-  yearIsExpanded: false,
-
-  _yearIsExpandedValidator: observer('yearIsExpanded', function() {
-    if (this.get('yearIsExpanded') === true) {
-      this.set('monthIsExpanded', false);
-    }
-  }),
+  selectionEnd: null,
+  selectionStart: null,
 
   calendarExpanded: computed('monthPickerExpanded', 'yearPickerExpanded', function() {
     return !this.get('monthPickerExpanded') && !this.get('yearPickerExpanded');
@@ -44,23 +31,12 @@ export default Ember.Component.extend({
       this.sendAction('daySelected', day);
     },
 
-    prevMonth() {
-      this.sendAction('prevMonth', ...arguments);
-    },
-
     nextMonth() {
       this.sendAction('nextMonth', ...arguments);
     },
+
+    prevMonth() {
+      this.sendAction('prevMonth', ...arguments);
+    },
   }
 });
-
-function buildWeek(month, week) {
-  var firstDay = month.weekday();
-  var daysInMonth = month.daysInMonth();
-  var days = [];
-  for (var i = 0; i < 7; i++) {
-    var d = (i - firstDay + week * 7);
-    days[i] = month.startOf('month').clone().add(d, 'day');
-  }
-  return days;
-}
