@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
       endDate,
       startMonth,
       endMonth
-    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth')
+    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth');
 
     this.setProperties({
       initialStartDate: startDate,

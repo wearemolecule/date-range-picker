@@ -2,13 +2,14 @@ import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
 import moment from 'moment';
+import Picker from 'date-range-picker/mixins/picker';
 
 const {
   computed,
   Component,
 } = Ember;
 
-export default Component.extend({
+export default Component.extend(Picker, {
   allYearsOffset: 5,
   isExpanded: false,
   layout,

@@ -1,7 +1,7 @@
 {{#unless hideButton}}
-<button class="dp-btn-year {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
-  {{moment-format month "YYYY"}}
-</button>
+  <button class="dp-btn-year {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
+    {{moment-format month "YYYY"}}
+  </button>
 {{/unless}}
 
 {{#if isExpanded}}

@@ -18,7 +18,7 @@ export default Mixin.create({
     let startIsBlank = isBlank(startDate);
 
     if (startIsBlank || startDate && !startDate._isAMomentObject) {
-      this.set('startDate', moment(startDate));
+      this.set('startDate', moment(startDate).startOf('day'));
     }
   })),
 
@@ -27,7 +27,7 @@ export default Mixin.create({
     let endIsBlank = isBlank(endDate);
 
     if (endIsBlank || endDate && !endDate._isAMomentObject) {
-      this.set('endDate', moment(endDate));
+      this.set('endDate', moment(endDate).startOf('day'));
     }
   })),
 
