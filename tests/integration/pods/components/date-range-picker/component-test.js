@@ -163,6 +163,38 @@ test('can choose a new startDate month & year', function(assert) {
   assert.equal(this.get('endDate').format(format), '06/20/2017', 'endDate is updated.');
 });
 
+test('apply/cancel actions', function(assert) {
+  assert.expect(4);
+
+  let today = moment('2016-03-11', 'YYYY-MM-DD');
+
+  this.setProperties({
+    today,
+    isExpanded: true,
+    apply() {
+      assert.ok(true);
+    },
+    cancel() {
+      assert.ok(true);
+    }
+  });
+
+  this.render(hbs`{{date-range-picker startMonth=today
+                                      isExpanded=isExpanded
+                                      apply=(action apply)
+                                      cancel=(action cancel)}}`);
+
+  this.$('.dp-apply').click();
+
+  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
+
+  this.set('isExpanded', true);
+
+  this.$('.dp-cancel').click();
+
+  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
+});
+
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));
 }
