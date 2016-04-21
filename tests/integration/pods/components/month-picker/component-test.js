@@ -131,3 +131,36 @@ test('picking new start & end month/year updates view/properties', function(asse
 
   assert.equal(this.get('endDate').format('YYYY'), '2020', 'end year button displays 2020.');
 });
+
+test('apply/cancel actions', function(assert) {
+  assert.expect(4);
+
+  this.setProperties({
+    startDate: moment('2015-06-07'),
+    endDate: moment('2016-07-08'),
+    isExpanded: true,
+    apply() {
+      assert.ok(true);
+    },
+    cancel() {
+      assert.ok(true);
+    }
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                 endDate=endDate
+                                 showInput=true
+                                 isExpanded=isExpanded
+                                 apply=(action apply)
+                                 cancel=(action cancel)}}`);
+
+  this.$('.dp-apply').click();
+
+  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
+
+  this.set('isExpanded', true);
+
+  this.$('.dp-cancel').click();
+
+  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
+});
