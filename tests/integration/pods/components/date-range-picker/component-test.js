@@ -195,6 +195,19 @@ test('apply/cancel actions', function(assert) {
   assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
 });
 
+test('can render 12/25/2015', function(assert) {
+  let today = moment('2015-12-25', 'YYYY-MM-DD');
+
+  this.set('today', today);
+
+  this.render(hbs`{{date-range-picker startMonth=today
+                                      isExpanded=true}}`);
+
+  let $leftCal = this.$('.dp-display-calendar:first');
+
+  assert.equal($leftCal.find('.dp-day').length, 35, '12/2015 has the correct number of days');
+});
+
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));
 }
