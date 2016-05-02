@@ -164,3 +164,28 @@ test('apply/cancel actions', function(assert) {
 
   assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
 });
+
+test('picking new start & end month/year updates view/properties', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-06-07'),
+    endDate: moment('2016-07-08'),
+    showInput: true,
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                 endDate=endDate
+                                 showInput=showInput
+                                 isExpanded=true}}`);
+
+  let $leftCal = $(this.$('.dp-display-month-year').get(0));
+  let $rightCal = $(this.$('.dp-display-month-year').get(1));
+
+  $leftCal.find("button:contains('Feb')").click();
+  $rightCal.find("button:contains('Feb')").click();
+
+  let startDate = this.get('startDate').format('YYYY-MM-DD');
+  let endDate = this.get('endDate').format('YYYY-MM-DD');
+
+  assert.equal(startDate, '2016-02-01', 'startDate is the start of 02/2016');
+  assert.equal(endDate, '2016-02-29', 'endDate is the end of 02/2016');
+});
