@@ -16,7 +16,13 @@ export default Ember.Component.extend({
     setMonth(month) {
       let day = this.get('month').date();
       let year = this.get('month').year();
-      this.set('month', moment(`${year}-${month}-${day}`, 'YYYY-MM-DD').startOf('day'));
+      let newDate =  moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+
+      if (this.get('endOfMonth')) {
+        this.set('month', newDate.endOf('month'));
+      } else {
+        this.set('month', newDate.startOf('month'));
+      }
     },
 
     toggleIsExpanded() {
