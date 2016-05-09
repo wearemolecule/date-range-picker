@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import Ember from 'ember';
 
-moduleForComponent('month-picker', 'Integration | Component | month picker', {
+moduleForComponent('month-range-picker', 'Integration | Component | month picker', {
   integration: true
 });
 
@@ -14,9 +14,9 @@ test('it renders', function(assert) {
     showInput: true,
   });
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=showInput}}`);
 
   assert.equal(this.$('input').length, 1, 'shows one input if showInput=true');
   assert.equal(this.$('input').val(), '06/2015 - 07/2016', 'populated the input correctly');
@@ -33,10 +33,10 @@ test('month/year display visibilities are togglable', function(assert) {
     showInput: true,
   });
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=showInput
+                                       isExpanded=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -78,10 +78,10 @@ test('has a default start/end of today', function(assert) {
   this.set('startDate', undefined);
   this.set('endDate', undefined);
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=showInput
+                                       isExpanded=true}}`);
 
   Ember.run.next(this, () => {
     let startDate = this.get('startDate').format();
@@ -99,10 +99,10 @@ test('picking new start & end month/year updates view/properties', function(asse
     showInput: true,
   });
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=showInput
+                                       isExpanded=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -147,12 +147,12 @@ test('apply/cancel actions', function(assert) {
     }
   });
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=true
-                                 isExpanded=isExpanded
-                                 apply=(action apply)
-                                 cancel=(action cancel)}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=true
+                                       isExpanded=isExpanded
+                                       apply=(action apply)
+                                       cancel=(action cancel)}}`);
 
   this.$('.dp-apply').click();
 
@@ -172,10 +172,10 @@ test('picking new start & end month/year updates view/properties', function(asse
     showInput: true,
   });
 
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+  this.render(hbs`{{month-range-picker startDate=startDate
+                                       endDate=endDate
+                                       showInput=showInput
+                                       isExpanded=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));

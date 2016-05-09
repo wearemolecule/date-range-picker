@@ -349,7 +349,7 @@ body {
 
 .dp-single-date-picker {}
 
-.dp-month-picker {
+.dp-month-range-picker {
   display: inline-block;
   position: relative;
 
@@ -426,7 +426,7 @@ body {
   // Wrappers
 
   .dp-date-range-picker,
-  .dp-month-picker {
+  .dp-month-range-picker {
     display: block;
     width: 100%;
 
@@ -444,7 +444,7 @@ body {
     }
   }
 
-  .dp-month-picker,
+  .dp-month-range-picker,
   .dp-year-picker {
 
     .dp-month-body,
