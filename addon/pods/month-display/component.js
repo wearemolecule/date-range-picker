@@ -14,9 +14,7 @@ export default Ember.Component.extend({
 
   actions: {
     setMonth(month) {
-      let day = this.get('month').date();
-      let year = this.get('month').year();
-      let newDate =  moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+      let newDate = this.get('month').clone().month(month);
 
       if (this.get('endOfMonth')) {
         this.set('month', newDate.endOf('month'));
