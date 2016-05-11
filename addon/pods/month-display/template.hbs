@@ -4,8 +4,8 @@
 
 {{#if isExpanded}}
   <div class="dp-month-body">
-    {{#each allMonths as |month|}}
-      <button {{action "setMonth" month}}>
+    {{#each allMonths as |month monthIndex|}}
+      <button {{action "setMonth" monthIndex}}>
         {{friendly-month month}}
       </button>
     {{/each}}

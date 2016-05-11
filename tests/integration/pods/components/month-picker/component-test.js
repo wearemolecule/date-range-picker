@@ -189,3 +189,24 @@ test('picking new start & end month/year updates view/properties', function(asse
   assert.equal(startDate, '2016-02-01', 'startDate is the start of 02/2016');
   assert.equal(endDate, '2016-02-29', 'endDate is the end of 02/2016');
 });
+
+test('picking new, out-of-range startDate does not create invalid date', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-03-30'),
+    endDate: moment('2016-05-05'),
+    showInput: true,
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                 endDate=endDate
+                                 showInput=showInput
+                                 isExpanded=true}}`);
+
+  let $leftCal = $(this.$('.dp-display-month-year').get(0));
+
+  $leftCal.find("button:contains('Feb')").click();
+
+  let startDate = this.get('startDate').format('YYYY-MM-DD');
+
+  assert.equal(startDate, '2016-02-01', 'startDate is the start of 02/2016');
+});
