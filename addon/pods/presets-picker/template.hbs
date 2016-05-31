@@ -1,5 +1,5 @@
 {{#each presets as |preset|}}
-  <button {{action "applyPreset" preset}}>
+  <button {{action "applyPreset" preset}} tabindex=1>
     {{preset.name}}
   </button>
 {{/each}}
