@@ -20,6 +20,7 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
   layout,
   startMonth: moment().startOf('month'),
   keyboardActivated: true,
+  keyboardFirstResponder: computed.alias('isExpanded'),
   focusedDay: 0,
 
   _focusedDayHandler: observer('focusedDay', function() {
@@ -33,33 +34,27 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
     }
   }),
 
-  _leftArrowHandler: on(keyUp('ArrowLeft'), function(e) {
-    e.preventDefault();
+  _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
     this.decrementProperty('focusedDay');
   }),
 
-  _downArrowHandler: on(keyUp('ArrowDown'), function(e) {
-    e.preventDefault();
+  _downArrowHandler: on(keyUp('ArrowDown'), function() {
     this.incrementProperty('focusedDay', 7);
   }),
 
-  _upArrowHandler: on(keyUp('ArrowUp'), function(e) {
-    e.preventDefault();
+  _upArrowHandler: on(keyUp('ArrowUp'), function() {
     this.decrementProperty('focusedDay', 7);
   }),
 
-  _rightArrowHandler: on(keyUp('ArrowRight'), function(e) {
-    e.preventDefault();
+  _rightArrowHandler: on(keyUp('ArrowRight'), function() {
     this.incrementProperty('focusedDay');
   }),
 
-  _escapeHandler: on(keyUp('Escape'), function(e) {
-    e.preventDefault();
+  _escapeHandler: on(keyUp('Escape'), function() {
     this.set('isExpanded', false);
   }),
 
-  _returnHandler: on(keyUp('Enter'), function(e) {
-    e.preventDefault();
+  _returnHandler: on(keyUp('Enter'), function() {
     this.$('.dp-day')[this.get('focusedDay')].click();
   }),
 
