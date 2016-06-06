@@ -20,6 +20,7 @@ $day-height:                20px;
 $day-color:                 #FFF;
 $day-txt-color:             #000;
 $day-hover-color:           #FFCC00;
+$day-focus-color:           #FFCC00;
 $day-selected-color:        #FFCC00;
 $day-in-range-color:        #FFE992;
 $day-other-month-color:     #DDD;
@@ -206,6 +207,10 @@ body {
 
     &:hover {
       background-color: $day-hover-color;
+    }
+
+    &:focus {
+      background-color: $day-focus-color;
     }
 
     &.dp-selected {

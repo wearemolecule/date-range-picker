@@ -7,6 +7,8 @@ export default Ember.Component.extend({
   classNameBindings: ['isSelected:dp-selected', 'inRange:dp-in-range', 'otherMonth:dp-other-month'],
   classNames: ['dp-day'],
   layout,
+  attributeBindings: ['tabindex'],
+  tabindex: 1,
 
   click() {
     this.sendAction('daySelected', this.get('day').clone());

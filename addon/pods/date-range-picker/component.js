@@ -5,17 +5,58 @@ import Picker from 'date-range-picker/mixins/picker';
 import Clearable from 'date-range-picker/mixins/clearable';
 import PickerActions from 'date-range-picker/mixins/picker-actions';
 import moment from 'moment';
+import { EKMixin, keyUp } from 'ember-keyboard';
 
 const {
   computed,
+  on,
+  observer,
   run,
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, {
+export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, EKMixin, {
   endMonth: moment().startOf('month'),
   layout,
   startMonth: moment().startOf('month'),
+  keyboardActivated: true,
+  keyboardFirstResponder: computed.alias('isExpanded'),
+  focusedDay: 0,
+
+  _focusedDayHandler: observer('focusedDay', function() {
+    let focusedDayIndex = this.get('focusedDay');
+    let elementToFocus = this.$('.dp-day').get(focusedDayIndex);
+
+    if (!!elementToFocus) {
+      elementToFocus.focus();
+    } else {
+      this.set('focusedDay', 0);
+    }
+  }),
+
+  _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
+    this.decrementProperty('focusedDay');
+  }),
+
+  _downArrowHandler: on(keyUp('ArrowDown'), function() {
+    this.incrementProperty('focusedDay', 7);
+  }),
+
+  _upArrowHandler: on(keyUp('ArrowUp'), function() {
+    this.decrementProperty('focusedDay', 7);
+  }),
+
+  _rightArrowHandler: on(keyUp('ArrowRight'), function() {
+    this.incrementProperty('focusedDay');
+  }),
+
+  _escapeHandler: on(keyUp('Escape'), function() {
+    this.set('isExpanded', false);
+  }),
+
+  _returnHandler: on(keyUp('Enter'), function() {
+    this.$('.dp-day')[this.get('focusedDay')].click();
+  }),
 
   didInsertElement() {
     let {
