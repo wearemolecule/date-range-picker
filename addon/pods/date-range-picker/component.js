@@ -19,7 +19,7 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
   endMonth: moment().startOf('month'),
   layout,
   startMonth: moment().startOf('month'),
-  keyboardActivated: true,
+  keyboardActivated: computed.alias('isExpanded'),
   keyboardFirstResponder: computed.alias('isExpanded'),
   focusedDay: 0,
 
