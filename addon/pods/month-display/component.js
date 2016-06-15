@@ -2,10 +2,6 @@ import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
 
-const {
-  computed,
-} = Ember;
-
 export default Ember.Component.extend({
   allMonths: _.range(1, 13),
   isExpanded: false,

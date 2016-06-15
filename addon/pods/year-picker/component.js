@@ -39,7 +39,7 @@ export default Component.extend(ClickOutside, Picker, {
     },
 
     yearWasSelected() {
-      this.send('toggleIsExpanded');
+      this.set('isExpanded', false);
     },
   },
 });

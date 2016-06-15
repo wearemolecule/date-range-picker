@@ -83,7 +83,7 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
     let startDate = this.get('startDate').format('MM/DD/YYYY');
     let endDate = this.get('endDate').format('MM/DD/YYYY');
 
-    return `${startDate} - ${endDate}`;
+    return `${startDate}-${endDate}`;
   }),
 
   actions: {
@@ -111,13 +111,13 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
     },
 
     parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split(' - ');
+      let [ start, end ] = this.get('rangeFormatted').split('-');
 
       this.setProperties({
         startDate: moment(start, 'MM/DD/YYYY'),
         endDate: moment(end, 'MM/DD/YYYY'),
-        startMonth: moment(start, 'MM/DD/YYYY'),
-        endMonth: moment(end, 'MM/DD/YYYY'),
+        startMonth: moment(start, ['MM/DD/YYYY', 'MM/YYYY']),
+        endMonth: moment(end, ['MM/DD/YYYY', 'MM/YYYY']),
       });
     },
 

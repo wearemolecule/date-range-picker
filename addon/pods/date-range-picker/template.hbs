@@ -2,7 +2,9 @@
   {{#if showInput}}
     {{input-mask class="dp-date-input"
                  value=rangeFormatted
-                 mask="99/99/9999 - 99/99/9999"
+                 greedy=false
+                 skipOptionalPartCharacter="/"
+                 mask="9[9]/9[9]/99[99]-9[9]/9[9]/99[99]"
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"
                  tabindex=1}}
@@ -16,7 +18,9 @@
                         endSelected="endSelected"}}
         {{input-mask class="dp-presets-date-input"
                      value=rangeFormatted
-                     mask="99/99/9999 - 99/99/9999"
+                     greedy=false
+                     skipOptionalPartCharacter="/"
+                     mask="9[9]/9[9]/99[99]-9[9]/9[9]/99[99]"
                      key-press="parseInput"}}
       {{/presets-picker}}
 

@@ -9,7 +9,6 @@ import moment from 'moment';
 
 const {
   computed,
-  observer,
   run,
   Component,
 } = Ember;
@@ -30,12 +29,12 @@ export default Component.extend(ClickOutside, Picker, Clearable, ExpandedValidat
     let startDate = this.get('startDate').format('MM/YYYY');
     let endDate = this.get('endDate').format('MM/YYYY');
 
-    return `${startDate} - ${endDate}`;
+    return `${startDate}-${endDate}`;
   }),
 
   actions: {
     parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split(' - ');
+      let [ start, end ] = this.get('rangeFormatted').split('-');
 
       this.setProperties({
         startDate: moment(start, 'MM/YYYY'),

@@ -19,7 +19,7 @@ test('it renders', function(assert) {
                                  showInput=showInput}}`);
 
   assert.equal(this.$('input').length, 1, 'shows one input if showInput=true');
-  assert.equal(this.$('input').val(), '06/2015 - 07/2016', 'populated the input correctly');
+  assert.equal(this.$('input').val(), '06/2015-07/2016', 'populated the input correctly');
 
   this.set('showInput', false);
 

@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export function buildWeek(month, week) {
   let firstDay = month.weekday();
-  let daysInMonth = month.daysInMonth();
   let days = [];
 
   for (let i = 0; i < 7; i++) {

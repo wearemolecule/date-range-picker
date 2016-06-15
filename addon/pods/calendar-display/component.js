@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from './template';
-import _ from 'lodash/lodash';
 import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
 import { buildWeek } from 'date-range-picker/helpers/build-week';
 

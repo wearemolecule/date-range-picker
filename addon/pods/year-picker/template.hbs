@@ -1,7 +1,7 @@
 <div class="dp-year-picker">
   {{#if showInput}}
     {{input-mask value=rangeFormatted
-                 mask="9999"
+                 mask="99[99]"
                  class="dp-date-input"
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"
