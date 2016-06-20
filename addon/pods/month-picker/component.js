@@ -31,17 +31,4 @@ export default Component.extend(ClickOutside, Picker, Clearable, ExpandedValidat
 
     return `${startDate}-${endDate}`;
   }),
-
-  actions: {
-    parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split('-');
-
-      this.setProperties({
-        startDate: moment(start, 'MM/YYYY'),
-        endDate: moment(end, 'MM/YYYY'),
-        startMonth: moment(start, 'MM/YYYY'),
-        endMonth: moment(end, 'MM/YYYY'),
-      });
-    },
-  },
 });

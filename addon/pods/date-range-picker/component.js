@@ -110,17 +110,6 @@ export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, 
       this.set('startMonth', this.get('startMonth').add(1, 'month').clone());
     },
 
-    parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split('-');
-
-      this.setProperties({
-        startDate: moment(start, 'MM/DD/YYYY'),
-        endDate: moment(end, 'MM/DD/YYYY'),
-        startMonth: moment(start, ['MM/DD/YYYY', 'MM/YYYY']),
-        endMonth: moment(end, ['MM/DD/YYYY', 'MM/YYYY']),
-      });
-    },
-
     prevEndMonth() {
       this.set('endMonth', this.get('endMonth').add(-1, 'month').clone());
     },

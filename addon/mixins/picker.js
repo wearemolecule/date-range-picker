@@ -11,8 +11,8 @@ const {
 
 export default Mixin.create({
   isExpanded: false,
-  startDate: moment().startOf('day'),
-  endDate: moment().startOf('day'),
+  startDate: moment().startOf('date'),
+  endDate: moment().startOf('date'),
 
   _focusOutHandler: on('focusOut', function() {
     if (this.get('isExpanded')) {

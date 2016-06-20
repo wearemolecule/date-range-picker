@@ -19,7 +19,7 @@ export default Component.extend(Picker, {
     let year = this.get('startDate').year();
     let offset = this.get('allYearsOffset');
 
-    return _.range(year - offset, year + offset + 1);
+    return _.range(year - offset - 1, year + offset);
   }),
 
   actions: {

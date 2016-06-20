@@ -1,6 +1,9 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 export default Ember.Mixin.create({
+  dateFormat: "MM/DD/YYYY",
+
   actions: {
     apply() {
       this.send('toggleIsExpanded');
@@ -10,6 +13,25 @@ export default Ember.Mixin.create({
     cancel() {
       this.send('toggleIsExpanded');
       this.sendAction('cancel');
+    },
+
+    parseInput() {
+      let [ start, end ] = this.get('rangeFormatted').split('-');
+      let startMoment = moment(start, this.get('dateFormat'));
+      let endMoment = moment(end, this.get('dateFormat'));
+
+      if(startMoment.isValid()) {
+        if(!endMoment.isValid()) {
+          endMoment = startMoment.clone();
+        }
+        console.log(startMoment);
+        this.setProperties({
+          startDate: startMoment,
+          endDate: endMoment,
+          startMonth: startMoment.clone(),
+          endMonth: endMoment.clone(),
+        });
+      }
     },
   }
 });

@@ -1,6 +1,7 @@
 <div class="dp-year-picker">
   {{#if showInput}}
     {{input-mask value=rangeFormatted
+                 greedy=false
                  mask="99[99]"
                  class="dp-date-input"
                  focus-in="toggleIsExpanded"
@@ -21,6 +22,7 @@
 
       <div class="dp-action-console">
         <button {{action "cancel"}} tabindex=1>Cancel</button>
+        <button {{action "apply"}} class="dp-apply" tabindex=1>Apply</button>
       </div>
     </div>
   {{/if}}
