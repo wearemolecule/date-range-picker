@@ -17,6 +17,10 @@ export default Ember.Component.extend({
       } else {
         this.set('month', newDate.startOf('month'));
       }
+
+      if(this.get('monthWasSelected')) {
+        this.sendAction('monthWasSelected');
+      }
     },
 
     toggleIsExpanded() {

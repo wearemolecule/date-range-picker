@@ -19,7 +19,7 @@ export default Component.extend(Picker, {
     let year = this.get('startDate').year();
     let offset = this.get('allYearsOffset');
 
-    return _.range(year - offset - 1, year + offset);
+    return _.range(year - offset, year + offset + 1);
   }),
 
   actions: {
@@ -44,7 +44,9 @@ export default Component.extend(Picker, {
         this.set('month', newMonth);
       }
 
-      this.sendAction('yearWasSelected');
+      if(this.get('yearWasSelected')) {
+        this.sendAction('yearWasSelected');
+      }
     },
 
     toggleIsExpanded() {

@@ -16,7 +16,7 @@ export default Ember.Component.extend(ExpandedValidators, {
   }),
 
   weeks: computed('month', function() {
-    var month = this.get('month');
+    var month = this.get('month').startOf('month');
     const weeksInMonth = Math.floor(month.daysInMonth() / 7);
     var weeks = [];
     for (var i = 0; i <= weeksInMonth; i++) {

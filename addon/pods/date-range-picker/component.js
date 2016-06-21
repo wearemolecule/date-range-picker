@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import layout from './template';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
 import Picker from 'date-range-picker/mixins/picker';
 import Clearable from 'date-range-picker/mixins/clearable';
 import PickerActions from 'date-range-picker/mixins/picker-actions';
 import moment from 'moment';
+import ClickOutside from 'date-range-picker/mixins/click-outside';
 import { EKMixin, keyUp } from 'ember-keyboard';
 
 const {
@@ -15,7 +15,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, Picker, Clearable, PickerActions, EKMixin, {
+export default Component.extend(Picker, Clearable, PickerActions, EKMixin, ClickOutside, {
   endMonth: moment().startOf('month'),
   layout,
   startMonth: moment().startOf('month'),

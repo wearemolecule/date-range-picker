@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import layout from './template';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
 import Picker from 'date-range-picker/mixins/picker';
 import PickerActions from 'date-range-picker/mixins/picker-actions';
+import ClickOutside from 'date-range-picker/mixins/click-outside';
 
 const {
   computed,
@@ -10,7 +10,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, Picker, PickerActions, {
+export default Component.extend(Picker, PickerActions, ClickOutside, {
   layout,
   dateFormat: "YYYY",
 

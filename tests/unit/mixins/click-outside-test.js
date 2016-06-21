@@ -11,13 +11,26 @@ test('it can be mixed into an Ember.Object', function(assert) {
 });
 
 test('#clickOutside', function(assert) {
-  let ClickOutsideController = Ember.Controller.extend(ClickOutsideMixin);
+  let ClickOutsideController = Ember.Component.extend(ClickOutsideMixin);
 
   let subject = ClickOutsideController.create({
     isExpanded: true,
   });
 
-  subject.clickOutside();
+  subject.clickOutside({ target: ".some-class" });
 
   assert.equal(subject.get('isExpanded'), false, 'isExpanded gets toggled to become false.');
+});
+
+test('#clickOutside when #selectorIsInside', function(assert) {
+  let ClickOutsideController = Ember.Component.extend(ClickOutsideMixin, {
+    selectorIsInside() { return true; },
+  });
+
+  let subject = ClickOutsideController.create({
+    isExpanded: true,
+  });
+
+  subject.clickOutside(({ target: ".some-class" }));
+  assert.equal(subject.get('isExpanded'), true, 'isExpanded does not get toggled.');
 });
