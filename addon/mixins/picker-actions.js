@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
     },
 
     parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split('-');
+      let [ start, end ] = this.get('rangeFormatted').split('—');
       let startMoment = moment(start, this.get('dateFormat'));
       let endMoment = moment(end, this.get('dateFormat'));
 
@@ -32,8 +32,8 @@ export default Ember.Mixin.create({
         this.setProperties({
           startDate: startMoment,
           endDate: endMoment,
-          startMonth: startMoment.clone(),
-          endMonth: endMoment.clone(),
+          startMonth: startMoment.clone().startOf('month'),
+          endMonth: endMoment.clone().startOf('month'),
         });
       }
     },

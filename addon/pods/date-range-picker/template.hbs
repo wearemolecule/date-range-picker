@@ -1,10 +1,8 @@
 <div class="dp-date-range-picker">
   {{#if showInput}}
-    {{input-mask class="dp-date-input"
+    {{range-input-mask class="dp-date-input"
                  value=rangeFormatted
-                 greedy=false
-                 skipOptionalPartCharacter="/"
-                 mask="9[9]/9[9]/9[9][99]-9[9]/9[9]/99[99]"
+                 mask=mask
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"
                  tabindex=1}}
@@ -16,19 +14,16 @@
                         presets=presets
                         startSelected="startSelected"
                         endSelected="endSelected"}}
-        {{input-mask class="dp-presets-date-input"
-                     value=rangeFormatted
-                     greedy=false
-                     skipOptionalPartCharacter="/"
-                     mask="9[9]/9[9]/99[99]-9[9]/9[9]/99[99]"
-                     key-press="parseInput"}}
+        {{range-input-mask class="dp-presets-date-input"
+                           value=rangeFormatted
+                           mask=mask
+                           key-press="parseInput"}}
       {{/presets-picker}}
 
       {{calendar-display class="dp-display-calendar"
                          selectionStart=startDate
                          selectionEnd=endDate
                          month=startMonth
-
                          daySelected="startSelected"
                          prevMonth="prevStartMonth"
                          nextMonth="nextStartMonth"}}

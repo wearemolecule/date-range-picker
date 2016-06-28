@@ -14,6 +14,7 @@ const {
 } = Ember;
 
 export default Component.extend(Picker, Clearable, MultipleExpandedValidators, PickerActions, ClickOutside, {
+  dateFormat: "MM/YYYY",
   endMonth: moment().startOf('month'),
   layout,
   startMonth: moment().startOf('month'),
@@ -29,6 +30,6 @@ export default Component.extend(Picker, Clearable, MultipleExpandedValidators, P
     let startDate = this.get('startDate').format('MM/YYYY');
     let endDate = this.get('endDate').format('MM/YYYY');
 
-    return `${startDate}-${endDate}`;
+    return `${startDate}—${endDate}`;
   }),
 });

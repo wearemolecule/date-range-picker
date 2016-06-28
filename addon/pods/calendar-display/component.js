@@ -7,7 +7,7 @@ const { computed } = Ember;
 
 export default Ember.Component.extend(ExpandedValidators, {
   layout,
-  month: computed.alias('startDate'),
+  month: computed.alias('startMonth'),
   selectionEnd: null,
   selectionStart: null,
 
@@ -16,11 +16,10 @@ export default Ember.Component.extend(ExpandedValidators, {
   }),
 
   weeks: computed('month', function() {
-    var month = this.get('month').startOf('month');
-    const weeksInMonth = Math.floor(month.daysInMonth() / 7);
+    var weekNumber = this.get('month').startOf('month').week();
     var weeks = [];
-    for (var i = 0; i <= weeksInMonth; i++) {
-      weeks[i] = buildWeek(month, i);
+    for (var i = 0; i <= 4; i++) {
+      weeks[i] = buildWeek(this.get('month').clone().week(weekNumber + i));
     }
     return weeks;
   }),

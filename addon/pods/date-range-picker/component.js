@@ -11,14 +11,14 @@ const {
   computed,
   on,
   observer,
-  run,
   Component,
 } = Ember;
 
 export default Component.extend(Picker, Clearable, PickerActions, EKMixin, ClickOutside, {
-  endMonth: moment().startOf('month'),
+  mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
   layout,
   startMonth: moment().startOf('month'),
+  endMonth: moment().startOf('month'),
   keyboardActivated: computed.alias('isExpanded'),
   keyboardFirstResponder: computed.alias('isExpanded'),
   focusedDay: 0,
@@ -58,32 +58,11 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
     this.$('.dp-day')[this.get('focusedDay')].click();
   }),
 
-  didInsertElement() {
-    let {
-      startDate,
-      endDate,
-      startMonth,
-      endMonth
-    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth');
-
-    this.setProperties({
-      initialStartDate: startDate,
-      initialEndDate: endDate,
-      initialStartMonth: startMonth,
-      initialEndMonth: endMonth
-    });
-
-    run.next(this, () => {
-      this.notifyPropertyChange('startDate');
-      this.notifyPropertyChange('endDate');
-    });
-  },
-
   rangeFormatted: computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
     let endDate = this.get('endDate').format('MM/DD/YYYY');
 
-    return `${startDate}-${endDate}`;
+    return `${startDate}—${endDate}`;
   }),
 
   actions: {
@@ -103,19 +82,19 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
     },
 
     nextEndMonth() {
-      this.set('endMonth', this.get('endMonth').add(1, 'month').clone());
+      this.set('endMonth', this.get('endMonth').clone().add(1, 'month').startOf('month'));
     },
 
     nextStartMonth() {
-      this.set('startMonth', this.get('startMonth').add(1, 'month').clone());
+      this.set('startMonth', this.get('startMonth').clone().add(1, 'month').startOf('month'));
     },
 
     prevEndMonth() {
-      this.set('endMonth', this.get('endMonth').add(-1, 'month').clone());
+      this.set('endMonth', this.get('endMonth').clone().subtract(1, 'month').startOf('month'));
     },
 
     prevStartMonth() {
-      this.set('startMonth', this.get('startMonth').add(-1, 'month').clone());
+      this.set('startMonth', this.get('startMonth').clone().subtract(1, 'month').startOf('month'));
     },
 
     startSelected(day) {

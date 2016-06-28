@@ -1,14 +1,10 @@
 import Ember from 'ember';
 
-export function buildWeek(month, week) {
-  let firstDay = month.weekday();
+export function buildWeek(week) {
   let days = [];
-
   for (let i = 0; i < 7; i++) {
-    let d = (i - firstDay + week * 7);
-    days[i] = month.startOf('month').clone().add(d, 'day');
+    days[i] = week.clone().day(i);
   }
-
   return days;
 }
 

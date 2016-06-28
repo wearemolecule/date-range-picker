@@ -1,14 +1,11 @@
 <div class="dp-month-picker">
   {{#if showInput}}
-    {{input-mask value=rangeFormatted
-                 greedy=false
-                 skipOptionalPartCharacter="/"
-                 clearIncomplete=true
-                 mask="9[9]/99[99]-9[9]/99[99]"
-                 class="dp-date-input"
-                 focus-in="toggleIsExpanded"
-                 key-press="parseInput"
-                 tabindex=1}}
+    {{range-input-mask value=rangeFormatted
+                       mask="9[9]/99[99]—9[9]/99[99]"
+                       class="dp-date-input"
+                       focus-in="toggleIsExpanded"
+                       key-press="parseInput"
+                       tabindex=1}}
   {{/if}}
 
   {{#if isExpanded}}
