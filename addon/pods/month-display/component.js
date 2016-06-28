@@ -10,12 +10,10 @@ export default Ember.Component.extend({
 
   actions: {
     setMonth(month) {
-      let newDate = this.get('month').clone().month(month);
-
       if (this.get('endOfMonth')) {
-        this.set('month', newDate.endOf('month'));
+        this.set('month', this.get('month').clone().month(month).endOf('month'));
       } else {
-        this.set('month', newDate.startOf('month'));
+        this.set('month', this.get('month').clone().month(month).startOf('month'));
       }
 
       if(this.get('monthWasSelected')) {

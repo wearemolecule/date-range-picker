@@ -19,26 +19,26 @@ test('#parseInput handles different range inputs', function(assert) {
 
   let testCases = [
     // Valid Start Date Supplied but no End Date
-    { rangeFormatted: "6/16/16-_/_/__", startDate: moment("6/16/16", format), endDate: moment("6/16/16", format) },
-    { rangeFormatted: "06/6/16-_/_/__", startDate: moment("06/6/16", format), endDate: moment("06/6/16", format) },
-    { rangeFormatted: "06/16/2016-_/_/__", startDate: moment("06/16/2016", format), endDate: moment("06/16/2016", format) },
+    { rangeFormatted: "6/16/16—_/_/__", startDate: moment("6/16/16", format), endDate: moment("6/16/16", format) },
+    { rangeFormatted: "06/6/16—_/_/__", startDate: moment("06/6/16", format), endDate: moment("06/6/16", format) },
+    { rangeFormatted: "06/16/2016—_/_/__", startDate: moment("06/16/2016", format), endDate: moment("06/16/2016", format) },
 
     // Valid End Date Supplied but no Start Date
-    { rangeFormatted: "_/__/__-6/16/16", startDate: moment("6/16/16", format), endDate: moment("6/16/16", format) },
-    { rangeFormatted: "_/_/__-06/6/16", startDate: moment("06/6/16", format), endDate: moment("06/6/16", format) },
-    { rangeFormatted: "_/_/__-06/16/2016", startDate: moment("06/16/2016", format), endDate: moment("06/16/2016", format) },
+    { rangeFormatted: "_/__/__—6/16/16", startDate: moment("6/16/16", format), endDate: moment("6/16/16", format) },
+    { rangeFormatted: "_/_/__—06/6/16", startDate: moment("06/6/16", format), endDate: moment("06/6/16", format) },
+    { rangeFormatted: "_/_/__—06/16/2016", startDate: moment("06/16/2016", format), endDate: moment("06/16/2016", format) },
 
     // Valid Start and End Date supplied
-    { rangeFormatted: "5/15/15-6/16/16", startDate: moment("5/15/15", format), endDate: moment("6/16/16", format) },
-    { rangeFormatted: "05/5/15-06/6/16", startDate: moment("05/5/15", format), endDate: moment("06/6/16", format) },
-    { rangeFormatted: "05/15/2015-06/16/2016", startDate: moment("05/15/2015", format), endDate: moment("06/16/2016", format) },
+    { rangeFormatted: "5/15/15—6/16/16", startDate: moment("5/15/15", format), endDate: moment("6/16/16", format) },
+    { rangeFormatted: "05/5/15—06/6/16", startDate: moment("05/5/15", format), endDate: moment("06/6/16", format) },
+    { rangeFormatted: "05/15/2015—06/16/2016", startDate: moment("05/15/2015", format), endDate: moment("06/16/2016", format) },
 
     // Invalid Start and End Date supplied
-    { rangeFormatted: "_/_/__-_/_/__", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    { rangeFormatted: "0/0/00-0/0/00", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    { rangeFormatted: "99/99/9999-99/99/9999", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    { rangeFormatted: "5/_/__-_/_/__", startDate: moment(`05/01/${currentYear}`, format), endDate: moment(`05/01/${currentYear}`, format) },
-    { rangeFormatted: "5/15/__-_/_/__", startDate: moment(`05/15/${currentYear}`, format), endDate: moment(`05/15/${currentYear}`, format) },
+    { rangeFormatted: "_/_/__—_/_/__", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
+    { rangeFormatted: "0/0/00—0/0/00", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
+    { rangeFormatted: "99/99/9999—99/99/9999", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
+    { rangeFormatted: "5/_/__—_/_/__", startDate: moment(`05/01/${currentYear}`, format), endDate: moment(`05/01/${currentYear}`, format) },
+    { rangeFormatted: "5/15/__—_/_/__", startDate: moment(`05/15/${currentYear}`, format), endDate: moment(`05/15/${currentYear}`, format) },
   ];
 
   testCases.forEach(function(criteria) {
