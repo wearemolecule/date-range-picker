@@ -2,10 +2,6 @@ import Ember from 'ember';
 import layout from './template';
 import _ from 'lodash/lodash';
 
-const {
-  computed,
-} = Ember;
-
 export default Ember.Component.extend({
   allMonths: _.range(1, 13),
   isExpanded: false,
@@ -14,12 +10,14 @@ export default Ember.Component.extend({
 
   actions: {
     setMonth(month) {
-      let newDate = this.get('month').clone().month(month);
-
       if (this.get('endOfMonth')) {
-        this.set('month', newDate.endOf('month'));
+        this.set('month', this.get('month').clone().month(month).endOf('month'));
       } else {
-        this.set('month', newDate.startOf('month'));
+        this.set('month', this.get('month').clone().month(month).startOf('month'));
+      }
+
+      if(this.get('monthWasSelected')) {
+        this.sendAction('monthWasSelected');
       }
     },
 

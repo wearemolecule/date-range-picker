@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from './template';
-import _ from 'lodash/lodash';
 import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
 import { buildWeek } from 'date-range-picker/helpers/build-week';
 
@@ -17,11 +16,10 @@ export default Ember.Component.extend(ExpandedValidators, {
   }),
 
   weeks: computed('month', function() {
-    var month = this.get('month');
-    const weeksInMonth = Math.floor(month.daysInMonth() / 7);
+    var weekNumber = this.get('month').clone().startOf('month').week();
     var weeks = [];
-    for (var i = 0; i <= weeksInMonth; i++) {
-      weeks[i] = buildWeek(month, i);
+    for (var i = 0; i <= 4; i++) {
+      weeks[i] = buildWeek(this.get('month').clone().week(weekNumber + i));
     }
     return weeks;
   }),

@@ -5,28 +5,13 @@ const {
   isBlank,
   observer,
   on,
-  run,
   Mixin,
 } = Ember;
 
 export default Mixin.create({
   isExpanded: false,
-  startDate: moment().startOf('day'),
-  endDate: moment().startOf('day'),
-
-  _focusOutHandler: on('focusOut', function() {
-    if (this.get('isExpanded')) {
-      run.next(this, () => {
-        let focussedElement = document.activeElement;
-        let isFocussedOut = this.$().has(focussedElement).length === 0 &&
-            !this.$().is(focussedElement);
-
-        if (isFocussedOut) {
-          this.set('isExpanded', false);
-        }
-      });
-    }
-  }),
+  startDate: moment().startOf('date'),
+  endDate: moment().startOf('date'),
 
   _startDateToMoment: on('init', observer('startDate', function() {
     let startDate = this.get('startDate');

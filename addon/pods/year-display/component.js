@@ -10,13 +10,13 @@ const {
 } = Ember;
 
 export default Component.extend(Picker, {
-  allYearsOffset: 5,
+  allYearsOffset: 10,
   isExpanded: false,
   layout,
   tagName: "span",
 
   allYears: computed('startDate', function() {
-    let year = this.get('startDate').year();
+    let year = moment().year();
     let offset = this.get('allYearsOffset');
 
     return _.range(year - offset, year + offset + 1);
@@ -44,7 +44,9 @@ export default Component.extend(Picker, {
         this.set('month', newMonth);
       }
 
-      this.sendAction('yearWasSelected');
+      if(this.get('yearWasSelected')) {
+        this.sendAction('yearWasSelected');
+      }
     },
 
     toggleIsExpanded() {

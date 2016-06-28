@@ -1,14 +1,17 @@
-<button class="dp-previous-month" {{action "prevMonth"}}/>
-
-{{month-display month=month
-                isExpanded=monthIsExpanded}}
-
-{{year-display startDate=selectionStart
-               month=month
-               onlyUpdateMonth=true
-               isExpanded=yearIsExpanded}}
-
-<button class="dp-next-month" {{action "nextMonth"}}/>
+<div class="dp-calendar-header">
+  <button class="dp-previous-month" {{action "prevMonth"}}/>
+    {{month-display month=month
+                    isExpanded=monthIsExpanded
+                    monthWasSelected='toggleMonthExpanded'}}
+    
+    {{year-display startDate=selectionStart
+                   month=month
+                   onlyUpdateMonth=true
+                   isExpanded=yearIsExpanded
+                   yearWasSelected='toggleYearExpanded'}}
+    
+  <button class="dp-next-month" {{action "nextMonth"}}/>
+</div>
 
 <div class="dp-calendar-body">
   {{#if calendarExpanded}}

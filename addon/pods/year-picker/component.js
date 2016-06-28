@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import layout from './template';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
 import Picker from 'date-range-picker/mixins/picker';
-import moment from 'moment';
+import PickerActions from 'date-range-picker/mixins/picker-actions';
+import ClickOutside from 'date-range-picker/mixins/click-outside';
 
 const {
   computed,
@@ -10,8 +10,9 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(ClickOutside, Picker, {
+export default Component.extend(Picker, PickerActions, ClickOutside, {
   layout,
+  dateFormat: "YYYY",
 
   didInsertElement() {
     run.next(this, () => {
@@ -25,19 +26,6 @@ export default Component.extend(ClickOutside, Picker, {
   }),
 
   actions: {
-    parseInput() {
-      let year = moment(this.get('rangeFormatted'), 'YYYY');
-      let start = year.startOf('year');
-      let end = year.endOf('year');
-
-      this.setProperties({
-        startDate: start,
-        endDate: end,
-        startMonth: start,
-        endMonth: end,
-      });
-    },
-
     yearWasSelected() {
       this.send('toggleIsExpanded');
     },

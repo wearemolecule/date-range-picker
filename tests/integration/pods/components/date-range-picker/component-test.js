@@ -39,7 +39,7 @@ test('will accept strings as startDate and endDate', function(assert) {
                                       showInput=true}}`);
 
   let dateInput = this.$('input.dp-date-input').val();
-  let expectedDateRangeText = `${startDate.format(format)} - ${endDate.format(format)}`;
+  let expectedDateRangeText = `${startDate.format(format)}—${endDate.format(format)}`;
 
   assert.equal(dateInput, expectedDateRangeText, 'displays correct range in range input');
 });
@@ -139,8 +139,8 @@ test('can choose a new startDate month & year', function(assert) {
   $leftCal.find('.dp-btn-year').click();
   $leftCal.find(".dp-day:contains('15')").click();
 
-  assert.equal(this.$('.dp-date-input').val(), '03/15/2015 - 05/19/2016', 'Outer input is updated.');
-  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015 - 05/19/2016', 'Inner input is updated.');
+  assert.equal(this.$('.dp-date-input').val(), '03/15/2015—05/19/2016', 'Outer input is updated.');
+  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015—05/19/2016', 'Inner input is updated.');
   assert.equal(this.get('startDate').format(format), '03/15/2015', 'startDate is updated.');
   assert.equal(this.get('endDate').format(format), '05/19/2016', 'endDate does not change.');
 
@@ -157,8 +157,8 @@ test('can choose a new startDate month & year', function(assert) {
   $rightCal.find('.dp-btn-year').click();
   $rightCal.find(".dp-day:contains('20')").click();
 
-  assert.equal(this.$('.dp-date-input').val(), '03/15/2015 - 06/20/2017', 'Outer input is updated.');
-  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015 - 06/20/2017', 'Outer input is updated.');
+  assert.equal(this.$('.dp-date-input').val(), '03/15/2015—06/20/2017', 'Outer input is updated.');
+  assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015—06/20/2017', 'Outer input is updated.');
   assert.equal(this.get('startDate').format(format), '03/15/2015', 'startDate does not change.');
   assert.equal(this.get('endDate').format(format), '06/20/2017', 'endDate is updated.');
 });

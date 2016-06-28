@@ -17,4 +17,14 @@ export default Ember.Mixin.create({
       this.set('monthIsExpanded', false);
     }
   }),
+
+  actions: {
+    toggleMonthExpanded() {
+      this.toggleProperty('monthIsExpanded');
+    },
+
+    toggleYearExpanded() {
+      this.toggleProperty('yearIsExpanded');
+    },
+  }
 });

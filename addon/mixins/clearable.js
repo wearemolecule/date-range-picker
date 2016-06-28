@@ -15,6 +15,13 @@ export default Ember.Mixin.create({
       initialStartMonth: startMonth,
       initialEndMonth: endMonth
     });
+
+    Ember.run.next(this, () => {
+      this.notifyPropertyChange('startDate');
+      this.notifyPropertyChange('endDate');
+      this.notifyPropertyChange('startMonth');
+      this.notifyPropertyChange('endMonth');
+    });
   },
 
   actions: {

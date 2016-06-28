@@ -29,7 +29,7 @@ test('expands to show all the years', function(assert) {
 
   this.$("button:contains('2016')").click();
 
-  assert.equal(this.$('.dp-year-body button').length, 11, 'shows 11 (5 + 1 + 5) years at a time by default');
+  assert.equal(this.$('.dp-year-body button').length, 21, 'shows 21 (10 + 1 + 10) years at a time by default');
 });
 
 test('selecting a year retains the month', function(assert) {

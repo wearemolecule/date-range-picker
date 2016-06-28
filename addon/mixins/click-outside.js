@@ -17,7 +17,16 @@ export default Ember.Mixin.create(ClickOutside, {
     }
   }),
 
-  clickOutside() {
+  selectorIsInside(e) {
+    return this.$(e.target) &&
+           (this.$(e.target).closest(".dp-year-body").length > 0 ||
+           this.$(e.target).closest(".dp-month-body").length > 0);
+  },
+
+  clickOutside(e) {
+    if (this.selectorIsInside(e)) {
+      return;
+    }
     this.set('isExpanded', false);
   },
 });
