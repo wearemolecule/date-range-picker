@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from './template';
-import _ from 'lodash/lodash';
+import { range } from 'date-range-picker/helpers/range';
 import moment from 'moment';
 import Picker from 'date-range-picker/mixins/picker';
 
@@ -19,7 +19,7 @@ export default Component.extend(Picker, {
     let year = moment().year();
     let offset = this.get('allYearsOffset');
 
-    return _.range(year - offset, year + offset + 1);
+    return range(year - offset, year + offset + 1);
   }),
 
   actions: {

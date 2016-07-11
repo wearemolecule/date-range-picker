@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import layout from './template';
-import _ from 'lodash/lodash';
+import { range } from 'date-range-picker/helpers/range';
 
 export default Ember.Component.extend({
-  allMonths: _.range(1, 13),
+  allMonths: range(1, 13),
   isExpanded: false,
   layout,
   tagName: "span",
