@@ -1,11 +1,11 @@
 import { friendlyMonth } from 'dummy/helpers/friendly-month';
 import { module, test } from 'qunit';
-import _ from 'lodash/lodash';
+import { range } from 'date-range-picker/helpers/range';
 
 module('Unit | Helper | friendly month');
 
 test('it works', function(assert) {
-  let actualMonths = _.range(1, 13).map(monthIndex => friendlyMonth(monthIndex));
+  let actualMonths = range(1, 13).map(monthIndex => friendlyMonth(monthIndex));
 
   let expectedMonths = [
     'Jan',
