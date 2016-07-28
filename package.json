@@ -1,5 +1,5 @@
 {
-  "name": "date-range-picker",
+  "name": "ember-date-range-picker",
   "version": "0.1.10",
   "description": "Ember addon that provides various date pickers.",
   "directories": {
@@ -15,7 +15,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "osxi",
+  "author": "osxi <zach@molecule.io>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
-    "ember-cli-htmlbars": "^1.0.1",
+    "ember-cli-htmlbars": "^1.0.10",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-sass": "5.3.0",
     "ember-click-outside": "0.0.3",
