@@ -1,26 +1,7 @@
 # Date-range-picker [![Build Status](https://travis-ci.org/wearemolecule/date-range-picker.svg?branch=master)](https://travis-ci.org/wearemolecule/date-range-picker)
 
-This README outlines the details of collaborating on this Ember addon.
+`ember install ember-date-range-picker`
 
-## Installation
+This addon provides a collection of components for picking dates and ranges of dates. For documentation and a demonstration of the various components, please visit the [DEMO](https://wearemolecule.github.io/date-range-picker).
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-## Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+Please open an issue or create a PR if you would like to contribute!
