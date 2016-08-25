@@ -22,6 +22,9 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
   keyboardActivated: computed.alias('isExpanded'),
   keyboardFirstResponder: computed.alias('isExpanded'),
   focusedDay: 0,
+  tabIndex: 1,
+  actionTabIndex: 1,
+  presetTabIndex: 1,
 
   _focusedDayHandler: observer('focusedDay', function() {
     let focusedDayIndex = this.get('focusedDay');
@@ -35,27 +38,27 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
   }),
 
   _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
-    this.decrementProperty('focusedDay');
-  }),
-
-  _downArrowHandler: on(keyUp('ArrowDown'), function() {
-    this.incrementProperty('focusedDay', 7);
-  }),
-
-  _upArrowHandler: on(keyUp('ArrowUp'), function() {
-    this.decrementProperty('focusedDay', 7);
+    this.onTriggerArrowLeft();
   }),
 
   _rightArrowHandler: on(keyUp('ArrowRight'), function() {
-    this.incrementProperty('focusedDay');
+    this.onTriggerArrowRight();
+  }),
+
+  _downArrowHandler: on(keyUp('ArrowDown'), function() {
+    this.onTriggerArrowDown();
+  }),
+
+  _upArrowHandler: on(keyUp('ArrowUp'), function() {
+    this.onTriggerArrowUp();
   }),
 
   _escapeHandler: on(keyUp('Escape'), function() {
-    this.set('isExpanded', false);
+    this.onTriggerEscape();
   }),
 
   _returnHandler: on(keyUp('Enter'), function() {
-    this.$('.dp-day')[this.get('focusedDay')].click();
+    this.onTriggerReturn();
   }),
 
   rangeFormatted: computed('startDate', 'endDate', function() {
@@ -64,6 +67,30 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
 
     return `${startDate}—${endDate}`;
   }),
+
+  onTriggerArrowDown() {
+    this.incrementProperty('focusedDay', 7);
+  },
+
+  onTriggerArrowUp() {
+    this.decrementProperty('focusedDay', 7);
+  },
+ 
+  onTriggerArrowLeft() {
+    this.decrementProperty('focusedDay');
+  },
+
+  onTriggerArrowRight() {
+    this.incrementProperty('focusedDay');
+  },
+
+  onTriggerReturn() {
+    this.$('.dp-day')[this.get('focusedDay')].click();
+  },
+
+  onTriggerEscape() {
+    this.set('isExpanded', false);
+  },
 
   actions: {
     apply() {

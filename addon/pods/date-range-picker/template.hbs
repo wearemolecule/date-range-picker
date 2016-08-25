@@ -5,13 +5,14 @@
                  mask=mask
                  focus-in="toggleIsExpanded"
                  key-press="parseInput"
-                 tabindex=1}}
+                 tabindex=tabIndex}}
   {{/if}}
 
   {{#if isExpanded}}
     <div class="dp-panel">
       {{#presets-picker class="dp-presets"
                         presets=presets
+                        tabIndex=presetTabIndex
                         startSelected="startSelected"
                         endSelected="endSelected"}}
         {{range-input-mask class="dp-presets-date-input"
@@ -37,9 +38,9 @@
                          nextMonth="nextEndMonth"}}
 
       <div class="dp-action-console">
-        <button {{action "clear"}} class="dp-clear" tabindex=1>Clear</button>
-        <button {{action "cancel"}} class="dp-cancel" tabindex=1>Cancel</button>
-        <button {{action "apply"}} class="dp-apply" tabindex=1>Apply</button>
+        <button {{action "clear"}} class="dp-clear" tabindex={{actionTabindex}}>Clear</button>
+        <button {{action "cancel"}} class="dp-cancel" tabindex={{actionTabindex}}>Cancel</button>
+        <button {{action "apply"}} class="dp-apply" tabindex={{actionTabindex}}>Apply</button>
       </div>
     </div>
   {{/if}}

@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   classNames: ['dp-day'],
   layout,
   attributeBindings: ['tabindex'],
-  tabindex: 1,
+  tabindex: -1,
 
   click() {
     this.sendAction('daySelected', this.get('day').clone());

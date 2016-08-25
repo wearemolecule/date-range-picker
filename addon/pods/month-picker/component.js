@@ -18,6 +18,8 @@ export default Component.extend(Picker, Clearable, MultipleExpandedValidators, P
   endMonth: moment().startOf('month'),
   layout,
   startMonth: moment().startOf('month'),
+  tabIndex: 1,
+  actionTabIndex: 1,
 
   didInsertElement() {
     run.next(this, () => {
