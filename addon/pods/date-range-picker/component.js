@@ -22,8 +22,6 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
   keyboardActivated: computed.alias('isExpanded'),
   keyboardFirstResponder: computed.alias('isExpanded'),
   focusedDay: 0,
-  tabIndex: 1,
-  actionTabIndex: 1,
   presetTabIndex: 1,
 
   _focusedDayHandler: observer('focusedDay', function() {

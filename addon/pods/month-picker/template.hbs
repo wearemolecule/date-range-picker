@@ -35,7 +35,9 @@
       </div>
 
       <div class="dp-action-console">
+        {{#if showClear}}
         <button {{action "clear"}} class="dp-clear" tabindex={{actionTabIndex}}>Clear</button>
+        {{/if}}
         <button {{action "cancel"}} class="dp-cancel" tabindex={{actionTabIndex}}>Cancel</button>
         <button {{action "apply"}} class="dp-apply" tabindex={{actionTabIndex}}>Apply</button>
       </div>

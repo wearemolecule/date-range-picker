@@ -9,6 +9,9 @@ const {
 } = Ember;
 
 export default Mixin.create({
+  tabIndex: 1,
+  actionTabIndex: 1,
+  showClear: true,
   isExpanded: false,
   startDate: moment().startOf('date'),
   endDate: moment().startOf('date'),

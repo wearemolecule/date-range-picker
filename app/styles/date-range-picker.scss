@@ -94,7 +94,9 @@ body {
     font-weight: bold;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus,
+    &.dp-preset-selected {
       background-color: $preset-btn-hover-color;
     }
 

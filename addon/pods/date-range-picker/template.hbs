@@ -38,7 +38,9 @@
                          nextMonth="nextEndMonth"}}
 
       <div class="dp-action-console">
-        <button {{action "clear"}} class="dp-clear" tabindex={{actionTabindex}}>Clear</button>
+        {{#if showClear}}
+          <button {{action "clear"}} class="dp-clear" tabindex={{actionTabindex}}>Clear</button>
+        {{/if}}
         <button {{action "cancel"}} class="dp-cancel" tabindex={{actionTabindex}}>Cancel</button>
         <button {{action "apply"}} class="dp-apply" tabindex={{actionTabindex}}>Apply</button>
       </div>
