@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import Ember from 'ember';
+import { clickTrigger } from '../../../../helpers/click-trigger';
 
 moduleForComponent('month-picker', 'Integration | Component | month picker', {
   integration: true
@@ -11,19 +12,19 @@ test('it renders', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput}}`);
+                                 initiallyOpened=true}}`);
 
-  assert.equal(this.$('input').length, 1, 'shows one input if showInput=true');
-  assert.equal(this.$('input').val(), '06/2015—07/2016', 'populated the input correctly');
+  let text = this.$().text().trim();
 
-  this.set('showInput', false);
-
-  assert.equal(this.$('input').length, 0, 'does not display input if showInput=false');
+  assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 2, 'has 2 years');
+  assert.equal(text.match(new RegExp('Jun', 'g')).length, 3, 'has June Selected and in both month selectors');
+  assert.equal(text.match(new RegExp('Jul', 'g')).length, 3, 'has July Selected and in both month selectors');
+  assert.equal(text.match(new RegExp('2016', 'g')).length, 1, 'has 2016 selected');
+  assert.equal(text.match(new RegExp('2015', 'g')).length, 1, 'has 2015 selected');
 });
 
 test('month/year display visibilities are togglable', function(assert) {
@@ -36,7 +37,7 @@ test('month/year display visibilities are togglable', function(assert) {
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -81,7 +82,7 @@ test('has a default start/end of today', function(assert) {
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   Ember.run.next(this, () => {
     let startDate = this.get('startDate').format();
@@ -102,7 +103,7 @@ test('picking new start & end month/year updates view/properties', function(asse
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -138,31 +139,25 @@ test('apply/cancel actions', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    isExpanded: true,
-    apply() {
-      assert.ok(true);
-    },
-    cancel() {
-      assert.ok(true);
-    }
+    initiallyOpened: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=true
-                                 isExpanded=isExpanded
-                                 apply=(action apply)
-                                 cancel=(action cancel)}}`);
+                                 initiallyOpened=initiallyOpened}}`);
+
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
 
   this.$('.dp-apply').click();
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
 
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
-
-  this.set('isExpanded', true);
+  this.$('.dp-date-input').focus();
+  clickTrigger();
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
 
   this.$('.dp-cancel').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
@@ -175,7 +170,7 @@ test('picking new start & end month/year updates view/properties', function(asse
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -200,7 +195,7 @@ test('picking new, out-of-range startDate does not create invalid date', functio
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
                                  showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
 

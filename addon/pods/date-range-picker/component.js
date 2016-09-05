@@ -2,9 +2,7 @@ import Ember from 'ember';
 import layout from './template';
 import Picker from 'date-range-picker/mixins/picker';
 import Clearable from 'date-range-picker/mixins/clearable';
-import PickerActions from 'date-range-picker/mixins/picker-actions';
 import moment from 'moment';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
 import { EKMixin, keyUp } from 'ember-keyboard';
 
 const {
@@ -14,33 +12,23 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(Picker, Clearable, PickerActions, EKMixin, ClickOutside, {
+export default Component.extend(Picker, Clearable, EKMixin, {
   mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
   layout,
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
-  keyboardActivated: computed.alias('isExpanded'),
-  keyboardFirstResponder: computed.alias('isExpanded'),
-  focusedDay: 0,
-  presetTabIndex: 1,
-
-  _focusedDayHandler: observer('focusedDay', function() {
-    let focusedDayIndex = this.get('focusedDay');
-    let elementToFocus = this.$('.dp-day').get(focusedDayIndex);
-
-    if (!!elementToFocus) {
-      elementToFocus.focus();
-    } else {
-      this.set('focusedDay', 0);
-    }
+  selectedPresetIndex: computed('presets.@each.isSelected', function() {
+    return this.get('presets').findIndex((preset) => {
+      return preset.get('isSelected');
+    })
   }),
 
   _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
-    this.onTriggerArrowLeft();
+    this.onTriggerArrowUp();
   }),
 
   _rightArrowHandler: on(keyUp('ArrowRight'), function() {
-    this.onTriggerArrowRight();
+    this.onTriggerArrowDown();
   }),
 
   _downArrowHandler: on(keyUp('ArrowDown'), function() {
@@ -67,32 +55,45 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
   }),
 
   onTriggerArrowDown() {
-    this.incrementProperty('focusedDay', 7);
+    let selectedIndex = this.get('selectedPresetIndex');
+    if (selectedIndex) {
+      let nextIndex = selectedIndex + 1;
+      if (nextIndex < this.get('presets').length) {
+        this.get('presets').setEach('isSelected', false);
+        this.get('presets').objectsAt([nextIndex]).setEach('isSelected', true);
+      } else {
+        this.get('presets').setEach('isSelected', false);
+        this.get('presets').objectsAt([0]).setEach('isSelected', true);
+      }
+    } else {
+      this.get('presets').objectsAt([0]).setEach('isSelected', true);
+    }
   },
 
   onTriggerArrowUp() {
-    this.decrementProperty('focusedDay', 7);
-  },
- 
-  onTriggerArrowLeft() {
-    this.decrementProperty('focusedDay');
-  },
-
-  onTriggerArrowRight() {
-    this.incrementProperty('focusedDay');
+    let selectedIndex = this.get('selectedPresetIndex');
+    let lastIndex = this.get('presets').length - 1
+    if (selectedIndex) {
+      let nextIndex = selectedIndex - 1;
+      if (nextIndex > 0) {
+        this.get('presets').setEach('isSelected', false);
+        this.get('presets').objectsAt([nextIndex]).set('isSelected', true);
+      } else {
+        this.get('presets').setEach('isSelected', false);
+        this.get('presets').objectsAt([lastIndex]).set('isSelected', true);
+      }
+    } else {
+      this.get('presets').objectsAt([lastIndex]).set('isSelected', true);
+    }
   },
 
   onTriggerReturn() {
-    this.$('.dp-day')[this.get('focusedDay')].click();
-  },
-
-  onTriggerEscape() {
-    this.set('isExpanded', false);
+    this.sendAction('apply');
   },
 
   actions: {
     apply() {
-      this.send('toggleIsExpanded');
+      this.send('close');
       this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
 

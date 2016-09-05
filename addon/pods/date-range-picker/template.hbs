@@ -1,49 +1,53 @@
 <div class="dp-date-range-picker">
-  {{#if showInput}}
-    {{range-input-mask class="dp-date-input"
-                 value=rangeFormatted
-                 mask=mask
-                 focus-in="toggleIsExpanded"
-                 key-press="parseInput"
-                 tabindex=tabIndex}}
-  {{/if}}
-
-  {{#if isExpanded}}
-    <div class="dp-panel">
-      {{#presets-picker class="dp-presets"
-                        presets=presets
-                        tabIndex=presetTabIndex
-                        startSelected="startSelected"
-                        endSelected="endSelected"}}
-        {{range-input-mask class="dp-presets-date-input"
-                           value=rangeFormatted
-                           mask=mask
-                           key-press="parseInput"}}
-      {{/presets-picker}}
-
-      {{calendar-display class="dp-display-calendar"
-                         selectionStart=startDate
-                         selectionEnd=endDate
-                         month=startMonth
-                         daySelected="startSelected"
-                         prevMonth="prevStartMonth"
-                         nextMonth="nextStartMonth"}}
-
-      {{calendar-display class="dp-display-calendar"
-                         selectionStart=startDate
-                         selectionEnd=endDate
-                         month=endMonth
-                         daySelected="endSelected"
-                         prevMonth="prevEndMonth"
-                         nextMonth="nextEndMonth"}}
-
-      <div class="dp-action-console">
-        {{#if showClear}}
-          <button {{action "clear"}} class="dp-clear" tabindex={{actionTabindex}}>Clear</button>
-        {{/if}}
-        <button {{action "cancel"}} class="dp-cancel" tabindex={{actionTabindex}}>Cancel</button>
-        <button {{action "apply"}} class="dp-apply" tabindex={{actionTabindex}}>Apply</button>
-      </div>
-    </div>
-  {{/if}}
+  {{#basic-dropdown verticalPosition="below"
+                    registerAPI=(action (mut dropdownController))
+                    initiallyOpened=initiallyOpened
+                    renderInPlace=true
+                    as |dropdown|}}
+    {{#dropdown.trigger tabindex=tabIndex
+                        onFocus=(action "openDropdown")
+                        onKeydown=(action "tabCloseDropdown")}}
+      {{range-input-mask value=rangeFormatted
+                         class="dp-date-input"
+                         mask=mask
+                         key-press="parseInput"}}
+    {{/dropdown.trigger}}
+  
+    {{#dropdown.content class="dp-panel"
+                        to="dp-date-range-picker"}}
+        {{#presets-picker class="dp-presets"
+                          presets=presets
+                          startSelected="startSelected"
+                          endSelected="endSelected"}}
+          {{range-input-mask class="dp-presets-date-input"
+                             value=rangeFormatted
+                             mask=mask
+                             key-press="parseInput"}}
+        {{/presets-picker}}
+  
+        {{calendar-display class="dp-display-calendar"
+                           selectionStart=startDate
+                           selectionEnd=endDate
+                           month=startMonth
+                           daySelected="startSelected"
+                           prevMonth="prevStartMonth"
+                           nextMonth="nextStartMonth"}}
+  
+        {{calendar-display class="dp-display-calendar"
+                           selectionStart=startDate
+                           selectionEnd=endDate
+                           month=endMonth
+                           daySelected="endSelected"
+                           prevMonth="prevEndMonth"
+                           nextMonth="nextEndMonth"}}
+  
+        <div class="dp-action-console">
+          {{#if showClear}}
+            <button {{action "clear"}} class="dp-clear">Clear</button>
+          {{/if}}
+          <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+          <button {{action "apply"}} class="dp-apply">Apply</button>
+        </div>
+      {{/dropdown.content}}
+  {{/basic-dropdown}}
 </div>

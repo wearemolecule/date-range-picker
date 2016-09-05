@@ -2,8 +2,7 @@ import Ember from 'ember';
 import layout from './template';
 
 export default Ember.Component.extend({
-  classNameBindings: ['isSelected:preset-selected'],
-  tabIndex: 1,
+  tabIndex: -1,
   layout,
   isSelected: false,
 

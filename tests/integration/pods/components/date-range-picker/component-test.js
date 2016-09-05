@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import Ember from 'ember';
+import { clickTrigger } from '../../../../helpers/click-trigger';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -23,7 +24,7 @@ test('it renders', function(assert) {
   this.set('today', today);
 
   this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let text = this.$().text().trim();
 
@@ -35,7 +36,7 @@ test('will accept strings as startDate and endDate', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      isExpanded=true
+                                      initiallyOpened=true
                                       showInput=true}}`);
 
   let dateInput = this.$('input.dp-date-input').val();
@@ -49,7 +50,7 @@ test('prev/next buttons travel through time', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
   let $rightCal = this.$('.dp-display-calendar:last');
@@ -101,7 +102,7 @@ test('has a default start/end date of today', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   Ember.run.next(this, () => {
     let startDate = this.get('startDate').format();
@@ -121,7 +122,7 @@ test('can choose a new startDate month & year', function(assert) {
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
                                       showInput=true
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
   let $rightCal = this.$('.dp-display-calendar:last');
@@ -164,13 +165,10 @@ test('can choose a new startDate month & year', function(assert) {
 });
 
 test('apply/cancel actions', function(assert) {
-  assert.expect(4);
-
   let today = moment('2016-03-11', 'YYYY-MM-DD');
 
   this.setProperties({
     today,
-    isExpanded: true,
     apply() {
       assert.ok(true);
     },
@@ -180,19 +178,20 @@ test('apply/cancel actions', function(assert) {
   });
 
   this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=isExpanded
+                                      initiallyOpened=true
                                       apply=(action apply)
                                       cancel=(action cancel)}}`);
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
 
   this.$('.dp-apply').click();
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
 
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
-
-  this.set('isExpanded', true);
+  this.$('.dp-date-input').focus();
+  clickTrigger();
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
 
   this.$('.dp-cancel').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
 });
 
 test('can render 12/25/2015', function(assert) {
@@ -201,7 +200,7 @@ test('can render 12/25/2015', function(assert) {
   this.set('today', today);
 
   this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
 

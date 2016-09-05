@@ -1,15 +1,20 @@
 <div class="dp-month-picker">
-  {{#if showInput}}
-    {{range-input-mask value=rangeFormatted
-                       mask="9[9]/99[99]—9[9]/99[99]"
-                       class="dp-date-input"
-                       focus-in="toggleIsExpanded"
-                       key-press="parseInput"
-                       tabindex=tabIndex}}
-  {{/if}}
-
-  {{#if isExpanded}}
-    <div class="dp-panel">
+  {{#basic-dropdown verticalPosition="below"
+                    registerAPI=(action (mut dropdownController))
+                    initiallyOpened=initiallyOpened
+                    renderInPlace=true
+                    as |dropdown|}}
+    {{#dropdown.trigger tabindex=tabIndex
+                        onFocus=(action "openDropdown")
+                        onKeydown=(action "tabCloseDropdown")}}
+      {{range-input-mask value=rangeFormatted
+                         mask="9[9]/99[99]—9[9]/99[99]"
+                         class="dp-date-input"
+                         key-press="parseInput"}}
+    {{/dropdown.trigger}}
+  
+    {{#dropdown.content class="dp-panel"
+                        to="dp-month-picker"}}
       <div class="dp-display-month-year">
         {{month-display startDate=startDate
                         month=startDate
@@ -36,11 +41,11 @@
 
       <div class="dp-action-console">
         {{#if showClear}}
-        <button {{action "clear"}} class="dp-clear" tabindex={{actionTabIndex}}>Clear</button>
+        <button {{action "clear"}} class="dp-clear">Clear</button>
         {{/if}}
-        <button {{action "cancel"}} class="dp-cancel" tabindex={{actionTabIndex}}>Cancel</button>
-        <button {{action "apply"}} class="dp-apply" tabindex={{actionTabIndex}}>Apply</button>
+        <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+        <button {{action "apply"}} class="dp-apply">Apply</button>
       </div>
-    </div>
-  {{/if}}
+    {{/dropdown.content}}
+  {{/basic-dropdown}}
 </div>

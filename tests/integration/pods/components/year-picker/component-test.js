@@ -14,9 +14,11 @@ test('it renders', function(assert) {
   });
 
   this.render(hbs`{{year-picker start=start
-                                end=end}}`);
+                                end=end
+                                initiallyOpened=true}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  let text = this.$().text().trim();
+  assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 21, 'Has 72 1-4 digit numbers...');
 });
 
 test('optional, masked input - moment', function(assert) {
@@ -53,7 +55,7 @@ test('has a default start/end date of today', function(assert) {
 
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate
-                                isExpanded=true}}`);
+                                initiallyOpened=true}}`);
 
   Ember.run.next(this, () => {
     let startDate = this.get('startDate').format();
@@ -73,7 +75,7 @@ test('can select a new year', function(assert) {
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate
                                 showInput=true
-                                isExpanded=true}}`);
+                                initiallyOpened=true}}`);
 
   this.$(".dp-year-body button:contains('2015')").click();
 

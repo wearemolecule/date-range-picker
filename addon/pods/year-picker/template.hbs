@@ -1,28 +1,34 @@
 <div class="dp-year-picker">
-  {{#if showInput}}
-    {{input-mask value=rangeFormatted
-                 greedyMask=false
-                 mask="99[99]"
-                 class="dp-date-input"
-                 focus-in="toggleIsExpanded"
-                 key-press="parseInput"
-                 tabindex=1}}
-  {{/if}}
+  {{#basic-dropdown verticalPosition="below"
+                    registerAPI=(action (mut dropdownController))
+                    renderInPlace=true
+                    initiallyOpened=initiallyOpened
+                    as |dropdown|}}
+    {{#dropdown.trigger tabindex=tabIndex
+                        onFocus=(action "openDropdown")
+                        onKeydown=(action "tabCloseDropdown")}}
+      {{input-mask value=rangeFormatted
+                   mask="99[99]"
+                   class="dp-date-input"
+                   key-press="parseInput"}}
+    {{/dropdown.trigger}}
+  
+    {{#dropdown.content class="dp-panel"
+                        to="dp-year-picker"}}
+      <div class="dp-panel">
+        <div class="dp-display-month-year">
+          {{year-display startDate=startDate
+                         endDate=endDate
+                         hideButton=true
+                         isExpanded=true
+                         yearWasSelected="close"
+                         ignoreMonthAndDay=true}}
+        </div>
 
-  {{#if isExpanded}}
-    <div class="dp-panel">
-      <div class="dp-display-month-year">
-        {{year-display startDate=startDate
-                       endDate=endDate
-                       hideButton=true
-                       isExpanded=true
-                       yearWasSelected="yearWasSelected"
-                       ignoreMonthAndDay=true}}
+        <div class="dp-action-console">
+          <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+        </div>
       </div>
-
-      <div class="dp-action-console">
-        <button {{action "cancel"}} tabindex=1>Cancel</button>
-      </div>
-    </div>
-  {{/if}}
+    {{/dropdown.content}}
+  {{/basic-dropdown}}
 </div>
