@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
+import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('year-picker', 'Integration | Component | year picker', {
   integration: true
@@ -13,8 +13,8 @@ test('it renders', function(assert) {
     end: moment('2016-12-30', 'YYYY-MM-DD'),
   });
 
-  this.render(hbs`{{year-picker start=start
-                                end=end
+  this.render(hbs`{{year-picker startDate=start
+                                endDate=end
                                 initiallyOpened=true}}`);
 
   let text = this.$().text().trim();
@@ -28,8 +28,7 @@ test('optional, masked input - moment', function(assert) {
   });
 
   this.render(hbs`{{year-picker startDate=startDate
-                                endDate=endDate
-                                showInput=true}}`);
+                                endDate=endDate}}`);
 
   inputExpectations.call(this, assert);
 });
@@ -41,29 +40,17 @@ test('optional, masked input - string', function(assert) {
   });
 
   this.render(hbs`{{year-picker startDate=startDate
-                                endDate=endDate
-                                showInput=true}}`);
+                                endDate=endDate}}`);
 
   inputExpectations.call(this, assert);
 });
 
-test('has a default start/end date of today', function(assert) {
-  let today = moment().startOf('day').format();
+test('has a default date of today', function(assert) {
+  let today = moment().startOf('day').format("YYYY");
 
-  this.set('startDate', undefined);
-  this.set('endDate', undefined);
-
-  this.render(hbs`{{year-picker startDate=startDate
-                                endDate=endDate
-                                initiallyOpened=true}}`);
-
-  Ember.run.next(this, () => {
-    let startDate = this.get('startDate').format();
-    let endDate = this.get('endDate').format();
-
-    assert.equal(startDate, today, 'startDate defaults to today');
-    assert.equal(endDate, today, 'endDate defaults to today.');
-  });
+  this.render(hbs`{{year-picker initiallyOpened=true}}`);
+  let text = this.$('.dp-date-input')[0].value.trim();
+  assert.equal(text.match(new RegExp(today, 'g')).length, 1, 'startDate and endDate defaults to today');
 });
 
 test('can select a new year', function(assert) {
@@ -74,7 +61,6 @@ test('can select a new year', function(assert) {
 
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate
-                                showInput=true
                                 initiallyOpened=true}}`);
 
   this.$(".dp-year-body button:contains('2015')").click();
@@ -84,6 +70,29 @@ test('can select a new year', function(assert) {
   assert.equal(this.get('startDate').format(), prevYear.clone().startOf('year').format(), 'Start is updated.');
   assert.equal(this.get('endDate').format(), prevYear.clone().endOf('year').format(), 'End is updated.');
 });
+
+test('apply/cancel actions', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-01-01', 'YYYY-MM-DD'),
+    endDate: moment('2016-12-30', 'YYYY-MM-DD'),
+  });
+
+  this.render(hbs`{{year-picker startDate=startDate
+                                endDate=endDate
+                                initiallyOpened=true}}`);
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
+
+  nativeClick('button.dp-apply');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
+
+  clickTrigger();
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
+
+  nativeClick('button.dp-cancel');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
+});
+
+
 
 function inputExpectations(assert) {
   let $input = this.$('.dp-date-input');

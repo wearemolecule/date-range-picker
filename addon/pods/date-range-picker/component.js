@@ -1,50 +1,48 @@
 import Ember from 'ember';
 import layout from './template';
 import Picker from 'date-range-picker/mixins/picker';
-import Clearable from 'date-range-picker/mixins/clearable';
+import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 import moment from 'moment';
-import { EKMixin, keyUp } from 'ember-keyboard';
+import { keyDown } from 'ember-keyboard';
 
 const {
   computed,
   on,
-  observer,
   Component,
 } = Ember;
 
-export default Component.extend(Picker, Clearable, EKMixin, {
+export default Component.extend(Picker, KeyboardHotkeys, {
   mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
+  presets: Ember.A(),
   layout,
-  startMonth: moment().startOf('month'),
-  endMonth: moment().startOf('month'),
-  selectedPresetIndex: computed('presets.@each.isSelected', function() {
-    return this.get('presets').findIndex((preset) => {
-      return preset.get('isSelected');
-    })
-  }),
 
-  _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
+  selectedPresetIndex() {
+    let sets = this.get('presets');
+    let index = sets.findIndex((preset) => {
+      return preset.isSelected;
+    });
+    if (!index || index < 0) {
+      sets.forEach((preset) => {
+        Ember.set(preset, 'isSelected', false);
+      });
+    }
+    return index;
+  },
+
+  _leftArrowHandler: on(keyDown('ArrowLeft'), function() {
     this.onTriggerArrowUp();
   }),
 
-  _rightArrowHandler: on(keyUp('ArrowRight'), function() {
+  _rightArrowHandler: on(keyDown('ArrowRight'), function() {
     this.onTriggerArrowDown();
   }),
 
-  _downArrowHandler: on(keyUp('ArrowDown'), function() {
+  _downArrowHandler: on(keyDown('ArrowDown'), function() {
     this.onTriggerArrowDown();
   }),
 
-  _upArrowHandler: on(keyUp('ArrowUp'), function() {
+  _upArrowHandler: on(keyDown('ArrowUp'), function() {
     this.onTriggerArrowUp();
-  }),
-
-  _escapeHandler: on(keyUp('Escape'), function() {
-    this.onTriggerEscape();
-  }),
-
-  _returnHandler: on(keyUp('Enter'), function() {
-    this.onTriggerReturn();
   }),
 
   rangeFormatted: computed('startDate', 'endDate', function() {
@@ -55,46 +53,63 @@ export default Component.extend(Picker, Clearable, EKMixin, {
   }),
 
   onTriggerArrowDown() {
-    let selectedIndex = this.get('selectedPresetIndex');
-    if (selectedIndex) {
-      let nextIndex = selectedIndex + 1;
-      if (nextIndex < this.get('presets').length) {
-        this.get('presets').setEach('isSelected', false);
-        this.get('presets').objectsAt([nextIndex]).setEach('isSelected', true);
-      } else {
-        this.get('presets').setEach('isSelected', false);
-        this.get('presets').objectsAt([0]).setEach('isSelected', true);
-      }
-    } else {
-      this.get('presets').objectsAt([0]).setEach('isSelected', true);
+    console.log("Triggered Down Arrow");
+    let selectedIndex = this.selectedPresetIndex();
+    let currentPreset = this.get('presets')[selectedIndex];
+    if (currentPreset) {
+      Ember.set(currentPreset, "isSelected", false);
     }
+    let nextIndex = 0;
+    if (currentPreset && selectedIndex < this.get('presets').length - 1) {
+      nextIndex = selectedIndex + 1;
+    }   
+    let nextPreset = this.get('presets')[nextIndex];
+    Ember.set(nextPreset, "isSelected", true);
+    this.send('applyPreset', nextPreset);
   },
 
   onTriggerArrowUp() {
-    let selectedIndex = this.get('selectedPresetIndex');
-    let lastIndex = this.get('presets').length - 1
-    if (selectedIndex) {
-      let nextIndex = selectedIndex - 1;
-      if (nextIndex > 0) {
-        this.get('presets').setEach('isSelected', false);
-        this.get('presets').objectsAt([nextIndex]).set('isSelected', true);
-      } else {
-        this.get('presets').setEach('isSelected', false);
-        this.get('presets').objectsAt([lastIndex]).set('isSelected', true);
-      }
-    } else {
-      this.get('presets').objectsAt([lastIndex]).set('isSelected', true);
+    console.log("Triggered Down Arrow");
+    let selectedIndex = this.selectedPresetIndex();
+    let currentPreset = this.get('presets')[selectedIndex];
+    if (currentPreset) {
+      Ember.set(currentPreset, "isSelected", false);
     }
+    let nextIndex = this.get('presets').length - 1;
+    if (currentPreset && selectedIndex > 0) {
+      nextIndex = selectedIndex - 1;
+    }   
+    let nextPreset = this.get('presets')[nextIndex];
+    Ember.set(nextPreset, "isSelected", true);
+    this.send('applyPreset', nextPreset);
   },
 
   onTriggerReturn() {
-    this.sendAction('apply');
+    if (this.get('dropdownOpen') && !this.get('datesSame')) {
+      this.send('apply');
+    }
   },
 
   actions: {
+    clearSelection() {
+      this.get('presets').forEach((preset) => {
+        Ember.set(preset, "isSelected", false);
+      });
+    },
+
+    applyPreset(preset) {
+      this.send('startSelected', preset.startDate);
+      this.send('endSelected', preset.endDate);
+    },
+
+    cancel() {
+      this.send('clearSelection');
+      this._super();
+    },
+
     apply() {
-      this.send('close');
-      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
+      this.send('clearSelection');
+      this._super();
     },
 
     endSelected(day) {

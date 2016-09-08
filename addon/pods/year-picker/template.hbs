@@ -5,8 +5,8 @@
                     initiallyOpened=initiallyOpened
                     as |dropdown|}}
     {{#dropdown.trigger tabindex=tabIndex
-                        onFocus=(action "openDropdown")
-                        onKeydown=(action "tabCloseDropdown")}}
+                        onFocus=(action "onFocusInput")
+                        onKeydown=(action "handleKeydown")}}
       {{input-mask value=rangeFormatted
                    mask="99[99]"
                    class="dp-date-input"
@@ -15,19 +15,18 @@
   
     {{#dropdown.content class="dp-panel"
                         to="dp-year-picker"}}
-      <div class="dp-panel">
-        <div class="dp-display-month-year">
-          {{year-display startDate=startDate
-                         endDate=endDate
-                         hideButton=true
-                         isExpanded=true
-                         yearWasSelected="close"
-                         ignoreMonthAndDay=true}}
-        </div>
+      <div class="dp-display-year">
+        {{year-display startDate=startDate
+                       endDate=endDate
+                       hideButton=true
+                       isExpanded=true
+                       yearWasSelected="apply"
+                       ignoreMonthAndDay=true}}
+      </div>
 
-        <div class="dp-action-console">
-          <button {{action "cancel"}} class="dp-cancel">Cancel</button>
-        </div>
+      <div class="dp-action-console">
+        <button {{action "cancel"}} class="dp-cancel">Cancel</button>
+        <button {{action "apply"}} class="dp-apply">Apply</button>
       </div>
     {{/dropdown.content}}
   {{/basic-dropdown}}

@@ -24,14 +24,30 @@ export default Ember.Mixin.create({
     });
   },
 
+  datesSame: Ember.computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
+    return this.get('startDate').isSame(this.get('initialStartDate')) &&
+           this.get('endDate').isSame(this.get('initialEndDate')) &&
+           this.get('startMonth').isSame(this.get('initialStartMonth')) &&
+           this.get('endMonth').isSame(this.get('initialEndMonth'));
+  }),
+
   actions: {
-    clear() {
+    reset() {
       this.setProperties({
         startDate: this.get('initialStartDate'),
         endDate: this.get('initialEndDate'),
         startMonth: this.get('initialStartMonth'),
         endMonth: this.get('initialEndMonth'),
       });
+    },
+
+    cancel() {
+      let dropdown = this.get('dropdownController');
+      if (dropdown) {
+        dropdown.actions.close();
+      }
+      this.send('reset');
+      this.sendAction('cancel');
     },
   }
 });

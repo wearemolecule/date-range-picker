@@ -1,8 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
-import { clickTrigger } from '../../../../helpers/click-trigger';
+import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -23,7 +22,8 @@ test('it renders', function(assert) {
 
   this.set('today', today);
 
-  this.render(hbs`{{date-range-picker startMonth=today
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
                                       initiallyOpened=true}}`);
 
   let text = this.$().text().trim();
@@ -36,8 +36,7 @@ test('will accept strings as startDate and endDate', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      initiallyOpened=true
-                                      showInput=true}}`);
+                                      initiallyOpened=true}}`);
 
   let dateInput = this.$('input.dp-date-input').val();
   let expectedDateRangeText = `${startDate.format(format)}—${endDate.format(format)}`;
@@ -94,23 +93,12 @@ test('prev/next buttons travel through time', function(assert) {
   assert.equal(rightYear, endDate.format(yearFormat), 'endDate year is intitial value.');
 });
 
-test('has a default start/end date of today', function(assert) {
-  let today = moment().startOf('day').format();
+test('has a default date of today', function(assert) {
+  let today = moment().startOf('day').format("MM/DD/YYYY");
 
-  this.set('startDate', undefined);
-  this.set('endDate', undefined);
-
-  this.render(hbs`{{date-range-picker startDate=startDate
-                                      endDate=endDate
-                                      initiallyOpened=true}}`);
-
-  Ember.run.next(this, () => {
-    let startDate = this.get('startDate').format();
-    let endDate = this.get('endDate').format();
-
-    assert.equal(startDate, today, 'startDate defaults to today');
-    assert.equal(endDate, today, 'endDate defaults to today.');
-  });
+  this.render(hbs`{{date-range-picker initiallyOpened=true}}`);
+  let text = this.$('.dp-date-input')[0].value.trim();
+  assert.equal(text.match(new RegExp(today, 'g')).length, 2, 'startDate and endDate defaults to today');
 });
 
 test('can choose a new startDate month & year', function(assert) {
@@ -121,7 +109,6 @@ test('can choose a new startDate month & year', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      showInput=true
                                       initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
@@ -177,21 +164,21 @@ test('apply/cancel actions', function(assert) {
     }
   });
 
-  this.render(hbs`{{date-range-picker startMonth=today
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
                                       initiallyOpened=true
                                       apply=(action apply)
                                       cancel=(action cancel)}}`);
   assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
 
-  this.$('.dp-apply').click();
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
+  nativeClick('button.dp-apply');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
 
-  this.$('.dp-date-input').focus();
   clickTrigger();
   assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
 
-  this.$('.dp-cancel').click();
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
+  nativeClick('button.dp-cancel');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
 });
 
 test('can render 12/25/2015', function(assert) {
@@ -199,7 +186,8 @@ test('can render 12/25/2015', function(assert) {
 
   this.set('today', today);
 
-  this.render(hbs`{{date-range-picker startMonth=today
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
                                       initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');

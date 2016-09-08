@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from './template';
 import Picker from 'date-range-picker/mixins/picker';
-import Clearable from 'date-range-picker/mixins/clearable';
+import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 import MultipleExpandedValidators from 'date-range-picker/mixins/multiple-expanded-validators';
 import moment from 'moment';
 
@@ -11,11 +11,9 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(Picker, Clearable, MultipleExpandedValidators, {
+export default Component.extend(Picker, MultipleExpandedValidators, KeyboardHotkeys, {
   dateFormat: "MM/YYYY",
-  endMonth: moment().startOf('month'),
   layout,
-  startMonth: moment().startOf('month'),
 
   didInsertElement() {
     run.next(this, () => {

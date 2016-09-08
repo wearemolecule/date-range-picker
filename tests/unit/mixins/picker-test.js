@@ -3,8 +3,7 @@ import PickerMixin from 'date-range-picker/mixins/picker';
 import { module, test } from 'qunit';
 import moment from 'moment';
 
-module('Unit | Mixin | picker');
-
+module('Unit | Mixin | picker'); 
 const PickerObject = Ember.Object.extend(PickerMixin);
 
 test('it works', function(assert) {

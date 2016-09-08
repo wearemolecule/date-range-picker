@@ -1,8 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
-import { clickTrigger } from '../../../../helpers/click-trigger';
+import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('month-picker', 'Integration | Component | month picker', {
   integration: true
@@ -31,12 +30,10 @@ test('month/year display visibilities are togglable', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
                                  initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
@@ -73,36 +70,22 @@ test('month/year display visibilities are togglable', function(assert) {
   assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years should not be visible after clicking year btn again');
 });
 
-test('has a default start/end of today', function(assert) {
-  let today = moment().startOf('day').format();
+test('has a default date of today', function(assert) {
+  let today = moment().startOf('day').format("MM/YYYY");
 
-  this.set('startDate', undefined);
-  this.set('endDate', undefined);
-
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 initiallyOpened=true}}`);
-
-  Ember.run.next(this, () => {
-    let startDate = this.get('startDate').format();
-    let endDate = this.get('endDate').format();
-
-    assert.equal(startDate, today, 'startDate defaults to today');
-    assert.equal(endDate, today, 'endDate defaults to today.');
-  });
+  this.render(hbs`{{month-picker initiallyOpened=true}}`);
+  let text = this.$('.dp-date-input')[0].value.trim();
+  assert.equal(text.match(new RegExp(today, 'g')).length, 2, 'startDate and endDate defaults to today');
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
                                  initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
@@ -144,32 +127,28 @@ test('apply/cancel actions', function(assert) {
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=true
                                  initiallyOpened=initiallyOpened}}`);
 
   assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
 
-  this.$('.dp-apply').click();
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
+  nativeClick('button.dp-apply');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
 
-  this.$('.dp-date-input').focus();
   clickTrigger();
   assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
 
-  this.$('.dp-cancel').click();
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed");
+  nativeClick('button.dp-cancel');
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
   this.setProperties({
     startDate: moment('2016-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
                                  initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
@@ -189,12 +168,10 @@ test('picking new, out-of-range startDate does not create invalid date', functio
   this.setProperties({
     startDate: moment('2016-03-30'),
     endDate: moment('2016-05-05'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
                                  initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));

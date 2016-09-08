@@ -1,19 +1,24 @@
 import Ember from 'ember';
 import moment from 'moment';
+import CancelableMixin from 'date-range-picker/mixins/cancelable';
 
 const {
   isBlank,
   observer,
   on,
   Mixin,
+  computed,
 } = Ember;
 
-export default Mixin.create({
+export default Mixin.create(CancelableMixin, {
   dateFormat: "MM/DD/YYYY",
   tabIndex: 1,
   showClear: true,
   startDate: moment().startOf('date'),
   endDate: moment().startOf('date'),
+  startMonth: moment().startOf('month'),
+  endMonth: moment().startOf('month'),
+
   dropdownController: null,
   initiallyOpened: false,
 
@@ -42,22 +47,13 @@ export default Mixin.create({
         dropdown.actions.open();
       }
     },
-
-    close() {
+  
+    apply() {
       let dropdown = this.get('dropdownController');
       if (dropdown) {
         dropdown.actions.close();
       }
-    },
-
-    apply() {
-      this.send('close');
-      this.sendAction('apply');
-    },
-
-    cancel() {
-      this.send('close');
-      this.sendAction('cancel');
+      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
 
     parseInput() {
@@ -83,19 +79,22 @@ export default Mixin.create({
       }
     },
 
-    openDropdown(dropdown) {
-      this.$().keyup(function(e) {
-        if(e.keyCode === 9) {
-          dropdown.actions.open();
-        }
-      });
-    },
-
-    tabCloseDropdown(dropdown, e) {
-      if (e.keyCode === 9 && dropdown.isOpen) {
-        dropdown.actions.close();
+    onFocusInput(dropdown, e) {
+      if (e.relatedTarget && (e.relatedTarget.className === 'dp-apply' ||
+                              e.relatedTarget.className === 'dp-cancel')) {
+        return;
       }
+      dropdown.actions.open();
     },
 
+    handleKeydown(dropdown, e) {
+      if (e.keyCode === 9 && dropdown.isOpen) { // Tab
+        dropdown.actions.close();
+      } else if (e.keyCode === 13 && !dropdown.isOpen) { 
+        dropdown.actions.toggle();
+        e.preventDefault();
+      } 
+      return false;
+    },
   }
 });

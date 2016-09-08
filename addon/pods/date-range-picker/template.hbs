@@ -5,8 +5,8 @@
                     renderInPlace=true
                     as |dropdown|}}
     {{#dropdown.trigger tabindex=tabIndex
-                        onFocus=(action "openDropdown")
-                        onKeydown=(action "tabCloseDropdown")}}
+                        onFocus=(action "onFocusInput")
+                        onKeydown=(action "handleKeydown")}}
       {{range-input-mask value=rangeFormatted
                          class="dp-date-input"
                          mask=mask
@@ -42,9 +42,6 @@
                            nextMonth="nextEndMonth"}}
   
         <div class="dp-action-console">
-          {{#if showClear}}
-            <button {{action "clear"}} class="dp-clear">Clear</button>
-          {{/if}}
           <button {{action "cancel"}} class="dp-cancel">Cancel</button>
           <button {{action "apply"}} class="dp-apply">Apply</button>
         </div>
