@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
+import { clickTrigger, nativeClick, nativeKeyDown } from '../../../../helpers/click-trigger';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -194,6 +194,56 @@ test('can render 12/25/2015', function(assert) {
 
   assert.equal($leftCal.find('.dp-day').length, 35, '12/2015 has the correct number of days');
 });
+
+test('can close on escape', function(assert) {
+  let today = moment('2016-03-11', 'YYYY-MM-DD');
+
+  this.setProperties({
+    today,
+    apply() {
+      assert.ok(true);
+    },
+    cancel() {
+      assert.ok(true);
+    }
+  });
+
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
+                                      initiallyOpened=true
+                                      apply=(action apply)
+                                      cancel=(action cancel)}}`);
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
+
+  nativeKeyDown('Escape');
+    assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on escape");
+});
+
+test('can open on focus', function(assert) {
+  let today = moment('2016-03-11', 'YYYY-MM-DD');
+
+  this.setProperties({
+    today,
+    apply() {
+      assert.ok(true);
+    },
+    cancel() {
+      assert.ok(true);
+    }
+  });
+
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
+                                      apply=(action apply)
+                                      cancel=(action cancel)}}`);
+  assert.equal(this.$('.dp-panel').length, 0, "date panel is close to begin");
+
+
+  this.$('.ember-basic-dropdown-trigger').focus();
+  nativeKeyDown('Enter');
+  assert.equal(this.$('.dp-panel').length, 1, "date panel is opened on enter");
+});
+
 
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));

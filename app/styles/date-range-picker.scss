@@ -329,7 +329,8 @@ body {
     font-weight: bold;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &.dp-action-selected {
       background-color: $action-btn-hover-color;
     }
   }

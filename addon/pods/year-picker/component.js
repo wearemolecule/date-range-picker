@@ -9,7 +9,7 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(Picker, {
+export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   dateFormat: "YYYY",
 

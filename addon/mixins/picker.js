@@ -7,7 +7,6 @@ const {
   observer,
   on,
   Mixin,
-  computed,
 } = Ember;
 
 export default Mixin.create(CancelableMixin, {
@@ -27,7 +26,7 @@ export default Mixin.create(CancelableMixin, {
     let startIsBlank = isBlank(startDate);
 
     if (startIsBlank || startDate && !startDate._isAMomentObject) {
-      this.set('startDate', moment(startDate).startOf('day'));
+      this.set('startDate', moment(startDate, this.get('dateFormat')).startOf('day'));
     }
   })),
 
@@ -36,7 +35,7 @@ export default Mixin.create(CancelableMixin, {
     let endIsBlank = isBlank(endDate);
 
     if (endIsBlank || endDate && !endDate._isAMomentObject) {
-      this.set('endDate', moment(endDate).startOf('day'));
+      this.set('endDate', moment(endDate, this.get('dateFormat')).startOf('day'));
     }
   })),
 
@@ -51,6 +50,7 @@ export default Mixin.create(CancelableMixin, {
     apply() {
       let dropdown = this.get('dropdownController');
       if (dropdown) {
+        this.resetInitialValues();
         dropdown.actions.close();
       }
       this.sendAction('apply', this.get('startDate'), this.get('endDate'));
@@ -80,20 +80,19 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      if (e.relatedTarget && (e.relatedTarget.className === 'dp-apply' ||
-                              e.relatedTarget.className === 'dp-cancel')) {
-        return;
+      if (e.relatedTarget && !e.relatedTarget.className.includes('ember-basic-dropdown-trigger')) {
+        return false;
       }
-      dropdown.actions.open();
+      dropdown.actions.open(e);
     },
 
     handleKeydown(dropdown, e) {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
         dropdown.actions.close();
+        this.resetInitialValues();
       } else if (e.keyCode === 13 && !dropdown.isOpen) { 
-        dropdown.actions.toggle();
-        e.preventDefault();
-      } 
+        this.onTriggerReturn();
+      }
       return false;
     },
   }

@@ -25,8 +25,8 @@
       </div>
 
       <div class="dp-action-console">
-        <button {{action "cancel"}} class="dp-cancel">Cancel</button>
-        <button {{action "apply"}} class="dp-apply">Apply</button>
+        <button {{action "cancel"}} class="dp-cancel {{if cancelSelected 'dp-action-selected'}}">Cancel</button>
+        <button {{action "apply"}} class="dp-apply {{if applySelected 'dp-action-selected'}}">Apply</button>
       </div>
     {{/dropdown.content}}
   {{/basic-dropdown}}

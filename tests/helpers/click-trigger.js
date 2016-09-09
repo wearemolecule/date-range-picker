@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { getKeyCode } from 'ember-keyboard';
+
 export function nativeClick(selector, options = {}) {
   let mousedown = new window.Event('mousedown', { bubbles: true, cancelable: true, view: window });
   let mouseup = new window.Event('mouseup', { bubbles: true, cancelable: true, view: window });
@@ -21,4 +23,12 @@ export function clickTrigger(scope, options = {}) {
     selector = scope + ' ' + selector;
   }
   nativeClick(selector, options);
+}
+
+export function nativeKeyDown(key, selector) {
+  var event = document.createEvent('Event');
+  event.keyCode = getKeyCode(key);
+  event.initEvent('keydown');
+  var element = selector ? document.querySelector(selector) : document;
+  Ember.run(() => element.dispatchEvent(event));
 }

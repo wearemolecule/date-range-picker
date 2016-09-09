@@ -117,8 +117,6 @@ test('picking new start & end month/year updates view/properties', function(asse
 });
 
 test('apply/cancel actions', function(assert) {
-  assert.expect(4);
-
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),

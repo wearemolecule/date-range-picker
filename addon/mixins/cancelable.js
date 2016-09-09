@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  didInsertElement() {
+  resetInitialValues() {
     let {
       startDate,
       endDate,
@@ -10,18 +10,15 @@ export default Ember.Mixin.create({
     } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth');
 
     this.setProperties({
-      initialStartDate: startDate,
-      initialEndDate: endDate,
-      initialStartMonth: startMonth,
-      initialEndMonth: endMonth
+      initialStartDate: startDate.clone(),
+      initialEndDate: endDate.clone(),
+      initialStartMonth: startMonth.clone(),
+      initialEndMonth: endMonth.clone()
     });
+  },
 
-    Ember.run.next(this, () => {
-      this.notifyPropertyChange('startDate');
-      this.notifyPropertyChange('endDate');
-      this.notifyPropertyChange('startMonth');
-      this.notifyPropertyChange('endMonth');
-    });
+  didInsertElement() {
+    this.resetInitialValues();
   },
 
   datesSame: Ember.computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
@@ -34,10 +31,10 @@ export default Ember.Mixin.create({
   actions: {
     reset() {
       this.setProperties({
-        startDate: this.get('initialStartDate'),
-        endDate: this.get('initialEndDate'),
-        startMonth: this.get('initialStartMonth'),
-        endMonth: this.get('initialEndMonth'),
+        startDate: this.get('initialStartDate').clone(),
+        endDate: this.get('initialEndDate').clone(),
+        startMonth: this.get('initialStartMonth').clone(),
+        endMonth: this.get('initialEndMonth').clone(),
       });
     },
 

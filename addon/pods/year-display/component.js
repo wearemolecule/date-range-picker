@@ -13,6 +13,7 @@ export default Component.extend({
   isExpanded: false,
   layout,
   tagName: "span",
+  month: moment(),
 
   allYears: computed('startDate', function() {
     let year = moment().year();

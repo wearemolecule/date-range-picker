@@ -67,8 +67,8 @@ test('can select a new year', function(assert) {
 
   let prevYear = moment('2015', 'YYYY');
 
-  assert.equal(this.get('startDate').format(), prevYear.clone().startOf('year').format(), 'Start is updated.');
-  assert.equal(this.get('endDate').format(), prevYear.clone().endOf('year').format(), 'End is updated.');
+  assert.equal(this.get('startDate').format('YYYY-MM-DD'), prevYear.clone().startOf('year').format('YYYY-MM-DD'), 'Start is updated.');
+  assert.equal(this.get('endDate').format('YYYY-MM-DD'), prevYear.clone().endOf('year').format('YYYY-MM-DD'), 'End is updated.');
 });
 
 test('apply/cancel actions', function(assert) {
