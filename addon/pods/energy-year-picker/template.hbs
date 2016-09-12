@@ -1,0 +1,31 @@
+<div class="dp-year-picker">
+  {{#if showInput}}
+    {{input-mask value=rangeFormatted
+                 mask="EY 99[99]"
+                 greedyMask=false
+                 class="dp-date-input"
+                 focus-in="toggleIsExpanded"
+                 key-press="parseInput"
+                 tabindex=1}}
+  {{/if}}
+
+  {{#if isExpanded}}
+    <div class="dp-panel">
+      <div class="dp-display-month-year">
+        {{energy-year-display startDate=startDate
+                              endDate=endDate
+                              startOfYearMonth=startOfYearMonth
+                              startOfYearDay=startOfYearDay
+                              endOfYearMonth=endOfYearMonth
+                              endOfYearDay=endOfYearDay
+                              hideButton=true
+                              isExpanded=true
+                              yearWasSelected="yearWasSelected"}}
+      </div>
+
+      <div class="dp-action-console">
+        <button {{action "cancel"}} tabindex=1>Cancel</button>
+      </div>
+    </div>
+  {{/if}}
+</div>
