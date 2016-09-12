@@ -18,7 +18,9 @@ export default Mixin.create(CancelableMixin, {
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
 
-  dropdownController: null,
+  dropdownController: Ember.Object.create({
+    isOpen: false,
+  }),
   initiallyOpened: false,
 
   _startDateToMoment: on('init', observer('startDate', function() {
@@ -46,7 +48,7 @@ export default Mixin.create(CancelableMixin, {
         dropdown.actions.open();
       }
     },
-  
+
     apply() {
       let dropdown = this.get('dropdownController');
       if (dropdown) {
@@ -90,7 +92,7 @@ export default Mixin.create(CancelableMixin, {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
         dropdown.actions.close();
         this.resetInitialValues();
-      } else if (e.keyCode === 13 && !dropdown.isOpen) { 
+      } else if (e.keyCode === 13 && !dropdown.isOpen) {
         this.onTriggerReturn();
       }
       return false;
