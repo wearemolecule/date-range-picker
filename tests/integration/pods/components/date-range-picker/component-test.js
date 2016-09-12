@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import { clickTrigger, nativeClick } from 'ember-basic-dropdown/test-support/helpers/ember-basic-dropdown';
+import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true

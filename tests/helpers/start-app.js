@@ -13,8 +13,8 @@ export default function startApp(attrs) {
   Ember.run(() => {
     application = Application.create(attributes);
     application.setupForTesting();
-    keyboardRegisterTestHelpers();
     registerBasicDropdownHelpers();
+    keyboardRegisterTestHelpers();
     application.injectTestHelpers();
   });
 

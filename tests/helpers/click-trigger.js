@@ -29,6 +29,6 @@ export function nativeKeyDown(key, selector) {
   var event = document.createEvent('Event');
   event.keyCode = getKeyCode(key);
   event.initEvent('keydown');
-  var element = selector ? document.querySelector(selector) : document;
+  var element = selector ? document.querySelector(selector) : document.activeElement;
   Ember.run(() => element.dispatchEvent(event));
 }
