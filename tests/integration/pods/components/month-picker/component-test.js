@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('month-picker', 'Integration | Component | month picker', {
   integration: true
@@ -114,29 +113,6 @@ test('picking new start & end month/year updates view/properties', function(asse
   $rightCal.find(".dp-year-body button:contains('2020')").click();
 
   assert.equal(this.get('endDate').format('YYYY'), '2020', 'end year button displays 2020.');
-});
-
-test('apply/cancel actions', function(assert) {
-  this.setProperties({
-    startDate: moment('2015-06-07'),
-    endDate: moment('2016-07-08'),
-    initiallyOpened: true,
-  });
-
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 initiallyOpened=initiallyOpened}}`);
-
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
-
-  nativeClick('button.dp-apply');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
-
-  clickTrigger();
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
-
-  nativeClick('button.dp-cancel');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
