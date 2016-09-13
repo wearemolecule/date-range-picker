@@ -82,7 +82,7 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      if (e.relatedTarget && !e.relatedTarget.className.includes('ember-basic-dropdown-trigger')) {
+      if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') || e.relatedTarget.className.includes('dp-cancel'))) {
         return false;
       }
       dropdown.actions.open(e);
