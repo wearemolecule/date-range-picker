@@ -1,7 +1,7 @@
 {{#each presets as |preset|}}
-  <button {{action "applyPreset" preset}} tabindex=1>
+<button {{action "applyPreset" preset}} tabindex={{tabIndex}} class="dp-preset {{if preset.isSelected 'dp-preset-selected'}}">
     {{preset.name}}
-  </button>
+</button>
 {{/each}}
 
 {{yield}}

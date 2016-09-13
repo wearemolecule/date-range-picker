@@ -94,7 +94,9 @@ body {
     font-weight: bold;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus,
+    &.dp-preset-selected {
       background-color: $preset-btn-hover-color;
     }
 
@@ -327,7 +329,8 @@ body {
     font-weight: bold;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &.dp-action-selected {
       background-color: $action-btn-hover-color;
     }
   }

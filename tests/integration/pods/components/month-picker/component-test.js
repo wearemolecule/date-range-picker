@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
 
 moduleForComponent('month-picker', 'Integration | Component | month picker', {
   integration: true
@@ -11,32 +10,30 @@ test('it renders', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput}}`);
+                                 initiallyOpened=true}}`);
 
-  assert.equal(this.$('input').length, 1, 'shows one input if showInput=true');
-  assert.equal(this.$('input').val(), '06/2015—07/2016', 'populated the input correctly');
+  let text = this.$().text().trim();
 
-  this.set('showInput', false);
-
-  assert.equal(this.$('input').length, 0, 'does not display input if showInput=false');
+  assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 2, 'has 2 years');
+  assert.equal(text.match(new RegExp('Jun', 'g')).length, 3, 'has June Selected and in both month selectors');
+  assert.equal(text.match(new RegExp('Jul', 'g')).length, 3, 'has July Selected and in both month selectors');
+  assert.equal(text.match(new RegExp('2016', 'g')).length, 1, 'has 2016 selected');
+  assert.equal(text.match(new RegExp('2015', 'g')).length, 1, 'has 2015 selected');
 });
 
 test('month/year display visibilities are togglable', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -72,37 +69,23 @@ test('month/year display visibilities are togglable', function(assert) {
   assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years should not be visible after clicking year btn again');
 });
 
-test('has a default start/end of today', function(assert) {
-  let today = moment().startOf('day').format();
+test('has a default date of today', function(assert) {
+  let today = moment().startOf('day').format("MM/YYYY");
 
-  this.set('startDate', undefined);
-  this.set('endDate', undefined);
-
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
-
-  Ember.run.next(this, () => {
-    let startDate = this.get('startDate').format();
-    let endDate = this.get('endDate').format();
-
-    assert.equal(startDate, today, 'startDate defaults to today');
-    assert.equal(endDate, today, 'endDate defaults to today.');
-  });
+  this.render(hbs`{{month-picker initiallyOpened=true}}`);
+  let text = this.$('.dp-date-input')[0].value.trim();
+  assert.equal(text.match(new RegExp(today, 'g')).length, 2, 'startDate and endDate defaults to today');
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
   this.setProperties({
     startDate: moment('2015-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -132,50 +115,15 @@ test('picking new start & end month/year updates view/properties', function(asse
   assert.equal(this.get('endDate').format('YYYY'), '2020', 'end year button displays 2020.');
 });
 
-test('apply/cancel actions', function(assert) {
-  assert.expect(4);
-
-  this.setProperties({
-    startDate: moment('2015-06-07'),
-    endDate: moment('2016-07-08'),
-    isExpanded: true,
-    apply() {
-      assert.ok(true);
-    },
-    cancel() {
-      assert.ok(true);
-    }
-  });
-
-  this.render(hbs`{{month-picker startDate=startDate
-                                 endDate=endDate
-                                 showInput=true
-                                 isExpanded=isExpanded
-                                 apply=(action apply)
-                                 cancel=(action cancel)}}`);
-
-  this.$('.dp-apply').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
-
-  this.set('isExpanded', true);
-
-  this.$('.dp-cancel').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
-});
-
 test('picking new start & end month/year updates view/properties', function(assert) {
   this.setProperties({
     startDate: moment('2016-06-07'),
     endDate: moment('2016-07-08'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
   let $rightCal = $(this.$('.dp-display-month-year').get(1));
@@ -194,13 +142,11 @@ test('picking new, out-of-range startDate does not create invalid date', functio
   this.setProperties({
     startDate: moment('2016-03-30'),
     endDate: moment('2016-05-05'),
-    showInput: true,
   });
 
   this.render(hbs`{{month-picker startDate=startDate
                                  endDate=endDate
-                                 showInput=showInput
-                                 isExpanded=true}}`);
+                                 initiallyOpened=true}}`);
 
   let $leftCal = $(this.$('.dp-display-month-year').get(0));
 

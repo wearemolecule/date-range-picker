@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -22,8 +21,9 @@ test('it renders', function(assert) {
 
   this.set('today', today);
 
-  this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=true}}`);
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
+                                      initiallyOpened=true}}`);
 
   let text = this.$().text().trim();
 
@@ -35,8 +35,7 @@ test('will accept strings as startDate and endDate', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      isExpanded=true
-                                      showInput=true}}`);
+                                      initiallyOpened=true}}`);
 
   let dateInput = this.$('input.dp-date-input').val();
   let expectedDateRangeText = `${startDate.format(format)}—${endDate.format(format)}`;
@@ -49,7 +48,7 @@ test('prev/next buttons travel through time', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
   let $rightCal = this.$('.dp-display-calendar:last');
@@ -93,23 +92,12 @@ test('prev/next buttons travel through time', function(assert) {
   assert.equal(rightYear, endDate.format(yearFormat), 'endDate year is intitial value.');
 });
 
-test('has a default start/end date of today', function(assert) {
-  let today = moment().startOf('day').format();
+test('has a default date of today', function(assert) {
+  let today = moment().startOf('day').format("MM/DD/YYYY");
 
-  this.set('startDate', undefined);
-  this.set('endDate', undefined);
-
-  this.render(hbs`{{date-range-picker startDate=startDate
-                                      endDate=endDate
-                                      isExpanded=true}}`);
-
-  Ember.run.next(this, () => {
-    let startDate = this.get('startDate').format();
-    let endDate = this.get('endDate').format();
-
-    assert.equal(startDate, today, 'startDate defaults to today');
-    assert.equal(endDate, today, 'endDate defaults to today.');
-  });
+  this.render(hbs`{{date-range-picker initiallyOpened=true}}`);
+  let text = this.$('.dp-date-input')[0].value.trim();
+  assert.equal(text.match(new RegExp(today, 'g')).length, 2, 'startDate and endDate defaults to today');
 });
 
 test('can choose a new startDate month & year', function(assert) {
@@ -120,8 +108,7 @@ test('can choose a new startDate month & year', function(assert) {
 
   this.render(hbs`{{date-range-picker startDate=startDate
                                       endDate=endDate
-                                      showInput=true
-                                      isExpanded=true}}`);
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
   let $rightCal = this.$('.dp-display-calendar:last');
@@ -163,45 +150,14 @@ test('can choose a new startDate month & year', function(assert) {
   assert.equal(this.get('endDate').format(format), '06/20/2017', 'endDate is updated.');
 });
 
-test('apply/cancel actions', function(assert) {
-  assert.expect(4);
-
-  let today = moment('2016-03-11', 'YYYY-MM-DD');
-
-  this.setProperties({
-    today,
-    isExpanded: true,
-    apply() {
-      assert.ok(true);
-    },
-    cancel() {
-      assert.ok(true);
-    }
-  });
-
-  this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=isExpanded
-                                      apply=(action apply)
-                                      cancel=(action cancel)}}`);
-
-  this.$('.dp-apply').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false');
-
-  this.set('isExpanded', true);
-
-  this.$('.dp-cancel').click();
-
-  assert.equal(this.get('isExpanded'), false, 'isExpanded is toggled to false again');
-});
-
 test('can render 12/25/2015', function(assert) {
   let today = moment('2015-12-25', 'YYYY-MM-DD');
 
   this.set('today', today);
 
-  this.render(hbs`{{date-range-picker startMonth=today
-                                      isExpanded=true}}`);
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
+                                      initiallyOpened=true}}`);
 
   let $leftCal = this.$('.dp-display-calendar:first');
 

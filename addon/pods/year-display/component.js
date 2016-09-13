@@ -2,18 +2,18 @@ import Ember from 'ember';
 import layout from './template';
 import { range } from 'date-range-picker/helpers/range';
 import moment from 'moment';
-import Picker from 'date-range-picker/mixins/picker';
 
 const {
   computed,
   Component,
 } = Ember;
 
-export default Component.extend(Picker, {
+export default Component.extend({
   allYearsOffset: 10,
   isExpanded: false,
   layout,
   tagName: "span",
+  month: moment(),
 
   allYears: computed('startDate', function() {
     let year = moment().year();

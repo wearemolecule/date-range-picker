@@ -1,62 +1,32 @@
 import Ember from 'ember';
 import layout from './template';
 import Picker from 'date-range-picker/mixins/picker';
-import Clearable from 'date-range-picker/mixins/clearable';
-import PickerActions from 'date-range-picker/mixins/picker-actions';
-import moment from 'moment';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
-import { EKMixin, keyUp } from 'ember-keyboard';
+import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 
 const {
   computed,
-  on,
-  observer,
   Component,
 } = Ember;
 
-export default Component.extend(Picker, Clearable, PickerActions, EKMixin, ClickOutside, {
+export default Component.extend(Picker, KeyboardHotkeys, {
   mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
+  presets: Ember.A(),
   layout,
-  startMonth: moment().startOf('month'),
-  endMonth: moment().startOf('month'),
-  keyboardActivated: computed.alias('isExpanded'),
-  keyboardFirstResponder: computed.alias('isExpanded'),
-  focusedDay: 0,
+  cancelSelected: false,
+  applySelected: false,
 
-  _focusedDayHandler: observer('focusedDay', function() {
-    let focusedDayIndex = this.get('focusedDay');
-    let elementToFocus = this.$('.dp-day').get(focusedDayIndex);
-
-    if (!!elementToFocus) {
-      elementToFocus.focus();
-    } else {
-      this.set('focusedDay', 0);
+  selectedPresetIndex() {
+    let sets = this.get('presets');
+    let index = sets.findIndex((preset) => {
+      return preset.isSelected;
+    });
+    if (!index || index < 0) {
+      sets.forEach((preset) => {
+        Ember.set(preset, 'isSelected', false);
+      });
     }
-  }),
-
-  _leftArrowHandler: on(keyUp('ArrowLeft'), function() {
-    this.decrementProperty('focusedDay');
-  }),
-
-  _downArrowHandler: on(keyUp('ArrowDown'), function() {
-    this.incrementProperty('focusedDay', 7);
-  }),
-
-  _upArrowHandler: on(keyUp('ArrowUp'), function() {
-    this.decrementProperty('focusedDay', 7);
-  }),
-
-  _rightArrowHandler: on(keyUp('ArrowRight'), function() {
-    this.incrementProperty('focusedDay');
-  }),
-
-  _escapeHandler: on(keyUp('Escape'), function() {
-    this.set('isExpanded', false);
-  }),
-
-  _returnHandler: on(keyUp('Enter'), function() {
-    this.$('.dp-day')[this.get('focusedDay')].click();
-  }),
+    return index;
+  },
 
   rangeFormatted: computed('startDate', 'endDate', function() {
     let startDate = this.get('startDate').format('MM/DD/YYYY');
@@ -65,10 +35,103 @@ export default Component.extend(Picker, Clearable, PickerActions, EKMixin, Click
     return `${startDate}—${endDate}`;
   }),
 
+  selectedIndexAndCurrentPreset() {
+    let selectedIndex = this.selectedPresetIndex();
+    let currentPreset = this.get('presets')[selectedIndex];
+    if (currentPreset) {
+      Ember.set(currentPreset, "isSelected", false);
+    }
+    return [selectedIndex, currentPreset];
+  },
+
+  incrementSelectionIndex(currentPreset, currentIndex) {
+    if (currentIndex < 0 && !this.get('cancelSelected') && !this.get('applySelected')) { // just opened window
+      this.set('cancelSelected', false);
+      this.set('applySelected', false);
+      return 0;
+    } else if (currentPreset && currentIndex < this.get('presets').length - 1) { // currently in the middle of preset selection
+      this.set('cancelSelected', false);
+      this.set('applySelected', false);
+      return currentIndex + 1;
+    } else if (currentIndex >= this.get('presets').length - 1 && !this.get('cancelSelected') && !this.get('applySelected')) { // at end of presets
+      this.set('cancelSelected', true);
+      this.set('applySelected', false);
+      return null;
+    } else if (this.get('cancelSelected')) { // cancel is selected
+      this.set('cancelSelected', false);
+      this.set('applySelected', true);
+      return null;
+    } else { // default state
+      this.set('cancelSelected', false);
+      this.set('applySelected', false);
+      return 0;
+    }
+  },
+
+  onTriggerArrowDown() {
+    let [selectedIndex, currentPreset] = this.selectedIndexAndCurrentPreset();
+    let nextIndex = this.incrementSelectionIndex(currentPreset, selectedIndex);
+    if (nextIndex !== null) {
+      let nextPreset = this.get('presets')[nextIndex];
+      Ember.set(nextPreset, "isSelected", true);
+      this.send('applyPreset', nextPreset);
+    }
+  },
+
+  decrementSelectionIndex(currentPreset, currentIndex) {
+    if (currentIndex < 0 && !this.get('cancelSelected') && !this.get('applySelected')) { // just opened window
+      this.set('cancelSelected', false);
+      this.set('applySelected', true);
+      return null;
+    } else if (this.get('applySelected')) { // apply is selected
+      this.set('cancelSelected', true);
+      this.set('applySelected', false);
+      return null;
+    } else if (this.get('cancelSelected')) { // cancel is selected
+      this.set('cancelSelected', false);
+      this.set('applySelected', false);
+      return this.get('presets').length - 1;
+    } else if (currentPreset && currentIndex > 0) { // currently in the middle of preset selection
+      this.set('cancelSelected', false);
+      this.set('applySelected', false);
+      return currentIndex - 1;
+    } else { // default state
+      this.set('cancelSelected', false);
+      this.set('applySelected', true);
+      return null;
+    }
+  },
+
+  onTriggerArrowUp() {
+    let [selectedIndex, currentPreset] = this.selectedIndexAndCurrentPreset();
+    let nextIndex = this.decrementSelectionIndex(currentPreset, selectedIndex);
+    if (nextIndex !== null) {
+      let nextPreset = this.get('presets')[nextIndex];
+      Ember.set(nextPreset, "isSelected", true);
+      this.send('applyPreset', nextPreset);
+    }
+  },
+
   actions: {
+    clearSelection() {
+      this.get('presets').forEach((preset) => {
+        Ember.set(preset, "isSelected", false);
+      });
+    },
+
+    applyPreset(preset) {
+      this.send('startSelected', preset.startDate);
+      this.send('endSelected', preset.endDate);
+    },
+
+    cancel() {
+      this.send('clearSelection');
+      this._super();
+    },
+
     apply() {
-      this.send('toggleIsExpanded');
-      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
+      this.send('clearSelection');
+      this._super();
     },
 
     endSelected(day) {
