@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
@@ -149,36 +148,6 @@ test('can choose a new startDate month & year', function(assert) {
   assert.equal(this.$('.dp-presets-date-input').val(), '03/15/2015—06/20/2017', 'Outer input is updated.');
   assert.equal(this.get('startDate').format(format), '03/15/2015', 'startDate does not change.');
   assert.equal(this.get('endDate').format(format), '06/20/2017', 'endDate is updated.');
-});
-
-test('apply/cancel actions', function(assert) {
-  let today = moment('2016-03-11', 'YYYY-MM-DD');
-
-  this.setProperties({
-    today,
-    apply() {
-      assert.ok(true);
-    },
-    cancel() {
-      assert.ok(true);
-    }
-  });
-
-  this.render(hbs`{{date-range-picker startDate=today
-                                      endDate=today
-                                      initiallyOpened=true
-                                      apply=(action apply)
-                                      cancel=(action cancel)}}`);
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
-
-  nativeClick('button.dp-apply');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
-
-  clickTrigger();
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
-
-  nativeClick('button.dp-cancel');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
 });
 
 test('can render 12/25/2015', function(assert) {

@@ -3,8 +3,6 @@
     "document",
     "window",
     "-Promise"
-    "keyDown",
-    "clickDropdown"
   ],
   "browser": true,
   "boss": true,

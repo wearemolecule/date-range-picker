@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import { clickTrigger, nativeClick } from '../../../../helpers/click-trigger';
 
 moduleForComponent('year-picker', 'Integration | Component | year picker', {
   integration: true
@@ -70,29 +69,6 @@ test('can select a new year', function(assert) {
   assert.equal(this.get('startDate').format('YYYY-MM-DD'), prevYear.clone().startOf('year').format('YYYY-MM-DD'), 'Start is updated.');
   assert.equal(this.get('endDate').format('YYYY-MM-DD'), prevYear.clone().endOf('year').format('YYYY-MM-DD'), 'End is updated.');
 });
-
-test('apply/cancel actions', function(assert) {
-  this.setProperties({
-    startDate: moment('2016-01-01', 'YYYY-MM-DD'),
-    endDate: moment('2016-12-30', 'YYYY-MM-DD'),
-  });
-
-  this.render(hbs`{{year-picker startDate=startDate
-                                endDate=endDate
-                                initiallyOpened=true}}`);
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is open to begin");
-
-  nativeClick('button.dp-apply');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on apply");
-
-  clickTrigger();
-  assert.equal(this.$('.dp-panel').length, 1, "date panel is reopened");
-
-  nativeClick('button.dp-cancel');
-  assert.equal(this.$('.dp-panel').length, 0, "date panel is closed on cancel");
-});
-
-
 
 function inputExpectations(assert) {
   let $input = this.$('.dp-date-input');
