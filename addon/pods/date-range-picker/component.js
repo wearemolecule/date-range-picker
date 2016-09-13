@@ -15,14 +15,6 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   cancelSelected: false,
   applySelected: false,
 
-  _debug: Ember.observer('dropdownController.isOpen', function() {
-    console.log('isOpen observer fired: ', this.get('dropdownController.isOpen'));
-
-    Ember.run.next(this, () => {
-      console.log('new isOpen: ', this.get('dropdownController.isOpen'));
-    });
-  }),
-
   selectedPresetIndex() {
     let sets = this.get('presets');
     let index = sets.findIndex((preset) => {

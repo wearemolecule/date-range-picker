@@ -40,7 +40,9 @@ test('apply/cancel actions on date range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is opened on focus");
-    click('button.dp-apply');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+    click('.dp-apply');
   });
 
   andThen(() => {
@@ -50,7 +52,9 @@ test('apply/cancel actions on date range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is reopened");
-    click('button.dp-cancel');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+    click('.dp-cancel');
   });
 
   andThen(() => {
@@ -67,7 +71,10 @@ test('apply/cancel actions on month range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is opened on focus");
-    click('button.dp-apply');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+
+    click('.dp-apply');
   });
 
   andThen(() => {
@@ -77,7 +84,10 @@ test('apply/cancel actions on month range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is reopened");
-    click('button.dp-cancel');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+
+    click('.dp-cancel');
   });
 
   andThen(() => {
@@ -94,7 +104,10 @@ test('apply/cancel actions on year range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is opened on focus");
-    click('button.dp-apply');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+
+    click('.dp-apply');
   });
 
   andThen(() => {
@@ -104,7 +117,10 @@ test('apply/cancel actions on year range picker', function(assert) {
 
   andThen(() => {
     assert.equal($('.dp-panel').length, 1, "date panel is reopened");
-    click('button.dp-cancel');
+    assert.equal($('.dp-apply').length, 1, "date panel has apply button");
+    assert.equal($('.dp-cancel').length, 1, "date panel has cancel button");
+
+    click('.dp-cancel');
   });
 
   andThen(() => {
