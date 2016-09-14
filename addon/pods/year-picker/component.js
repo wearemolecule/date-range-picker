@@ -13,7 +13,8 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   dateFormat: "YYYY",
 
-  didInsertElement() {
+  didReceiveAttrs() {
+    this._super();
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');

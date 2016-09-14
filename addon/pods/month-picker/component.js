@@ -14,7 +14,8 @@ export default Component.extend(Picker, MultipleExpandedValidators, KeyboardHotk
   dateFormat: "MM/YYYY",
   layout,
 
-  didInsertElement() {
+  didReceiveAttrs() {
+    this._super();
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');

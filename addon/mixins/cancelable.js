@@ -17,7 +17,7 @@ export default Ember.Mixin.create({
     });
   },
 
-  didInsertElement() {
+  didReceiveAttrs() {
     this.resetInitialValues();
   },
 

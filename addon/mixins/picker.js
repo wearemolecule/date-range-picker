@@ -23,23 +23,22 @@ export default Mixin.create(CancelableMixin, {
   }),
   initiallyOpened: false,
 
-  _startDateToMoment: on('init', observer('startDate', function() {
+  init() {
+    this._super();
     let startDate = this.get('startDate');
     let startIsBlank = isBlank(startDate);
 
     if (startIsBlank || startDate && !startDate._isAMomentObject) {
       this.set('startDate', moment(startDate, this.get('dateFormat')).startOf('day'));
     }
-  })),
 
-  _endDateToMoment: on('init', observer('endDate', function() {
     let endDate = this.get('endDate');
     let endIsBlank = isBlank(endDate);
 
     if (endIsBlank || endDate && !endDate._isAMomentObject) {
       this.set('endDate', moment(endDate, this.get('dateFormat')).startOf('day'));
     }
-  })),
+  },
 
   actions: {
     open() {
