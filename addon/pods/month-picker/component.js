@@ -13,9 +13,11 @@ const {
 export default Component.extend(Picker, MultipleExpandedValidators, KeyboardHotkeys, {
   dateFormat: "MM/YYYY",
   layout,
+  defaultStart: 'month',
+  defaultEnd: 'month',
 
-  didReceiveAttrs() {
-    this._super();
+  init() {
+    this._super(...arguments);
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');

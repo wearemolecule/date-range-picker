@@ -37,12 +37,6 @@ export default Ember.Mixin.create({
         startMonth: this.get('initialStartMonth').clone(),
         endMonth: this.get('initialEndMonth').clone(),
       });
-      Ember.run.next(this, () => {
-        this.notifyPropertyChange('startDate');
-        this.notifyPropertyChange('endDate');
-        this.notifyPropertyChange('startMonth');
-        this.notifyPropertyChange('endMonth');
-      });
     },
 
     cancel() {

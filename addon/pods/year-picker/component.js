@@ -12,9 +12,11 @@ const {
 export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   dateFormat: "YYYY",
+  defaultStart: 'year',
+  defaultEnd: 'year',
 
-  didReceiveAttrs() {
-    this._super();
+  init() {
+    this._super(...arguments);
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');
@@ -23,5 +25,5 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   rangeFormatted: computed('startDate', function() {
     return this.get('startDate').format('YYYY');
-  }),
+  })
 });

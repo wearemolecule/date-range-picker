@@ -15,6 +15,8 @@ export default Mixin.create(CancelableMixin, {
   endDate: moment().startOf('date'),
   startMonth: moment().startOf('month'),
   endMonth: moment().startOf('month'),
+  defaultStart: 'date',
+  defaultEnd: 'date',
 
   dropdownController: Ember.Object.create({
     isOpen: false,
@@ -62,11 +64,11 @@ export default Mixin.create(CancelableMixin, {
 
       if(startMoment.isValid() || endMoment.isValid()) {
         if(!endMoment.isValid()) {
-          endMoment = startMoment.clone();
+          endMoment = startMoment.clone().endOf(this.get('defaultEnd'));
         }
 
         if(!startMoment.isValid()) {
-          startMoment = endMoment.clone();
+          startMoment = endMoment.clone().startOf(this.get('defaultStart'));
         }
 
         this.setProperties({
@@ -79,17 +81,22 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') || e.relatedTarget.className.includes('dp-cancel'))) {
-        return false;
+      console.log('FocusInput ' + this.get('defaultStart') + " " + e.relatedTarget);
+      if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') ||
+                              e.relatedTarget.className.includes('dp-cancel') ||
+                              e.relatedTarget.className.includes('dp-date-input'))) {
+        return true;
       }
       dropdown.actions.open(e);
     },
 
     handleKeydown(dropdown, e) {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
-        dropdown.actions.close();
+        console.log('Tab ' + this.get('defaultStart'));
         this.send('reset');
+        dropdown.actions.close();
       } else if (e.keyCode === 13 && !dropdown.isOpen) {
+        console.log('Enter ' + this.get('defaultStart'));
         this.onTriggerReturn();
       }
       return false;
