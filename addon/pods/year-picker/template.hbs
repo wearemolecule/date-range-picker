@@ -1,28 +1,33 @@
 <div class="dp-year-picker">
-  {{#if showInput}}
-    {{input-mask value=rangeFormatted
-                 greedyMask=false
-                 mask="99[99]"
-                 class="dp-date-input"
-                 focus-in="toggleIsExpanded"
-                 key-press="parseInput"
-                 tabindex=1}}
-  {{/if}}
-
-  {{#if isExpanded}}
-    <div class="dp-panel">
-      <div class="dp-display-month-year">
+  {{#basic-dropdown verticalPosition="below"
+                    registerAPI=(action (mut dropdownController))
+                    renderInPlace=true
+                    initiallyOpened=initiallyOpened
+                    as |dropdown|}}
+    {{#dropdown.trigger tabindex=tabIndex
+                        onFocus=(action "onFocusInput")
+                        onKeydown=(action "handleKeydown")}}
+      {{input-mask value=rangeFormatted
+                   mask="99[99]"
+                   class="dp-date-input"
+                   key-press="parseInput"}}
+    {{/dropdown.trigger}}
+  
+    {{#dropdown.content class="dp-panel"
+                        to="dp-year-picker"}}
+      <div class="dp-display-year">
         {{year-display startDate=startDate
                        endDate=endDate
                        hideButton=true
                        isExpanded=true
-                       yearWasSelected="yearWasSelected"
+                       yearWasSelected="apply"
                        ignoreMonthAndDay=true}}
       </div>
 
       <div class="dp-action-console">
-        <button {{action "cancel"}} tabindex=1>Cancel</button>
+        <button {{action "cancel"}} class="dp-cancel {{if cancelSelected 'dp-action-selected'}}">Cancel</button>
+        <button {{action "apply"}} class="dp-apply {{if applySelected 'dp-action-selected'}}">Apply</button>
       </div>
-    </div>
-  {{/if}}
+    {{/dropdown.content}}
+  {{/basic-dropdown}}
 </div>

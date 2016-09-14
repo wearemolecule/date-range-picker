@@ -40,7 +40,7 @@ export default Ember.Controller.extend({
 
   actions: {
     apply() {
-      console.log('ApplicationController#cancel');
+      console.log('ApplicationController#apply');
       console.log('start: ', this.get('start'));
       console.log('end: ', this.get('end'));
     },

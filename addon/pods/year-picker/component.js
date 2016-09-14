@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import layout from './template';
 import Picker from 'date-range-picker/mixins/picker';
-import PickerActions from 'date-range-picker/mixins/picker-actions';
-import ClickOutside from 'date-range-picker/mixins/click-outside';
+import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 
 const {
   computed,
@@ -10,11 +9,12 @@ const {
   Component,
 } = Ember;
 
-export default Component.extend(Picker, PickerActions, ClickOutside, {
+export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   dateFormat: "YYYY",
 
-  didInsertElement() {
+  didReceiveAttrs() {
+    this._super();
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');
@@ -24,10 +24,4 @@ export default Component.extend(Picker, PickerActions, ClickOutside, {
   rangeFormatted: computed('startDate', function() {
     return this.get('startDate').format('YYYY');
   }),
-
-  actions: {
-    yearWasSelected() {
-      this.send('toggleIsExpanded');
-    },
-  },
 });
