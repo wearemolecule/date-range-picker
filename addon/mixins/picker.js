@@ -81,7 +81,6 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      console.log('FocusInput ' + this.get('defaultStart') + " " + e.relatedTarget);
       if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') ||
                               e.relatedTarget.className.includes('dp-cancel') ||
                               e.relatedTarget.className.includes('dp-date-input'))) {
@@ -92,11 +91,9 @@ export default Mixin.create(CancelableMixin, {
 
     handleKeydown(dropdown, e) {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
-        console.log('Tab ' + this.get('defaultStart'));
         this.send('reset');
         dropdown.actions.close();
       } else if (e.keyCode === 13 && !dropdown.isOpen) {
-        console.log('Enter ' + this.get('defaultStart'));
         this.onTriggerReturn();
       }
       return false;
