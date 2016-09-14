@@ -24,7 +24,6 @@ export default Mixin.create(CancelableMixin, {
   initiallyOpened: false,
 
   init() {
-    this._super();
     let startDate = this.get('startDate');
     let startIsBlank = isBlank(startDate);
 
@@ -38,6 +37,10 @@ export default Mixin.create(CancelableMixin, {
     if (endIsBlank || endDate && !endDate._isAMomentObject) {
       this.set('endDate', moment(endDate, this.get('dateFormat')).startOf('day'));
     }
+
+    this.resetInitialValues();
+
+    this._super(...arguments);
   },
 
   rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', function() {
@@ -72,11 +75,11 @@ export default Mixin.create(CancelableMixin, {
 
       if(startMoment.isValid() || endMoment.isValid()) {
         if(!endMoment.isValid()) {
-          endMoment = startMoment.clone().endOf(this.get('defaultEnd'));
+          endMoment = startMoment.clone().endOf(this.get('defaultEnd')).startOf('date');
         }
 
         if(!startMoment.isValid()) {
-          startMoment = endMoment.clone().startOf(this.get('defaultStart'));
+          startMoment = endMoment.clone().startOf(this.get('defaultStart')).startOf('date');
         }
 
         this.setProperties({
@@ -98,8 +101,7 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusOut(dropdown, e) {
-      if (e.relatedTarget) {
-        console.log(e.relatedTarget.className)
+      if (e.relatedTarget && e.relatedTarget.className) {
         return true;
       }
 
@@ -110,7 +112,6 @@ export default Mixin.create(CancelableMixin, {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
         this.send('cancel');
       } else if (e.keyCode === 13 && !dropdown.isOpen) { //enter pressed when closed
-        console.log("enter pressed")
         this.onTriggerReturn();
       }
       return false;

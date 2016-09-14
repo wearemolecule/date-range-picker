@@ -24,11 +24,6 @@ export default Ember.Mixin.create({
     });
   },
 
-  init() {
-    this._super(...arguments);
-    this.resetInitialValues();
-  },
-
   datesSame: Ember.computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
     return this.get('startDate').isSame(this.get('initialStartDate')) &&
            this.get('endDate').isSame(this.get('initialEndDate')) &&
