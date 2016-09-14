@@ -6,6 +6,7 @@
                     as |dropdown|}}
     {{#dropdown.trigger tabindex=tabIndex
                         onFocusIn=(action "onFocusInput")
+                        onFocusOut=(action "onFocusOut")
                         onKeydown=(action "handleKeydown")}}
       {{input-mask value=rangeFormatted
                    mask="99[99]"

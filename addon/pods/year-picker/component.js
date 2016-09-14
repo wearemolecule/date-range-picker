@@ -23,7 +23,8 @@ export default Component.extend(Picker, KeyboardHotkeys, {
     });
   },
 
-  rangeFormatted: computed('startDate', function() {
-    return this.get('startDate').format('YYYY');
+  rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', function() {
+    let dateFormat = this.get('dateFormat');
+    return this.get('startDate').format(dateFormat);
   })
 });

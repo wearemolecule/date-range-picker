@@ -15,6 +15,13 @@ export default Ember.Mixin.create({
       initialStartMonth: startMonth.clone(),
       initialEndMonth: endMonth.clone()
     });
+
+    Ember.run.next(this, () => {
+      this.notifyPropertyChange('initialStartDate');
+      this.notifyPropertyChange('initialStartMonth');
+      this.notifyPropertyChange('initialEndDate');
+      this.notifyPropertyChange('initialEndMonth');
+    });
   },
 
   init() {
@@ -40,11 +47,11 @@ export default Ember.Mixin.create({
     },
 
     cancel() {
+      this.send('reset');
       let dropdown = this.get('dropdownController');
       if (dropdown) {
         dropdown.actions.close();
       }
-      this.send('reset');
       this.sendAction('cancel');
     },
   }
