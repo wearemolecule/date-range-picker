@@ -4,8 +4,6 @@ import CancelableMixin from 'date-range-picker/mixins/cancelable';
 
 const {
   isBlank,
-  observer,
-  on,
   Mixin,
 } = Ember;
 
@@ -49,9 +47,9 @@ export default Mixin.create(CancelableMixin, {
     },
 
     apply() {
+      this.resetInitialValues();
       let dropdown = this.get('dropdownController');
       if (dropdown) {
-        this.resetInitialValues();
         dropdown.actions.close();
       }
       this.sendAction('apply', this.get('startDate'), this.get('endDate'));
@@ -90,7 +88,7 @@ export default Mixin.create(CancelableMixin, {
     handleKeydown(dropdown, e) {
       if (e.keyCode === 9 && dropdown.isOpen) { // Tab
         dropdown.actions.close();
-        this.resetInitialValues();
+        this.send('reset');
       } else if (e.keyCode === 13 && !dropdown.isOpen) {
         this.onTriggerReturn();
       }

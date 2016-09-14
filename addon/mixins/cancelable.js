@@ -17,7 +17,8 @@ export default Ember.Mixin.create({
     });
   },
 
-  didReceiveAttrs() {
+  init() {
+    this._super(...arguments);
     this.resetInitialValues();
   },
 
@@ -35,6 +36,12 @@ export default Ember.Mixin.create({
         endDate: this.get('initialEndDate').clone(),
         startMonth: this.get('initialStartMonth').clone(),
         endMonth: this.get('initialEndMonth').clone(),
+      });
+      Ember.run.next(this, () => {
+        this.notifyPropertyChange('startDate');
+        this.notifyPropertyChange('endDate');
+        this.notifyPropertyChange('startMonth');
+        this.notifyPropertyChange('endMonth');
       });
     },
 
