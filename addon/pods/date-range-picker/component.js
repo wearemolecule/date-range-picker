@@ -4,7 +4,6 @@ import Picker from 'date-range-picker/mixins/picker';
 import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 
 const {
-  computed,
   Component,
 } = Ember;
 
@@ -27,13 +26,6 @@ export default Component.extend(Picker, KeyboardHotkeys, {
     }
     return index;
   },
-
-  rangeFormatted: computed('startDate', 'endDate', function() {
-    let startDate = this.get('startDate').format('MM/DD/YYYY');
-    let endDate = this.get('endDate').format('MM/DD/YYYY');
-
-    return `${startDate}—${endDate}`;
-  }),
 
   selectedIndexAndCurrentPreset() {
     let selectedIndex = this.selectedPresetIndex();

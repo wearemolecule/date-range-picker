@@ -164,6 +164,28 @@ test('can render 12/25/2015', function(assert) {
   assert.equal($leftCal.find('.dp-day').length, 35, '12/2015 has the correct number of days');
 });
 
+test('converts strings to moments', function(assert) {
+  let dateString = '01/02/3015';
+
+  this.setProperties({
+    startDate: dateString,
+    endDate: dateString,
+  });
+
+  this.render(hbs`{{date-range-picker startDate=startDate
+                                      endDate=startDate
+                                      initiallyOpened=true}}`);
+
+  let $leftCal = this.$('.dp-display-calendar:first');
+  let $rightCal = this.$('.dp-display-calendar:last');
+  let [ leftMonth, leftYear, rightMonth, rightYear ] = allText($leftCal, $rightCal);
+  
+  assert.equal(leftMonth, moment().format(monthFormat), 'startDate month is initial value.');
+  assert.equal(leftYear, moment().format(yearFormat), 'startDate year is initial value.');
+  assert.equal(rightMonth, moment().format(monthFormat), 'endDate month is initial value.');
+  assert.equal(rightYear, moment().format(yearFormat), 'endDate year is intitial value.');
+});
+
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));
 }

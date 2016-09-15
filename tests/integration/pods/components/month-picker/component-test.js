@@ -156,3 +156,18 @@ test('picking new, out-of-range startDate does not create invalid date', functio
 
   assert.equal(startDate, '2016-02-01', 'startDate is the start of 02/2016');
 });
+
+test('converts strings to moments', function(assert) {
+  let dateString = '01/02/3015';
+
+  this.setProperties({
+    startDate: dateString,
+    endDate: dateString,
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                 endDate=endDate
+                                 initiallyOpened=true}}`);
+
+  assert.equal($.find(".dp-btn-month.active:contains('"+ moment().format("MMM") + "')").length, 2);
+});

@@ -12,16 +12,19 @@ const {
 export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   dateFormat: "YYYY",
+  defaultStart: 'year',
+  defaultEnd: 'year',
 
-  didReceiveAttrs() {
-    this._super();
+  init() {
+    this._super(...arguments);
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');
     });
   },
 
-  rangeFormatted: computed('startDate', function() {
-    return this.get('startDate').format('YYYY');
-  }),
+  rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', function() {
+    let dateFormat = this.get('dateFormat');
+    return this.get('startDate').format(dateFormat);
+  })
 });

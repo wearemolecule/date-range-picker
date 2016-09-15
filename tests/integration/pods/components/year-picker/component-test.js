@@ -70,6 +70,21 @@ test('can select a new year', function(assert) {
   assert.equal(this.get('endDate').format('YYYY-MM-DD'), prevYear.clone().endOf('year').format('YYYY-MM-DD'), 'End is updated.');
 });
 
+test('converts strings to moments', function(assert) {
+  let dateString = '01/02/3015';
+
+  this.setProperties({
+    startDate: dateString,
+    endDate: dateString,
+  });
+
+  this.render(hbs`{{year-picker startDate=startDate
+                                endDate=endDate
+                                initiallyOpened=true}}`);
+
+  assert.equal(this.$(".dp-year-picker input")[0].value, moment().format("YYYY"));
+});
+
 function inputExpectations(assert) {
   let $input = this.$('.dp-date-input');
 

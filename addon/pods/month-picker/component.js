@@ -5,7 +5,6 @@ import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
 import MultipleExpandedValidators from 'date-range-picker/mixins/multiple-expanded-validators';
 
 const {
-  computed,
   run,
   Component,
 } = Ember;
@@ -13,19 +12,14 @@ const {
 export default Component.extend(Picker, MultipleExpandedValidators, KeyboardHotkeys, {
   dateFormat: "MM/YYYY",
   layout,
+  defaultStart: 'month',
+  defaultEnd: 'month',
 
-  didReceiveAttrs() {
-    this._super();
+  init() {
+    this._super(...arguments);
     run.next(this, () => {
       this.notifyPropertyChange('startDate');
       this.notifyPropertyChange('endDate');
     });
   },
-
-  rangeFormatted: computed('startDate', 'endDate', function() {
-    let startDate = this.get('startDate').format('MM/YYYY');
-    let endDate = this.get('endDate').format('MM/YYYY');
-
-    return `${startDate}—${endDate}`;
-  }),
 });
