@@ -1,4 +1,4 @@
-<div class="dp-year-picker">
+<div class={{if energyYear "dp-energy-year-picker" "dp-year-picker"}}>
   {{#basic-dropdown verticalPosition="below"
                     registerAPI=(action (mut dropdownController))
                     renderInPlace=true
@@ -11,14 +11,14 @@
 
       {{#if showInput}}
         {{input-mask value=rangeFormatted
-                     mask="99[99]"
+                     mask=inputMask
                      class="dp-date-input"
                      key-press="parseInput"}}
       {{else}}
         {{yield}}
       {{/if}}
     {{/dropdown.trigger}}
-  
+
     {{#dropdown.content class="dp-panel"
                         to="dp-year-picker"}}
       <div class="dp-display-year">
@@ -26,7 +26,8 @@
                        endDate=endDate
                        hideButton=true
                        isExpanded=true
-                       ignoreMonthAndDay=true}}
+                       ignoreMonthAndDay=true
+                       energyYear=energyYear}}
       </div>
 
       <div class="dp-action-console">

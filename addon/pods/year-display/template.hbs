@@ -1,13 +1,23 @@
 {{#unless hideButton}}
   <button class="dp-btn-year {{if isExpanded 'active'}}" {{action "toggleIsExpanded"}}>
-    {{moment-format month "YYYY"}}
+    {{#if energyYear}}
+      EY {{moment-format month "YYYY"}}
+    {{else}}
+      {{moment-format month "YYYY"}}
+    {{/if}}
   </button>
 {{/unless}}
 
 {{#if isExpanded}}
   <div class="dp-year-body">
     {{#each allYears as |year|}}
-      <button {{action "setYear" year}}>{{year}}</button>
+      <button {{action "setYear" year}}>
+        {{#if energyYear}}
+          EY {{year}}
+        {{else}}
+          {{year}}
+        {{/if}}
+      </button>
     {{/each}}
   </div>
 {{/if}}

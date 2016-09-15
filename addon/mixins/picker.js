@@ -88,6 +88,13 @@ export default Mixin.create(CancelableMixin, {
           startMoment = endMoment.clone().startOf(this.get('defaultStart')).startOf('day');
         }
 
+        if (this.get('hasDateParseOverride')) {
+          startMoment = this.overrideStartDateParse(startMoment);
+          endMoment = this.overrideEndDateParse(endMoment);
+        }
+      }
+
+      if (startMoment.isValid() && endMoment.isValid()) {
         this.setProperties({
           startDate: startMoment,
           endDate: endMoment,
@@ -107,7 +114,7 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusOut(dropdown, e) {
-      if (e.relatedTarget && e.relatedTarget.className) {
+      if (e.relatedTarget) {
         return true;
       }
 
