@@ -8,10 +8,15 @@
                         onFocusIn=(action "onFocusInput")
                         onFocusOut=(action "onFocusOut")
                         onKeydown=(action "handleKeydown")}}
-      {{input-mask value=rangeFormatted
-                   mask="99[99]"
-                   class="dp-date-input"
-                   key-press="parseInput"}}
+
+      {{#if showInput}}
+        {{input-mask value=rangeFormatted
+                     mask="99[99]"
+                     class="dp-date-input"
+                     key-press="parseInput"}}
+      {{else}}
+        {{yield}}
+      {{/if}}
     {{/dropdown.trigger}}
   
     {{#dropdown.content class="dp-panel"

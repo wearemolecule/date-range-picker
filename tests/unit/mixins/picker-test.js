@@ -11,18 +11,6 @@ test('it works', function(assert) {
   assert.ok(subject);
 });
 
-test('converts strings to moments', function(assert) {
-  let dateString = '01/02/3015';
-
-  let subject = PickerObject.create({
-    startDate: dateString,
-    endDate: dateString,
-  });
-
-  assert.equal(subject.get('startDate._isAMomentObject'), true, 'startDate is converted to a moment.');
-  assert.equal(subject.get('endDate._isAMomentObject'), true, 'endDate is converted to a moment.');
-});
-
 test('#parseInput handles different range inputs', function(assert) {
   let PickerActionsObject = Ember.Component.extend(PickerMixin);
   let format = "MM/DD/YYYY";
