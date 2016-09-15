@@ -1,10 +1,10 @@
 <h3>
   <pre>
     \{{date-range-picker presets=presets
-                        startDate=start
-                        endDate=end
-                        apply="apply"
-                        cancel="cancel"}}
+                         startDate=start
+                         endDate=end
+                         apply="apply"
+                         cancel="cancel"}}
   </pre>
 </h3>
 
@@ -17,7 +17,7 @@
 <h3>
   <pre>
     \{{month-picker startDate=start
-                   endDate=end}}
+                    endDate=end}}
   </pre>
 </h3>
 
@@ -27,9 +27,21 @@
 <h3>
   <pre>
     \{{year-picker startDate=start
-                  endDate=end}}
+                   endDate=end}}
   </pre>
 </h3>
 
 {{year-picker startDate=start
               endDate=end}}
+
+<h3>
+  <pre>
+    \{{year-picker startDate=start
+                   endDate=end
+                   energyYear=true}}
+  </pre>
+</h3>
+
+{{year-picker startDate=start
+              endDate=end
+              energyYear=true}}
