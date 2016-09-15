@@ -28,9 +28,9 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   inputMask: computed('energyYear', function() {
     if (this.get('energyYear')) {
-      return "EY 99[99";
+      return "EY 99[99]";
     } else {
-      return "99[99";
+      return "99[99]";
     }
   }),
 
