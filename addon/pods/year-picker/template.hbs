@@ -1,4 +1,4 @@
-<div class="dp-year-picker">
+<div class={{if energyYear "dp-energy-year-picker" "dp-year-picker"}}>
   {{#basic-dropdown verticalPosition="below"
                     registerAPI=(action (mut dropdownController))
                     renderInPlace=true

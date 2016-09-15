@@ -18,6 +18,19 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), '2016', 'displays the correct placeholder year');
 });
 
+test('it renders as an energy year display', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-06-01', 'YYYY-MM-DD'),
+    endDate: moment('2017-05-31', 'YYYY-MM-DD'),
+  });
+
+  this.render(hbs`{{year-display startDate=startDate
+                                 endDate=endDate
+                                 energyYear=true}}`);
+
+  assert.equal(this.$().text().trim(), 'EY 2016', 'displays the correct placeholder year');
+});
+
 test('expands to show all the years', function(assert) {
   this.setProperties({
     startDate: moment('2016-01-01', 'YYYY-MM-DD'),
@@ -63,4 +76,22 @@ test('updating the year changes the displayed year', function(assert) {
   assert.equal(this.get('startDate').format("YYYY"), '2017', 'startDate is updated to 2017.');
   assert.equal(this.get('endDate').format("YYYY"), '2017', 'startDate is updated to 2017.');
   assert.equal(this.$('.dp-btn-year').text().trim(), '2017', 'Year button displays 2017.');
+});
+
+test('updating the year changes the displayed year as an energy year display', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-06-01', 'YYYY-MM-DD'),
+    endDate: moment('2017-05-31', 'YYYY-MM-DD'),
+  });
+
+  this.render(hbs`{{year-display startDate=startDate
+                                 endDate=endDate
+                                 month=startDate
+                                 energyYear=true}}`);
+
+  this.$("button:contains('2016')").click();
+  this.$("button:contains('2020')").click();
+  assert.equal(this.get('startDate').format("YYYY"), '2020', 'startDate is updated to 2020.');
+  assert.equal(this.get('endDate').format("YYYY"), '2021', 'endDate is updated to 2021.');
+  assert.equal(this.$('.dp-btn-year').text().trim(), 'EY 2020', 'Year button displays EY 2020.');
 });
