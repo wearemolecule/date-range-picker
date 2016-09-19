@@ -37,16 +37,7 @@ export default Mixin.create(CancelableMixin, {
       this.set('startDate', moment().startOf(this.get('defaultStart')).startOf('day'));
     }
 
-    let endDate = this.get('endDate');
-    let endIsBlank = isBlank(endDate);
-
-    if (endIsBlank) {
-      this.set('endDate', moment(endDate, this.get('dateFormat')).startOf('day'));
-    } else if (endDate && !endDate._isAMomentObject) {
-      this.set('endDate', moment().endOf(this.get('defaultEnd')).startOf('day'));
-    }
-
-    if (!this.get('initialStartDate') || !this.get('initialEndDate')) {
+    if (!this.get('initialStartDate')) {
       this.resetInitialValues();
     }
 
@@ -56,41 +47,16 @@ export default Mixin.create(CancelableMixin, {
     });
   },
 
-  rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', function() {
-    let dateFormat = this.get('dateFormat');
-    let startDate = this.get('startDate').format(dateFormat);
-    let endDate = this.get('endDate').format(dateFormat);
-
-    return `${startDate}—${endDate}`;
-  }),
-
-  focusOnInput() {
-    let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
-    if (this.$(element)) {
-      this.$(element).focus();
-      this.$(element).select();
-    }
-  },
-
-  actions: {
-    open() {
-      let dropdown = this.get('dropdownController');
-      if (dropdown) {
-        dropdown.actions.open();
-      }
+  rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', {
+    get() {
+      let dateFormat = this.get('dateFormat');
+      let startDate = this.get('startDate').format(dateFormat);
+      let endDate = this.get('endDate').format(dateFormat);
+      return `${startDate} ${endDate}`;
     },
 
-    apply() {
-      this.resetInitialValues();
-      let dropdown = this.get('dropdownController');
-      if (dropdown) {
-        dropdown.actions.close(null, false);
-      }
-      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
-    },
-
-    parseInput() {
-      let [ start, end ] = this.get('rangeFormatted').split('—');
+    set(k, v) {
+      let [ start, end ] = v.split('—');
       let startMoment = moment(start, this.get('dateFormat'));
       let endMoment = moment(end, this.get('dateFormat'));
 
@@ -116,7 +82,37 @@ export default Mixin.create(CancelableMixin, {
           startMonth: startMoment.clone().startOf('month'),
           endMonth: endMoment.clone().startOf('month'),
         });
+      } else {
+        this.set('endDate', null);
       }
+
+      return v;
+    },
+  }),
+
+  focusOnInput() {
+    let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
+    if (this.$(element)) {
+      this.$(element).focus();
+      this.$(element).select();
+    }
+  },
+
+  actions: {
+    open() {
+      let dropdown = this.get('dropdownController');
+      if (dropdown) {
+        dropdown.actions.open();
+      }
+    },
+
+    apply() {
+      this.resetInitialValues();
+      let dropdown = this.get('dropdownController');
+      if (dropdown) {
+        dropdown.actions.close(null, false);
+      }
+      this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
 
     onFocusInput(dropdown, e) {

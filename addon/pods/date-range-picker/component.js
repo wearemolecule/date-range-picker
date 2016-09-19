@@ -163,6 +163,10 @@ export default Component.extend(Picker, KeyboardHotkeys, {
         this.set('endDate', day);
       }
 
+      if (!endDate) {
+        this.set('endDate', day);
+      }
+
       this.set('startDate', day);
       this.set('startMonth', day.clone().startOf('month'));
     },

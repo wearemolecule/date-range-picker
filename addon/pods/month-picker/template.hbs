@@ -11,8 +11,7 @@
     {{#if showInput}}
       {{range-input-mask value=rangeFormatted
                          mask="9[9]/99[99]—9[9]/99[99]"
-                         class="dp-date-input"
-                         key-press="parseInput"}}
+                         class="dp-date-input"}}
     {{else}}
       {{yield}}
     {{/if}}
