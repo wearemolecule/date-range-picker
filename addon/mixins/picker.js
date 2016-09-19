@@ -107,14 +107,16 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
+      console.log("Focus In");
       if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') ||
                               e.relatedTarget.className.includes('dp-cancel') ||
                               e.relatedTarget.className.includes('dp-date-input'))) {
         return true;
       }
       dropdown.actions.open(e);
-      $("." + this.get('topClass') + " .dp-date-input:first").focus();
-      $("." + this.get('topClass') + " .dp-date-input:first").select();
+      let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
+      this.$(element).focus();
+      this.$(element).select();
     },
 
     onFocusOut(dropdown, e) {
@@ -139,6 +141,11 @@ export default Mixin.create(CancelableMixin, {
           }
         } else {
           this.get('dropdownController').actions.toggle();
+          if (this.get('dropdownOpen')) {
+            let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
+            this.$(element).focus();
+            this.$(element).select();
+          }
         }
       }
       return false;
