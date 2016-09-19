@@ -8,6 +8,8 @@ const {
 } = Ember;
 
 export default Mixin.create(CancelableMixin, {
+  classNameBindings: ['topClass'],
+  topClass: 'dp-date-range-picker',
   showInput: true,
   dateFormat: "MM/DD/YYYY",
   tabIndex: 1,
@@ -57,6 +59,14 @@ export default Mixin.create(CancelableMixin, {
     return `${startDate}—${endDate}`;
   }),
 
+  focusOnInput() {
+    let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
+    if (this.$(element)) {
+      this.$(element).focus();
+      this.$(element).select();
+    }
+  },
+
   actions: {
     open() {
       let dropdown = this.get('dropdownController');
@@ -69,7 +79,7 @@ export default Mixin.create(CancelableMixin, {
       this.resetInitialValues();
       let dropdown = this.get('dropdownController');
       if (dropdown) {
-        dropdown.actions.close(null, true);
+        dropdown.actions.close(null, false);
       }
       this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
@@ -105,16 +115,18 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') ||
-                              e.relatedTarget.className.includes('dp-cancel') ||
-                              e.relatedTarget.className.includes('dp-date-input'))) {
+      if (e && e.relatedTarget && e.relatedTarget.className && (e.relatedTarget.className.includes('dp-apply') ||
+                                                                e.relatedTarget.className.includes('dp-cancel') ||
+                                                                e.relatedTarget.className.includes('dp-date-input'))) {
         return true;
       }
+
       dropdown.actions.open(e);
+      this.focusOnInput();
     },
 
     onFocusOut(dropdown, e) {
-      if (e.relatedTarget) {
+      if (e && e.relatedTarget) {
         return true;
       }
 
@@ -135,6 +147,9 @@ export default Mixin.create(CancelableMixin, {
           }
         } else {
           this.get('dropdownController').actions.toggle();
+          if (this.get('dropdownOpen')) {
+            this.focusOnInput();
+          }
         }
       }
       return false;

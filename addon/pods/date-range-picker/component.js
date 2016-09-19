@@ -8,6 +8,7 @@ const {
 } = Ember;
 
 export default Component.extend(Picker, KeyboardHotkeys, {
+  topClass: 'dp-date-range-picker',
   mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
   presets: Ember.A(),
   layout,
@@ -65,6 +66,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
     let nextIndex = this.incrementSelectionIndex(currentPreset, selectedIndex);
     if (nextIndex !== null) {
       let nextPreset = this.get('presets')[nextIndex];
+      this.clearSelection();
       Ember.set(nextPreset, "isSelected", true);
       this.send('applyPreset', nextPreset);
     }
@@ -99,30 +101,31 @@ export default Component.extend(Picker, KeyboardHotkeys, {
     let nextIndex = this.decrementSelectionIndex(currentPreset, selectedIndex);
     if (nextIndex !== null) {
       let nextPreset = this.get('presets')[nextIndex];
+      this.clearSelection();
       Ember.set(nextPreset, "isSelected", true);
       this.send('applyPreset', nextPreset);
     }
   },
 
-  actions: {
-    clearSelection() {
-      this.get('presets').forEach((preset) => {
-        Ember.set(preset, "isSelected", false);
-      });
-    },
+  clearSelection() {
+    this.get('presets').forEach((preset) => {
+      Ember.set(preset, "isSelected", false);
+    });
+  },
 
+  actions: {
     applyPreset(preset) {
       this.send('startSelected', preset.startDate);
       this.send('endSelected', preset.endDate);
     },
 
     cancel() {
-      this.send('clearSelection');
+      this.clearSelection();
       this._super();
     },
 
     apply() {
-      this.send('clearSelection');
+      this.clearSelection();
       this._super();
     },
 
@@ -134,6 +137,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
       }
 
       this.set('endDate', day);
+      this.set('endMonth', day.clone().startOf('month'));
     },
 
     nextEndMonth() {
@@ -160,6 +164,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
       }
 
       this.set('startDate', day);
+      this.set('startMonth', day.clone().startOf('month'));
     },
   }
 });

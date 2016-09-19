@@ -16,6 +16,14 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   defaultStart: 'year',
   defaultEnd: 'year',
 
+  topClass: computed('energyYear', function() {
+    if (this.get('energyYear')) {
+      return "dp-energy-year-picker";
+    } else {
+      return "dp-year-picker";
+    }
+  }),
+
   energyYear: false,
 
   init() {
@@ -50,7 +58,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   overrideStartDateParse(startDate) {
     if (this.get('energyYear')) {
-      return moment(`${startDate.year()}-${6}-${1}`);
+      return moment(`${startDate.year()}-${6}-${1}`, "YYYY-MM-DD");
     } else {
       return null;
     }
@@ -58,7 +66,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   overrideEndDateParse(endDate) {
     if (this.get('energyYear')) {
-      return moment(`${endDate.year() + 1}-${5}-${31}`);
+      return moment(`${endDate.year() + 1}-${5}-${31}`, "YYYY-MM-DD");
     } else {
       return null;
     }

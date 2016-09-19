@@ -10,6 +10,7 @@ const {
 } = Ember;
 
 export default Component.extend(Picker, MultipleExpandedValidators, KeyboardHotkeys, {
+  topClass: 'dp-month-picker',
   dateFormat: "MM/YYYY",
   layout,
   defaultStart: 'month',

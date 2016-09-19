@@ -1,39 +1,37 @@
-<div class={{if energyYear "dp-energy-year-picker" "dp-year-picker"}}>
-  {{#basic-dropdown verticalPosition="below"
-                    registerAPI=(action (mut dropdownController))
-                    renderInPlace=true
-                    initiallyOpened=initiallyOpened
-                    as |dropdown|}}
-    {{#dropdown.trigger tabindex=tabIndex
-                        onFocusIn=(action "onFocusInput")
-                        onFocusOut=(action "onFocusOut")
-                        onKeydown=(action "handleKeydown")}}
+{{#basic-dropdown verticalPosition="below"
+                  registerAPI=(action (mut dropdownController))
+                  renderInPlace=true
+                  initiallyOpened=initiallyOpened
+                  as |dropdown|}}
+  {{#dropdown.trigger tabindex=tabIndex
+                      onFocusIn=(action "onFocusInput")
+                      onFocusOut=(action "onFocusOut")
+                      onKeydown=(action "handleKeydown")}}
 
-      {{#if showInput}}
-        {{input-mask value=rangeFormatted
-                     mask=inputMask
-                     class="dp-date-input"
-                     key-press="parseInput"}}
-      {{else}}
-        {{yield}}
-      {{/if}}
-    {{/dropdown.trigger}}
+    {{#if showInput}}
+      {{input-mask value=rangeFormatted
+                   mask=inputMask
+                   class="dp-date-input"
+                   key-press="parseInput"}}
+    {{else}}
+      {{yield}}
+    {{/if}}
+  {{/dropdown.trigger}}
 
-    {{#dropdown.content class="dp-panel"
-                        to="dp-year-picker"}}
-      <div class="dp-display-year">
-        {{year-display startDate=startDate
-                       endDate=endDate
-                       hideButton=true
-                       isExpanded=true
-                       ignoreMonthAndDay=true
-                       energyYear=energyYear}}
-      </div>
+  {{#dropdown.content class="dp-panel"
+                      to="dp-year-picker"}}
+    <div class="dp-display-year">
+      {{year-display startDate=startDate
+                     endDate=endDate
+                     hideButton=true
+                     isExpanded=true
+                     ignoreMonthAndDay=true
+                     energyYear=energyYear}}
+    </div>
 
-      <div class="dp-action-console">
-        <button {{action "cancel"}} class="dp-cancel {{if cancelSelected 'dp-action-selected'}}">Cancel</button>
-        <button {{action "apply"}} class="dp-apply {{if applySelected 'dp-action-selected'}}">Apply</button>
-      </div>
-    {{/dropdown.content}}
-  {{/basic-dropdown}}
-</div>
+    <div class="dp-action-console">
+      <button {{action "cancel"}} class="dp-cancel {{if cancelSelected 'dp-action-selected'}}">Cancel</button>
+      <button {{action "apply"}} class="dp-apply {{if applySelected 'dp-action-selected'}}">Apply</button>
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}

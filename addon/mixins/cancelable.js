@@ -45,7 +45,7 @@ export default Ember.Mixin.create({
       this.send('reset');
       let dropdown = this.get('dropdownController');
       if (dropdown) {
-        dropdown.actions.close(null, true);
+        dropdown.actions.close(null, false);
       }
       this.sendAction('cancel');
     },
