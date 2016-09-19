@@ -16,6 +16,14 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   defaultStart: 'year',
   defaultEnd: 'year',
 
+  topClass: computed('energyYear', function() {
+    if (this.get('energyYear')) {
+      return "dp-energy-year-picker";
+    } else {
+      return "dp-year-picker";
+    }
+  }),
+
   energyYear: false,
 
   init() {

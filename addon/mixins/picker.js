@@ -8,6 +8,8 @@ const {
 } = Ember;
 
 export default Mixin.create(CancelableMixin, {
+  classNameBindings: ['topClass'],
+  topClass: 'dp-date-range-picker',
   showInput: true,
   dateFormat: "MM/DD/YYYY",
   tabIndex: 1,
@@ -111,6 +113,8 @@ export default Mixin.create(CancelableMixin, {
         return true;
       }
       dropdown.actions.open(e);
+      $("." + this.get('topClass') + " .dp-date-input:first").focus();
+      $("." + this.get('topClass') + " .dp-date-input:first").select();
     },
 
     onFocusOut(dropdown, e) {
