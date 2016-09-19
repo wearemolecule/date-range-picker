@@ -52,7 +52,7 @@ export default Ember.Mixin.create({
     reset() {
       this.setProperties({
         startDate: this.get('initialStartDate').clone(),
-        endDate: this.get('initialEndDate').clone(),
+        endDate: this.safeClone('initialEndDate'),
         startMonth: this.get('initialStartMonth').clone(),
         endMonth: this.get('initialEndMonth').clone(),
       });

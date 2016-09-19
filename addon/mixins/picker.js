@@ -51,7 +51,7 @@ export default Mixin.create(CancelableMixin, {
     get() {
       let dateFormat = this.get('dateFormat');
       let startDate = this.get('startDate').format(dateFormat);
-      let endDate = this.get('endDate').format(dateFormat);
+      let endDate = this.get('endDate') ? this.get('endDate').format(dateFormat) : '';
       return `${startDate} ${endDate}`;
     },
 
