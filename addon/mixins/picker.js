@@ -59,6 +59,14 @@ export default Mixin.create(CancelableMixin, {
     return `${startDate}—${endDate}`;
   }),
 
+  focusOnInput() {
+    let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
+    if (this.$(element)) {
+      this.$(element).focus();
+      this.$(element).select();
+    }
+  },
+
   actions: {
     open() {
       let dropdown = this.get('dropdownController');
@@ -71,7 +79,7 @@ export default Mixin.create(CancelableMixin, {
       this.resetInitialValues();
       let dropdown = this.get('dropdownController');
       if (dropdown) {
-        dropdown.actions.close(null, true);
+        dropdown.actions.close(null, false);
       }
       this.sendAction('apply', this.get('startDate'), this.get('endDate'));
     },
@@ -112,10 +120,9 @@ export default Mixin.create(CancelableMixin, {
                                                                 e.relatedTarget.className.includes('dp-date-input'))) {
         return true;
       }
+
       dropdown.actions.open(e);
-      let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
-      this.$(element).focus();
-      this.$(element).select();
+      this.focusOnInput();
     },
 
     onFocusOut(dropdown, e) {
@@ -141,9 +148,7 @@ export default Mixin.create(CancelableMixin, {
         } else {
           this.get('dropdownController').actions.toggle();
           if (this.get('dropdownOpen')) {
-            let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
-            this.$(element).focus();
-            this.$(element).select();
+            this.focusOnInput();
           }
         }
       }
