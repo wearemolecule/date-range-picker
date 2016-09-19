@@ -50,8 +50,8 @@ export default Component.extend({
   },
 
   setEnergyYear(year) {
-    this.set('startDate', moment(`${year}-${6}-${1}`, 'YYYY-MM-DD'));
-    this.set('endDate', moment(`${year + 1}-${5}-${31}`, 'YYYY-MM-DD'));
+    this.set('startDate', moment(`${year - 1}-${6}-${1}`, 'YYYY-MM-DD'));
+    this.set('endDate', moment(`${year}-${5}-${31}`, 'YYYY-MM-DD'));
   },
 
   actions: {

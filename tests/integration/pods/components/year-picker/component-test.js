@@ -124,8 +124,8 @@ test('can select a new year as an energy year picker', function(assert) {
 
   this.$(".dp-year-body button:contains('2015')").click();
 
-  assert.equal(this.get('startDate').format('YYYY-MM-DD'), moment('2015-06-01').format('YYYY-MM-DD'), 'Start is updated.');
-  assert.equal(this.get('endDate').format('YYYY-MM-DD'), moment('2016-05-31').format('YYYY-MM-DD'), 'End is updated.');
+  assert.equal(this.get('startDate').format('YYYY-MM-DD'), moment('2014-06-01').format('YYYY-MM-DD'), 'Start is updated.');
+  assert.equal(this.get('endDate').format('YYYY-MM-DD'), moment('2015-05-31').format('YYYY-MM-DD'), 'End is updated.');
 });
 
 test('converts strings to moments', function(assert) {
