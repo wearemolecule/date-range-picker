@@ -107,10 +107,9 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusInput(dropdown, e) {
-      console.log("Focus In");
-      if (e.relatedTarget && (e.relatedTarget.className.includes('dp-apply') ||
-                              e.relatedTarget.className.includes('dp-cancel') ||
-                              e.relatedTarget.className.includes('dp-date-input'))) {
+      if (e && e.relatedTarget && e.relatedTarget.className && (e.relatedTarget.className.includes('dp-apply') ||
+                                                                e.relatedTarget.className.includes('dp-cancel') ||
+                                                                e.relatedTarget.className.includes('dp-date-input'))) {
         return true;
       }
       dropdown.actions.open(e);
@@ -120,7 +119,7 @@ export default Mixin.create(CancelableMixin, {
     },
 
     onFocusOut(dropdown, e) {
-      if (e.relatedTarget) {
+      if (e && e.relatedTarget) {
         return true;
       }
 

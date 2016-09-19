@@ -45,7 +45,6 @@ export default Ember.Mixin.create({
       this.send('reset');
       let dropdown = this.get('dropdownController');
       if (dropdown) {
-        console.log("Cancel Focus Close");
         dropdown.actions.close(null, false);
       }
       this.sendAction('cancel');
