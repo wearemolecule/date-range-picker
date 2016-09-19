@@ -6,6 +6,7 @@ moduleForComponent('year-display', 'Integration | Component | year display', {
   integration: true
 });
 
+// year-display use the current year as the placeholder
 test('it renders', function(assert) {
   this.setProperties({
     startDate: moment('2016-01-01', 'YYYY-MM-DD'),
@@ -15,7 +16,8 @@ test('it renders', function(assert) {
   this.render(hbs`{{year-display startDate=startDate
                                  endDate=endDate}}`);
 
-  assert.equal(this.$().text().trim(), '2016', 'displays the correct placeholder year');
+  let currentYear = moment().format('YYYY');
+  assert.equal(this.$().text().trim(), currentYear, 'displays the correct placeholder year');
 });
 
 test('it renders as an energy year display', function(assert) {
@@ -28,7 +30,8 @@ test('it renders as an energy year display', function(assert) {
                                  endDate=endDate
                                  energyYear=true}}`);
 
-  assert.equal(this.$().text().trim(), 'EY 2016', 'displays the correct placeholder year');
+  let currentYear = moment().format('YYYY');
+  assert.equal(this.$().text().trim(), "EY " + currentYear, 'displays the correct placeholder year');
 });
 
 test('expands to show all the years', function(assert) {
@@ -86,12 +89,12 @@ test('updating the year changes the displayed year as an energy year display', f
 
   this.render(hbs`{{year-display startDate=startDate
                                  endDate=endDate
-                                 month=startDate
+                                 month=endDate
                                  energyYear=true}}`);
 
-  this.$("button:contains('2016')").click();
+  this.$("button:contains('2017')").click();
   this.$("button:contains('2020')").click();
-  assert.equal(this.get('startDate').format("YYYY"), '2020', 'startDate is updated to 2020.');
-  assert.equal(this.get('endDate').format("YYYY"), '2021', 'endDate is updated to 2021.');
+  assert.equal(this.get('startDate').format("YYYY"), '2019', 'startDate is updated to 2019.');
+  assert.equal(this.get('endDate').format("YYYY"), '2020', 'endDate is updated to 2020.');
   assert.equal(this.$('.dp-btn-year').text().trim(), 'EY 2020', 'Year button displays EY 2020.');
 });

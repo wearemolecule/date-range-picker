@@ -44,11 +44,10 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   rangeFormatted: computed('startDate', 'endDate', 'dateFormat', 'energyYear', function() {
     let dateFormat = this.get('dateFormat');
-    var format = this.get('startDate').format(dateFormat);
     if (this.get('energyYear')) {
-      return "EY " + format;
+      return "EY " + this.get('endDate').format(dateFormat);
     } else {
-      return format;
+      return this.get('startDate').format(dateFormat);
     }
   }),
 
@@ -58,7 +57,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   overrideStartDateParse(startDate) {
     if (this.get('energyYear')) {
-      return moment(`${startDate.year()}-${6}-${1}`, "YYYY-MM-DD");
+      return moment(`${startDate.year() - 1}-${6}-${1}`, "YYYY-MM-DD");
     } else {
       return null;
     }
@@ -66,7 +65,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
 
   overrideEndDateParse(endDate) {
     if (this.get('energyYear')) {
-      return moment(`${endDate.year() + 1}-${5}-${31}`, "YYYY-MM-DD");
+      return moment(`${endDate.year()}-${5}-${31}`, "YYYY-MM-DD");
     } else {
       return null;
     }
