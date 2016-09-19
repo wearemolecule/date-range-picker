@@ -74,8 +74,8 @@ test('optional, masked input - string', function(assert) {
 
 test('optional, masked input - string as an energy year picker', function(assert) {
   this.setProperties({
-    startDate: '2016-06-01',
-    endDate: '2017-05-31',
+    startDate: '2015-06-01',
+    endDate: '2016-05-31',
   });
 
   this.render(hbs`{{year-picker startDate=startDate
@@ -140,7 +140,7 @@ test('converts strings to moments', function(assert) {
                                 endDate=endDate
                                 initiallyOpened=true}}`);
 
-  assert.equal(this.$(".dp-year-picker input")[0].value, moment().format("YYYY"));
+  assert.equal(this.$(".dp-year-picker input").eq(0).val(), moment(dateString).format("YYYY"));
 });
 
 function inputExpectations(assert, prefix) {

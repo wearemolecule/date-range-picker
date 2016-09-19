@@ -31,11 +31,17 @@ export default Mixin.create(CancelableMixin, {
     let startDate = this.get('startDate');
     let startIsBlank = isBlank(startDate);
 
+    if (typeof startDate === 'string') {
+      startDate = this.set('startDate', moment(startDate));
+    }
+
     if (startIsBlank) {
       this.set('startDate', moment(startDate, this.get('dateFormat')).startOf('day'));
     } else if (startDate && !startDate._isAMomentObject) {
       this.set('startDate', moment().startOf(this.get('defaultStart')).startOf('day'));
     }
+
+    this.set('endDate', moment(this.get('endDate')));
 
     if (!this.get('initialStartDate')) {
       this.resetInitialValues();

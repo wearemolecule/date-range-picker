@@ -204,7 +204,7 @@ test('converts strings to moments', function(assert) {
   let $leftCal = this.$('.dp-display-calendar:first');
   let $rightCal = this.$('.dp-display-calendar:last');
   let [ leftMonth, leftYear, rightMonth, rightYear ] = allText($leftCal, $rightCal);
-  
+
   assert.equal(leftMonth, moment().format(monthFormat), 'startDate month is initial value.');
   assert.equal(leftYear, moment().format(yearFormat), 'startDate year is initial value.');
   assert.equal(rightMonth, moment().format(monthFormat), 'endDate month is initial value.');
