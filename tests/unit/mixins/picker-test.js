@@ -49,11 +49,11 @@ test('#parseInput handles different range inputs', function(assert) {
     
     assert.equal(subject.get('rangeFormatted'), criteria.rangeFormatted);
     subject.send('parseInput');
-    assert.ok(subject.get('startDate').isSame(criteria.startDate),
+    assert.ok(subject.get('startDate').isSame(criteria.startDate, 'day'),
               "Start Date for " + criteria.rangeFormatted +
                 " should be " + criteria.startDate.format(format) +
                 " received " + subject.get('startDate').format(format));
-    assert.ok(subject.get('endDate').isSame(criteria.endDate),
+    assert.ok(subject.get('endDate').isSame(criteria.endDate, 'day'),
               "End Date for " + criteria.rangeFormatted +
                 " should be " + criteria.endDate.format(format) +
                 " received " + subject.get('endDate').format(format));

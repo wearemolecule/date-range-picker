@@ -25,10 +25,10 @@ export default Ember.Mixin.create({
   },
 
   datesSame: Ember.computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
-    return this.get('startDate').isSame(this.get('initialStartDate')) &&
-           this.get('endDate').isSame(this.get('initialEndDate')) &&
-           this.get('startMonth').isSame(this.get('initialStartMonth')) &&
-           this.get('endMonth').isSame(this.get('initialEndMonth'));
+    return this.get('startDate').isSame(this.get('initialStartDate'), 'day') &&
+           this.get('endDate').isSame(this.get('initialEndDate'), 'day') &&
+           this.get('startMonth').isSame(this.get('initialStartMonth'), 'day') &&
+           this.get('endMonth').isSame(this.get('initialEndMonth'), 'day');
   }),
 
   actions: {
