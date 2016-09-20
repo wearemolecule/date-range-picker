@@ -4,7 +4,7 @@ import layout from './template';
 const { computed } = Ember;
 
 export default Ember.Component.extend({
-  classNameBindings: ['isSelected:dp-selected', 'inRange:dp-in-range', 'otherMonth:dp-other-month'],
+  classNameBindings: ['isSelected:dp-selected', 'inRange:dp-in-range', 'otherMonth:dp-other-month', 'isStartSelection:dp-start', 'isEndSelection:dp-end'],
   classNames: ['dp-day'],
   layout,
   attributeBindings: ['tabindex'],
@@ -17,6 +17,16 @@ export default Ember.Component.extend({
   inRange: computed('day', 'selectionStart', 'selectionEnd', function() {
     let {day, selectionStart, selectionEnd} = this.getProperties('day', 'selectionStart', 'selectionEnd');
     return day.isAfter(selectionStart) && day.isBefore(selectionEnd);
+  }),
+
+  isEndSelection: computed('day', 'selectionEnd', function() {
+    let {day, selectionEnd} = this.getProperties('day', 'selectionEnd');
+    return day.isSame(selectionEnd);
+  }),
+
+  isStartSelection: computed('day', 'selectionStart', function() {
+    let {day, selectionStart} = this.getProperties('day', 'selectionStart');
+    return day.isSame(selectionStart);
   }),
 
   isSelected: computed('day', 'selectionStart', 'selectionEnd', function() {
