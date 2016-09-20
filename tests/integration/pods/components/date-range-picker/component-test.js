@@ -25,9 +25,11 @@ test('it renders', function(assert) {
                                       endDate=today
                                       initiallyOpened=true}}`);
 
-  let text = this.$().text().trim();
+  let calendar_days = this.$(".dp-calendar-body").text().trim();
+  assert.equal(calendar_days.match(new RegExp('[0-9]{1,2}', 'g')).length, 84, 'Has 84 days represented');
 
-  assert.equal(text.match(new RegExp('[0-9]{1,4}', 'g')).length, 72, 'Has 72 1-4 digit numbers...');
+  let calendar_header = this.$(".dp-calendar-header").text().trim();
+  assert.equal(calendar_header.match(new RegExp('[0-9]{4}', 'g')).length, 2, 'Has two years represented');
 });
 
 test('will accept strings as startDate and endDate', function(assert) {
@@ -161,8 +163,31 @@ test('can render 12/25/2015', function(assert) {
 
   let $leftCal = this.$('.dp-display-calendar:first');
 
-  assert.equal($leftCal.find('.dp-day').length, 35, '12/2015 has the correct number of days');
+  assert.equal($leftCal.find('.dp-day').length, 42, '12/2015 has the correct number of days');
+  let firstOfMonth = $leftCal.find(".dp-day").not(".dp-other-month").filter(function() { return $(this).text().trim() === "1"; });
+  assert.equal(firstOfMonth.length, 1, '12/1/2015 shows up');
+  let endOfMonth = $leftCal.find(".dp-day").not(".dp-other-month").filter(function() { return $(this).text().trim() === "31"; });
+  assert.equal(endOfMonth.length, 1, '12/31/2015 shows up');
 });
+
+test('can render 12/31/2017', function(assert) {
+  let today = moment('2017-12-31', 'YYYY-MM-DD');
+
+  this.set('today', today);
+
+  this.render(hbs`{{date-range-picker startDate=today
+                                      endDate=today
+                                      initiallyOpened=true}}`);
+
+  let $leftCal = this.$('.dp-display-calendar:first');
+
+  assert.equal($leftCal.find('.dp-day').length, 42, '12/2017 has the correct number of days');
+  let firstOfMonth = $leftCal.find(".dp-day").not(".dp-other-month").filter(function() { return $(this).text().trim() === "1"; });
+  assert.equal(firstOfMonth.length, 1, '12/1/2017 shows up');
+  let endOfMonth = $leftCal.find(".dp-day").not(".dp-other-month").filter(function() { return $(this).text().trim() === "31"; });
+  assert.equal(endOfMonth.length, 1, '12/31/2017 shows up');
+});
+
 
 test('converts strings to moments', function(assert) {
   let dateString = '01/02/3015';
