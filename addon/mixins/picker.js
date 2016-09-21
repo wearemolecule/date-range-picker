@@ -41,7 +41,10 @@ export default Mixin.create(CancelableMixin, {
       this.set('startDate', moment().startOf(this.get('defaultStart')).startOf('day'));
     }
 
-    this.set('endDate', moment(this.get('endDate')));
+    let endDate = this.get('endDate');
+    if (typeof endDate === 'string') {
+      endDate = this.set('endDate', moment(endDate));
+    }
 
     if (!this.get('initialStartDate')) {
       this.resetInitialValues();
