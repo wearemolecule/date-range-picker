@@ -50,10 +50,10 @@ export default Mixin.create(CancelableMixin, {
       this.resetInitialValues();
     }
 
-    this.setProperties({
-      startMonth: this.get('startDate').clone().startOf('month'),
-      endMonth: this.get('endDate').clone().startOf('month'),
-    });
+    this.set('startMonth', this.get('startDate').clone().startOf('month'));
+    if (this.get('endDate')) {
+      this.set('endMonth', this.get('endDate').clone().startOf('month'));
+    }
   },
 
   rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', {
