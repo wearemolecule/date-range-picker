@@ -6,10 +6,6 @@ export default Ember.Controller.extend({
   start: moment().startOf('day'),
   end: moment().startOf('day').add(2, 'days'),
 
-  nextMonth: Ember.computed('month', function() {
-    return this.get('month').clone().add(1, 'month');
-  }),
-
   presets: [
     {
       name: 'Today',
@@ -48,13 +44,5 @@ export default Ember.Controller.extend({
     cancel() {
       console.log('ApplicationController#cancel');
     },
-
-    nextMonth() {
-      this.set('month', this.get('month').add(1, 'month').clone());
-    },
-
-    prevMonth() {
-      this.set('month', this.get('month').add(-1, 'month').clone());
-    }
   }
 });

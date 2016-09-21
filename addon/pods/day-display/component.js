@@ -21,17 +21,17 @@ export default Ember.Component.extend({
 
   isEndSelection: computed('day', 'selectionEnd', function() {
     let {day, selectionEnd} = this.getProperties('day', 'selectionEnd');
-    return day.isSame(selectionEnd);
+    return day.isSame(selectionEnd, 'day');
   }),
 
   isStartSelection: computed('day', 'selectionStart', function() {
     let {day, selectionStart} = this.getProperties('day', 'selectionStart');
-    return day.isSame(selectionStart);
+    return day.isSame(selectionStart, 'day');
   }),
 
   isSelected: computed('day', 'selectionStart', 'selectionEnd', function() {
     let {day, selectionStart, selectionEnd} = this.getProperties('day', 'selectionStart', 'selectionEnd');
-    return day.isSame(selectionStart) || day.isSame(selectionEnd);
+    return day.isSame(selectionStart, 'day') || day.isSame(selectionEnd, 'day');
   }),
 
   otherMonth: computed('day', 'month', function() {
