@@ -169,5 +169,5 @@ test('converts strings to moments', function(assert) {
                                  endDate=endDate
                                  initiallyOpened=true}}`);
 
-  assert.equal($.find(".dp-btn-month.active:contains('"+ moment().format("MMM") + "')").length, 2);
+  assert.equal($(`.dp-btn-month.active:contains(${moment(dateString).format("MMM")})`).length, 2);
 });

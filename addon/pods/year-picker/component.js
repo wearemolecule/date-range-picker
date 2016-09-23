@@ -45,7 +45,8 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   rangeFormatted: computed('startDate', 'endDate', 'dateFormat', 'energyYear', function() {
     let dateFormat = this.get('dateFormat');
     if (this.get('energyYear')) {
-      return "EY " + this.get('endDate').format(dateFormat);
+      let date = this.get('endDate') ? this.get('endDate').format(dateFormat) : '';
+      return "EY " + date;
     } else {
       return this.get('startDate').format(dateFormat);
     }

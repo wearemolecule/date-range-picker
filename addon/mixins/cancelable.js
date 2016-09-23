@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { computed, run } = Ember;
+
 export default Ember.Mixin.create({
   resetInitialValues() {
     let {
@@ -11,12 +13,12 @@ export default Ember.Mixin.create({
 
     this.setProperties({
       initialStartDate: startDate.clone(),
-      initialEndDate: endDate.clone(),
+      initialEndDate: this.safeClone('endDate'),
       initialStartMonth: startMonth.clone(),
       initialEndMonth: endMonth.clone()
     });
 
-    Ember.run.next(this, () => {
+    run.next(this, () => {
       this.notifyPropertyChange('initialStartDate');
       this.notifyPropertyChange('initialStartMonth');
       this.notifyPropertyChange('initialEndDate');
@@ -24,18 +26,33 @@ export default Ember.Mixin.create({
     });
   },
 
-  datesSame: Ember.computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
-    return this.get('startDate').isSame(this.get('initialStartDate'), 'day') &&
-           this.get('endDate').isSame(this.get('initialEndDate'), 'day') &&
-           this.get('startMonth').isSame(this.get('initialStartMonth'), 'day') &&
-           this.get('endMonth').isSame(this.get('initialEndMonth'), 'day');
+  datesSame: computed('startDate', 'endDate', 'startMonth', 'endMonth', 'initialStartDate', 'initialEndDate', 'initialStartMonth', 'initialEndMonth', function() {
+    return this.safeIsSame('startDate', 'initialStartDate') &&
+      this.safeIsSame('endDate', 'initialEndDate') &&
+      this.safeIsSame('startMonth', 'initialStartMonth') &&
+      this.safeIsSame('endMonth', 'initialEndMonth');
   }),
+
+  safeIsSame(first, second) {
+    if (!this.get(first) || !this.get(second)) {
+      return false;
+    }
+
+    return this.get(first).isSame(this.get(second));
+  },
+
+  safeClone(date) {
+    if (!this.get(date)) {
+      return null;
+    }
+    return this.get(date).clone();
+  },
 
   actions: {
     reset() {
       this.setProperties({
         startDate: this.get('initialStartDate').clone(),
-        endDate: this.get('initialEndDate').clone(),
+        endDate: this.safeClone('initialEndDate'),
         startMonth: this.get('initialStartMonth').clone(),
         endMonth: this.get('initialEndMonth').clone(),
       });
