@@ -1,15 +1,15 @@
-// import { test } from 'qunit';
-// import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { test } from 'qunit';
+import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
-// moduleForAcceptance('Acceptance | date range picker');
+moduleForAcceptance('Acceptance | date range picker');
 
-// test('visiting /', function(assert) {
-//   visit('/');
+test('visiting /', function(assert) {
+  visit('/');
 
-//   andThen(() => {
-//     assert.equal(currentURL(), '/');
-//   });
-// });
+  andThen(() => {
+    assert.equal(currentURL(), '/');
+  });
+});
 
 // This tests was intened to test key functions on date range pickers
 // but ended up being too difficult to implement
