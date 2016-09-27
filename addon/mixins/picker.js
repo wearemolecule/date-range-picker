@@ -100,11 +100,7 @@ export default Mixin.create(CancelableMixin, {
   }),
 
   focusOnInput() {
-    let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
-    if (this.$(element)) {
-      this.$(element).focus();
-      this.$(element).select();
-    }
+    this.$(`.${this.get('topClass')} .dp-date-input`).first().focus().select();
   },
 
   actions: {
