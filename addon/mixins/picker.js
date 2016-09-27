@@ -66,8 +66,9 @@ export default Mixin.create(CancelableMixin, {
 
     set(k, v) {
       let [ start, end ] = v.split('—');
-      let startMoment = moment(start, this.get('dateFormat'));
-      let endMoment = moment(end, this.get('dateFormat'));
+      let dateFormat = this.get('dateFormat');
+      let startMoment = moment(start, dateFormat);
+      let endMoment = moment(end, dateFormat);
 
       if(startMoment.isValid() || endMoment.isValid()) {
         if(!endMoment.isValid()) {
@@ -81,6 +82,10 @@ export default Mixin.create(CancelableMixin, {
         if (this.get('hasDateParseOverride')) {
           startMoment = this.overrideStartDateParse(startMoment);
           endMoment = this.overrideEndDateParse(endMoment);
+        }
+
+        if (startMoment.isAfter(endMoment)) {
+          [startMoment, endMoment] = [endMoment.clone(), startMoment.clone()];
         }
       }
 
