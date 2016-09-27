@@ -14,6 +14,7 @@ test('it can be mixed into an Ember.Object', function(assert) {
 test('#rangeFormatted - set', function(assert) {
   let PickerActionsObject = Ember.Component.extend(PickerMixin);
   let format = "MM/DD/YYYY";
+  let currentYear = moment().format("YYYY");
 
   let testCases = [
     // Valid Start Date Supplied but no End Date
@@ -32,12 +33,15 @@ test('#rangeFormatted - set', function(assert) {
     { rangeFormatted: "05/15/2015—06/16/2016", startDate: moment("05/15/2015", format), endDate: moment("06/16/2016", format) },
 
     // TODO
-    // // Invalid Start and End Date supplied
-    // { rangeFormatted: "_/_/__—_/_/__", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    // { rangeFormatted: "0/0/00—0/0/00", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    // { rangeFormatted: "99/99/9999—99/99/9999", startDate: moment().startOf('year'), endDate: moment().endOf('year') },
-    // { rangeFormatted: "5/_/__—_/_/__", startDate: moment(`05/01/${currentYear}`, format), endDate: moment(`05/01/${currentYear}`, format) },
-    // { rangeFormatted: "5/15/__—_/_/__", startDate: moment(`05/15/${currentYear}`, format), endDate: moment(`05/15/${currentYear}`, format) },
+    // Invalid Start and End Date supplied
+    { rangeFormatted: "_/_/__—_/_/__", startDate: moment(), endDate: moment() },
+    { rangeFormatted: "0/0/00—0/0/00", startDate: moment(), endDate: moment() },
+    { rangeFormatted: "99/99/9999—99/99/9999", startDate: moment(), endDate: moment() },
+    { rangeFormatted: "5/_/__—_/_/__", startDate: moment(`05/01/${currentYear}`, format), endDate: moment(`05/01/${currentYear}`, format) },
+    { rangeFormatted: "5/15/__—_/_/__", startDate: moment(`05/15/${currentYear}`, format), endDate: moment(`05/15/${currentYear}`, format) },
+
+    // End Date Occurs Before Start Date
+    { rangeFormatted: "5/15/16—4/1/15", startDate: moment(`04/1/2015`, format), endDate: moment(`05/15/2016`, format) },
   ];
 
   testCases.forEach(criteria => {

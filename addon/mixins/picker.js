@@ -97,7 +97,12 @@ export default Mixin.create(CancelableMixin, {
           endMonth: endMoment.clone().startOf('month'),
         });
       } else {
-        this.set('endDate', null);
+        this.setProperties({
+          startDate: moment(),
+          endDate: moment(),
+          startMonth: moment().startOf('month'),
+          endMonth: moment().startOf('month'),
+        });
       }
 
       return v;
