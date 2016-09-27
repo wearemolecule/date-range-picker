@@ -3,7 +3,7 @@
 
 module.exports = function(/* environment, appConfig */) {
   return {
-    modulePrefix: 'date-range-picker',
-    podModulePrefix: 'date-range-picker/pods',
+    modulePrefix: 'ember-date-range-picker',
+    podModulePrefix: 'ember-date-range-picker/pods',
   };
 };

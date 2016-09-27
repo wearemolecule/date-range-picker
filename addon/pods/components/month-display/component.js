@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from './template';
-import { range } from 'date-range-picker/helpers/range';
+import { range } from 'ember-date-range-picker/helpers/range';
 
 export default Ember.Component.extend({
   allMonths: range(1, 13),

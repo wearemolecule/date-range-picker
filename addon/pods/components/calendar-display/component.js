@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import layout from './template';
-import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
-import { buildWeek } from 'date-range-picker/helpers/build-week';
 import moment from 'moment';
+import ExpandedValidators from 'ember-date-range-picker/mixins/expanded-validators';
+import { buildWeek } from 'ember-date-range-picker/helpers/build-week';
 
 const { computed } = Ember;
 

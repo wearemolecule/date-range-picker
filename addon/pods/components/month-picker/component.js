@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import layout from './template';
-import Picker from 'date-range-picker/mixins/picker';
-import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
-import MultipleExpandedValidators from 'date-range-picker/mixins/multiple-expanded-validators';
+import Picker from 'ember-date-range-picker/mixins/picker';
+import KeyboardHotkeys from 'ember-date-range-picker/mixins/keyboard-hotkeys';
+import MultipleExpandedValidators from 'ember-date-range-picker/mixins/multiple-expanded-validators';
 
 const {
   run,

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import CancelableMixin from 'date-range-picker/mixins/cancelable';
+import CancelableMixin from 'ember-date-range-picker/mixins/cancelable';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | Cancelable');

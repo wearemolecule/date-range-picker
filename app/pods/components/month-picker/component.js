@@ -1,1 +1,1 @@
-export { default } from 'date-range-picker/components/month-picker/component';
+export { default } from 'ember-date-range-picker/components/month-picker/component';

@@ -1,1 +1,1 @@
-export { default, range } from 'date-range-picker/range/helper';
+export { default, range } from 'ember-date-range-picker/range/helper';

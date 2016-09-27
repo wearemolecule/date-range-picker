@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ExpandedValidatorsMixin from 'date-range-picker/mixins/expanded-validators';
+import ExpandedValidatorsMixin from 'ember-date-range-picker/mixins/expanded-validators';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | expanded validators');

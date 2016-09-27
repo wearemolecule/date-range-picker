@@ -1,6 +1,6 @@
 import { friendlyMonth } from 'dummy/helpers/friendly-month';
 import { module, test } from 'qunit';
-import { range } from 'date-range-picker/helpers/range';
+import { range } from 'ember-date-range-picker/helpers/range';
 
 module('Unit | Helper | friendly month');
 

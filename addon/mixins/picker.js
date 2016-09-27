@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import CancelableMixin from 'date-range-picker/mixins/cancelable';
-import SafeMoment from 'date-range-picker/mixins/safe-moment';
+import CancelableMixin from 'ember-date-range-picker/mixins/cancelable';
+import SafeMoment from 'ember-date-range-picker/mixins/safe-moment';
 import moment from 'moment';
 
 const {

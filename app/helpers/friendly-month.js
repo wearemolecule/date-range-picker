@@ -1,1 +1,1 @@
-export { default, friendlyMonth } from 'date-range-picker/helpers/friendly-month';
+export { default, friendlyMonth } from 'ember-date-range-picker/helpers/friendly-month';

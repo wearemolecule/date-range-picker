@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from './template';
-import { range } from 'date-range-picker/helpers/range';
+import { range } from 'ember-date-range-picker/helpers/range';
 import moment from 'moment';
 
 const {

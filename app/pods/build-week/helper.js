@@ -1,1 +1,1 @@
-export { default, buildWeek } from 'date-range-picker/build-week/helper';
+export { default, buildWeek } from 'ember-date-range-picker/helpers/build-week';
