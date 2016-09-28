@@ -2,12 +2,13 @@ import Ember from 'ember';
 import layout from './template';
 import ExpandedValidators from 'date-range-picker/mixins/expanded-validators';
 import { buildWeek } from 'date-range-picker/helpers/build-week';
+import moment from 'moment';
 
 const { computed } = Ember;
 
 export default Ember.Component.extend(ExpandedValidators, {
   layout,
-  month: computed.alias('startDate'),
+  month: moment().startOf('month'),
   selectionEnd: null,
   selectionStart: null,
 

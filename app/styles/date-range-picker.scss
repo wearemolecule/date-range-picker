@@ -218,6 +218,10 @@ body {
       background-color: $day-selected-color;
     }
 
+    &.dp-selected.dp-end {
+      background-color: darken($day-selected-color, 10%);
+    }
+
     &.dp-in-range {
       background-color: $day-in-range-color;
     }
@@ -226,6 +230,51 @@ body {
       background-color: $day-other-month-color;
       color: $day-other-month-txt-color;
     }
+  }
+}
+
+.dp-start {
+  position: relative;
+  padding-right: 3px;
+
+  &::before {
+    content: "";
+    width: 3px;
+    position: absolute;
+    top: 0;
+    left: -3px;
+    bottom: 0;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: $day-selected-color;
+  }
+
+  &.dp-end {
+    border-radius: 0 !important;
+    background-color: $day-selected-color !important;
+
+    &::before,
+    &::after {
+      display: none !important;
+      background-color: $day-selected-color;
+    }
+  }
+}
+
+.dp-end {
+  position: relative;
+  padding-left: 3px;
+
+  &::before {
+    content: "";
+    width: 3px;
+    position: absolute;
+    top: 0;
+    right: -3px;
+    bottom: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: darken($day-selected-color, 10%);
   }
 }
 
@@ -383,6 +432,7 @@ body {
 }
 
 .dp-preset-picker {}
+
 
 
 // Responsive /////////////////
