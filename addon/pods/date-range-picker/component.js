@@ -137,7 +137,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
       }
 
       this.set('endDate', day);
-      this.set('endMonth', day.clone().startOf('month'));
+      this.updateStartAndEndMonth();
     },
 
     nextEndMonth() {
@@ -168,7 +168,7 @@ export default Component.extend(Picker, KeyboardHotkeys, {
       }
 
       this.set('startDate', day);
-      this.set('startMonth', day.clone().startOf('month'));
+      this.updateStartAndEndMonth();
     },
   }
 });

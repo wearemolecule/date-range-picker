@@ -21,14 +21,6 @@ export default Mixin.create(EKMixin, {
     this.onTriggerEscape();
   }),
 
-  _leftArrowHandler: on(keyDown('ArrowLeft'), function() {
-    this.onTriggerArrowUp();
-  }),
-
-  _rightArrowHandler: on(keyDown('ArrowRight'), function() {
-    this.onTriggerArrowDown();
-  }),
-
   _downArrowHandler: on(keyDown('ArrowDown'), function() {
     this.onTriggerArrowDown();
   }),

@@ -1,13 +1,14 @@
 import Ember from 'ember';
-import moment from 'moment';
 import CancelableMixin from 'date-range-picker/mixins/cancelable';
+import SafeMoment from 'date-range-picker/mixins/safe-moment';
+import moment from 'moment';
 
 const {
   isBlank,
   Mixin,
 } = Ember;
 
-export default Mixin.create(CancelableMixin, {
+export default Mixin.create(CancelableMixin, SafeMoment,  {
   classNameBindings: ['topClass'],
   topClass: 'dp-date-range-picker',
   showInput: true,
@@ -29,16 +30,9 @@ export default Mixin.create(CancelableMixin, {
   didReceiveAttrs() {
     this._super(...arguments);
     let startDate = this.get('startDate');
-    let startIsBlank = isBlank(startDate);
 
     if (typeof startDate === 'string') {
       startDate = this.set('startDate', moment(startDate));
-    }
-
-    if (startIsBlank) {
-      this.set('startDate', moment(startDate, this.get('dateFormat')).startOf('day'));
-    } else if (startDate && !startDate._isAMomentObject) {
-      this.set('startDate', moment().startOf(this.get('defaultStart')).startOf('day'));
     }
 
     let endDate = this.get('endDate');
@@ -50,50 +44,52 @@ export default Mixin.create(CancelableMixin, {
       this.resetInitialValues();
     }
 
-    this.set('startMonth', this.get('startDate').clone().startOf('month'));
-    if (this.get('endDate')) {
-      this.set('endMonth', this.get('endDate').clone().startOf('month'));
-    }
+    this.updateStartAndEndMonth();
+  },
+
+  updateStartAndEndMonth: function() {
+    this.setProperties({
+      startMonth: this.safeClone('startDate', moment().startOf('month')),
+      endMonth: this.safeClone('endDate', moment().startOf('month'))
+    });
   },
 
   rangeFormatted: Ember.computed('startDate', 'endDate', 'dateFormat', {
     get() {
       let dateFormat = this.get('dateFormat');
-      let startDate = this.get('startDate').format(dateFormat);
+      let startDate = this.get('startDate') ? this.get('startDate').format(dateFormat) : '';
       let endDate = this.get('endDate') ? this.get('endDate').format(dateFormat) : '';
       return `${startDate}—${endDate}`;
     },
 
     set(k, v) {
       let [ start, end ] = v.split('—');
-      let startMoment = moment(start, this.get('dateFormat'));
-      let endMoment = moment(end, this.get('dateFormat'));
+      let dateFormat = this.get('dateFormat');
+      let startMoment = moment(start, dateFormat);
+      let endMoment = moment(end, dateFormat);
 
-      if(startMoment.isValid() || endMoment.isValid()) {
-        if(!endMoment.isValid()) {
-          endMoment = startMoment.clone().endOf(this.get('defaultEnd')).startOf('day');
-        }
-
-        if(!startMoment.isValid()) {
-          startMoment = endMoment.clone().startOf(this.get('defaultStart')).startOf('day');
-        }
-
-        if (this.get('hasDateParseOverride')) {
-          startMoment = this.overrideStartDateParse(startMoment);
-          endMoment = this.overrideEndDateParse(endMoment);
-        }
+      if (this.get('hasDateParseOverride')) {
+        startMoment = this.overrideStartDateParse(startMoment);
+        endMoment = this.overrideEndDateParse(endMoment);
       }
 
-      if (startMoment.isValid() && endMoment.isValid()) {
-        this.setProperties({
-          startDate: startMoment,
-          endDate: endMoment,
-          startMonth: startMoment.clone().startOf('month'),
-          endMonth: endMoment.clone().startOf('month'),
-        });
+      if (startMoment.isAfter(endMoment)) {
+        [startMoment, endMoment] = [endMoment.clone(), startMoment.clone()];
+      }
+
+      if (startMoment && startMoment.isValid()) {
+        this.set('startDate', startMoment);
+      } else {
+        this.set('startDate', null);
+      }
+
+      if (endMoment && endMoment.isValid()) {
+        this.set('endDate', endMoment);
       } else {
         this.set('endDate', null);
       }
+
+      this.updateStartAndEndMonth();
 
       return v;
     },

@@ -1,21 +1,16 @@
 import Ember from 'ember';
+import moment from 'moment';
+import SafeMoment from 'date-range-picker/mixins/safe-moment';
 
 const { computed, run } = Ember;
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(SafeMoment, {
   resetInitialValues() {
-    let {
-      startDate,
-      endDate,
-      startMonth,
-      endMonth
-    } = this.getProperties('startDate', 'endDate', 'startMonth', 'endMonth');
-
     this.setProperties({
-      initialStartDate: startDate.clone(),
+      initialStartDate: this.safeClone('startDate'),
       initialEndDate: this.safeClone('endDate'),
-      initialStartMonth: startMonth.clone(),
-      initialEndMonth: endMonth.clone()
+      initialStartMonth: this.safeClone('startMonth', moment().startOf('month')),
+      initialEndMonth: this.safeClone('endMonth', moment().startOf('month'))
     });
 
     run.next(this, () => {
@@ -33,28 +28,13 @@ export default Ember.Mixin.create({
       this.safeIsSame('endMonth', 'initialEndMonth');
   }),
 
-  safeIsSame(first, second) {
-    if (!this.get(first) || !this.get(second)) {
-      return false;
-    }
-
-    return this.get(first).isSame(this.get(second));
-  },
-
-  safeClone(date) {
-    if (!this.get(date)) {
-      return null;
-    }
-    return this.get(date).clone();
-  },
-
   actions: {
     reset() {
       this.setProperties({
-        startDate: this.get('initialStartDate').clone(),
+        startDate: this.safeClone('initialStartDate'),
         endDate: this.safeClone('initialEndDate'),
-        startMonth: this.get('initialStartMonth').clone(),
-        endMonth: this.get('initialEndMonth').clone(),
+        startMonth: this.safeClone('initialStartMonth', moment().startOf('month')),
+        endMonth: this.safeClone('initialEndMonth', moment().startOf('month')),
       });
     },
 
