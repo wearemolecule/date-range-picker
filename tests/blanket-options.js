@@ -8,7 +8,7 @@ var options = {
   enableCoverage: true,
   cliOptions: {
     reporters: ['json'],
-    autostart: true
+    autostart: false
   }
 };
 if (typeof exports === 'undefined') {
