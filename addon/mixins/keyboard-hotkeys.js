@@ -58,9 +58,7 @@ export default Mixin.create(EKMixin, {
     } else {
       this.get('dropdownController').actions.toggle();
       if (this.get('dropdownOpen')) {
-        let element = document.querySelector("." + this.get('topClass') + " .dp-date-input");
-        this.$(element).focus();
-        this.$(element).select();
+        this.$('.dp-date-input').first().focus().select();
       }
     }
   },

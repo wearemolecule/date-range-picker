@@ -9,8 +9,6 @@ const {
 } = Ember;
 
 export default Mixin.create(CancelableMixin, SafeMoment,  {
-  classNameBindings: ['topClass'],
-  topClass: 'dp-date-range-picker',
   showInput: true,
   dateFormat: "MM/DD/YYYY",
   tabIndex: 1,
@@ -96,7 +94,7 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
   }),
 
   focusOnInput() {
-    this.$(`.${this.get('topClass')} .dp-date-input`).first().focus().select();
+    this.$('.dp-date-input').first().focus().select();
   },
 
   actions: {
