@@ -8,7 +8,7 @@ const {
 } = Ember;
 
 export default Component.extend(Picker, KeyboardHotkeys, {
-  topClass: 'dp-date-range-picker',
+  classNames: ['dp-date-range-picker'],
   mask: "9[9]/9[9]/99[99]—9[9]/9[9]/99[99]",
   presets: Ember.A(),
   layout,
