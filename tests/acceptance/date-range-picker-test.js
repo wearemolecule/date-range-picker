@@ -20,12 +20,12 @@ test('visiting /', function(assert) {
 //     assert.equal($('.dp-panel').length, 0, "date panel is close to begin");
 //     clickDropdown('.dp-date-range-picker');
 //   });
-// 
+//
 //   andThen(() => {
 //     assert.equal($('.dp-panel').length, 1, "date panel is opened on tab");
 //     keyDown('Escape');
 //   });
-// 
+//
 //   andThen(() => {
 //     assert.equal($('.dp-panel').length, 0, "date panel is closed on escape");
 //     var event = document.createEvent('Event');
@@ -33,7 +33,7 @@ test('visiting /', function(assert) {
 //     event.initEvent('keydown');
 //     document.activeElement.dispatchEvent(event);
 //   });
-// 
+//
 //   andThen(() => {
 //     assert.equal($('.dp-panel').length, 1, "date panel is opened on enter");
 //   });

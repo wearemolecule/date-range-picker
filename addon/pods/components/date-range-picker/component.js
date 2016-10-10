@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from './template';
-import Picker from 'date-range-picker/mixins/picker';
-import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
+import Picker from 'ember-date-range-picker/mixins/picker';
+import KeyboardHotkeys from 'ember-date-range-picker/mixins/keyboard-hotkeys';
 
 const {
   Component,

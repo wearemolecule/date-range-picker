@@ -1,4 +1,4 @@
-import { range } from 'date-range-picker/helpers/range';
+import { range } from 'ember-date-range-picker/helpers/range';
 import { module, test } from 'qunit';
 
 module('Unit | Helper | range');

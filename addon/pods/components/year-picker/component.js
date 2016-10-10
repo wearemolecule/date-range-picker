@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import layout from './template';
-import Picker from 'date-range-picker/mixins/picker';
-import KeyboardHotkeys from 'date-range-picker/mixins/keyboard-hotkeys';
-import SafeMoment from 'date-range-picker/mixins/safe-moment';
+import SafeMoment from 'ember-date-range-picker/mixins/safe-moment';
+import Picker from 'ember-date-range-picker/mixins/picker';
+import KeyboardHotkeys from 'ember-date-range-picker/mixins/keyboard-hotkeys';
 import moment from 'moment';
 
 const {

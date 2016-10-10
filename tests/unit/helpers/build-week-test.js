@@ -1,4 +1,4 @@
-import { buildWeek } from 'date-range-picker/helpers/build-week';
+import { buildWeek } from 'ember-date-range-picker/helpers/build-week';
 import { module, test } from 'qunit';
 import moment from 'moment';
 

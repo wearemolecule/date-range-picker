@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PickerMixin from 'date-range-picker/mixins/picker';
+import PickerMixin from 'ember-date-range-picker/mixins/picker';
 import { module, test } from 'qunit';
 import moment from 'moment';
 
