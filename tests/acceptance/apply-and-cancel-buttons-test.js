@@ -1,4 +1,4 @@
-import { test } from 'ember-qunit';
+import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | apply and cancel buttons');
