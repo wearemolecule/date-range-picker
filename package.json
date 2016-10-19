@@ -18,7 +18,7 @@
   "author": "osxi <zach@molecule.io>",
   "license": "MIT",
   "devDependencies": {
-    "broccoli-asset-rev": "^2.2.0",
+    "broccoli-asset-rev": "^2.5.0",
     "ember-ajax": "2.5.2",
     "ember-basic-dropdown": "0.16.2",
     "ember-cli": "2.4.2",
