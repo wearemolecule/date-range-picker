@@ -26,7 +26,7 @@ test('actions - daySelected', function(assert) {
                                      startDate=today
                                      daySelected=(action daySelected)}}`);
 
-  let $tenthDay = this.$(".dp-day:contains('10')");
+  let $tenthDay = this.$(".dp-day:contains('10')").not('.dp-other-month');
 
   $tenthDay.click();
 });
