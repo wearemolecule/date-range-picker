@@ -50,7 +50,7 @@
     "ember-click-outside": "^0.1.0",
     "ember-inputmask": "0.3.0",
     "ember-moment": "6.1.0",
-    "ember-keyboard": "2.1.6"
+    "ember-keyboard": "2.1.7"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
