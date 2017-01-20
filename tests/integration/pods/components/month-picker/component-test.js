@@ -158,7 +158,8 @@ test('picking new, out-of-range startDate does not create invalid date', functio
 });
 
 test('converts strings to moments', function(assert) {
-  let dateString = '01/02/3015';
+  let dateString = '3015-01-02';
+  let expectedDate = moment(dateString, 'YYYY-MM-DD').format("MMM");
 
   this.setProperties({
     startDate: dateString,
@@ -169,5 +170,5 @@ test('converts strings to moments', function(assert) {
                                  endDate=endDate
                                  initiallyOpened=true}}`);
 
-  assert.equal($(`.dp-btn-month.active:contains(${moment(dateString).format("MMM")})`).length, 2);
+  assert.equal($(`.dp-btn-month.active:contains(${expectedDate})`).length, 2);
 });

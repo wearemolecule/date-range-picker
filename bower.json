@@ -1,7 +1,6 @@
 {
   "name": "date-range-picker",
   "dependencies": {
-    "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "moment": "momentjs#^2.12.0",
     "jquery.inputmask": "3.2.0"
