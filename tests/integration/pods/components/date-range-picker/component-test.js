@@ -188,10 +188,9 @@ test('can render 12/31/2017', function(assert) {
   assert.equal(endOfMonth.length, 1, '12/31/2017 shows up');
 });
 
-
 test('converts strings to moments', function(assert) {
-  let dateString = '01/02/3015';
-  let dateStringMoment = moment(dateString);
+  let dateString = '3015-01-02';
+  let dateStringMoment = moment(dateString, 'YYYY-MM-DD');
 
   this.setProperties({
     startDate: dateString,
