@@ -28,7 +28,6 @@ test('it can be mixed into an Ember.Object', function(assert) {
 });
 
 test('#rangeFormatted - set', function(assert) {
-  let PickerActionsObject = Ember.Component.extend(PickerMixin);
   let format = "MM/DD/YYYY";
   let currentYear = moment().format("YYYY");
 
@@ -61,7 +60,7 @@ test('#rangeFormatted - set', function(assert) {
   ];
 
   testCases.forEach(criteria => {
-    let subject = PickerActionsObject.create({
+    let subject = PickerObject.create({
       rangeFormatted: criteria.rangeFormatted,
     });
 

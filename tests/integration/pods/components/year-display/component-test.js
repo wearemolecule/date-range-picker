@@ -41,7 +41,8 @@ test('expands to show all the years', function(assert) {
   });
 
   this.render(hbs`{{year-display startDate=startDate
-                                 endDate=endDate}}`);
+                                 endDate=endDate
+                                 isExpanded=true}}`);
 
   this.$("button:contains('2016')").click();
 

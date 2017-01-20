@@ -98,6 +98,11 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
   },
 
   actions: {
+    registerAPI(context) {
+      this.set('dropdownController', context);
+      this.sendAction('dropdownContextChanged', context);
+    },
+
     open() {
       let dropdown = this.get('dropdownController');
       if (dropdown) {
