@@ -43,7 +43,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.2.1",
     "ember-cli-htmlbars": "^1.1.1",
-    "ember-cli-htmlbars-inline-precompile": "^0.3.6",
+    "ember-cli-htmlbars-inline-precompile": "^0.4.0",
     "ember-cli-sass": "6.1.3",
     "ember-click-outside": "^0.1.3",
     "ember-inputmask": "0.3.0",
