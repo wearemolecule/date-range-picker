@@ -211,6 +211,26 @@ test('converts strings to moments', function(assert) {
   assert.equal(rightYear, dateStringMoment.format(yearFormat), 'endDate year is intitial value.');
 });
 
+test('automatically scrolls to selected year', function(assert) {
+  let dateString = '3015-01-02';
+
+  this.setProperties({
+    startDate: dateString,
+    endDate: dateString,
+  });
+
+  this.render(hbs`{{date-range-picker startDate=startDate
+                                      endDate=startDate
+                                      initiallyOpened=true}}`);
+
+  this.$('.dp-btn-year').first().click();
+
+  let $btn = this.$(`.dp-calendar-header:first .dp-btn-year-option:contains('3015'):visible`);
+  let parentHeight = $btn.parent().height();
+  let parentScrollTop = $btn.parent().scrollTop();
+  assert.equal($btn.length, 1);
+  assert.equal($btn.offset().top < (parentHeight + parentScrollTop), true, 'selected year is visible');
+});
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));
 }

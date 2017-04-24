@@ -6,7 +6,6 @@ import moment from 'moment';
 const {
   computed,
   Component,
-  run,
 } = Ember;
 
 export default Component.extend({
@@ -27,11 +26,11 @@ export default Component.extend({
       );
       $container.animate({
         scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-      });
+      }, 0);
     }
   },
 
-  allYears: computed('startDate', function() {
+  allYears: computed('startDate', 'insideYearPicker', 'allYearsOffset', 'month', function() {
     let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
     let offset = this.get('allYearsOffset');
 
