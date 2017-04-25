@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
+import wait from 'ember-test-helpers/wait';
 
 moduleForComponent('year-picker', 'Integration | Component | year picker', {
   integration: true
@@ -142,6 +143,27 @@ test('converts strings to moments', function(assert) {
                                 initiallyOpened=true}}`);
 
   assert.equal(this.$(".dp-year-picker input").eq(0).val(), expectedDate);
+});
+
+test('automatically scrolls to selected year', function(assert) {
+  let dateString = '2010-04-24';
+
+  this.setProperties({
+    startDate: dateString,
+    endDate: dateString,
+  });
+
+  this.render(hbs`{{year-picker startDate=startDate
+                                endDate=endDate
+                                initiallyOpened=true}}`);
+
+  return wait().then(() => {
+    let $btn = this.$(`.dp-btn-year-option:contains('2010'):visible`);
+    let parentHeight = $btn.parent().height();
+    let parentScrollTop = $btn.parent().scrollTop();
+    assert.equal($btn.length, 1);
+    assert.equal($btn.offset().top < (parentHeight + parentScrollTop), true, 'selected year is visible');
+  });
 });
 
 function inputExpectations(assert, prefix) {

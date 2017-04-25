@@ -11,7 +11,7 @@
 {{#if isExpanded}}
   <div class="dp-year-body">
     {{#each allYears as |year|}}
-      <button {{action "setYear" year}}>
+      <button {{action "setYear" year}} class="dp-btn-year-option">
         {{#if energyYear}}
           EY {{year}}
         {{else}}

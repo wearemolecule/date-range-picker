@@ -16,8 +16,22 @@ export default Component.extend({
   month: moment(),
   energyYear: false,
 
-  allYears: computed('startDate', function() {
-    let year = moment().year();
+  didRender() {
+    if (this.get('isExpanded')) {
+      let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
+      let $container = this.$('.dp-year-body');
+      let $scrollTo = this.$(`button.dp-btn-year-option:contains(${year})`);
+      $container.scrollTop(
+        $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+      );
+      $container.animate({
+        scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+      }, 0);
+    }
+  },
+
+  allYears: computed('startDate', 'insideYearPicker', 'allYearsOffset', 'month', function() {
+    let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
     let offset = this.get('allYearsOffset');
 
     return range(year - offset, year + offset + 1);
