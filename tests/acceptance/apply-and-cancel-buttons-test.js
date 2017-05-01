@@ -1,5 +1,8 @@
 import { test } from 'ember-qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import Ember from 'ember';
+
+const { $ } = Ember;
 
 moduleForAcceptance('Acceptance | apply and cancel buttons');
 

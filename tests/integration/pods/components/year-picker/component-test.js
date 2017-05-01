@@ -2,6 +2,9 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import wait from 'ember-test-helpers/wait';
+import Ember from 'ember';
+
+const { $ } = Ember;
 
 moduleForComponent('year-picker', 'Integration | Component | year picker', {
   integration: true
