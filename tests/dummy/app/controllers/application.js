@@ -1,10 +1,6 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-const {
-  K,
-} = Ember;
-
 export default Ember.Controller.extend({
   month: moment().startOf('month'),
   start: moment().startOf('day'),
@@ -39,8 +35,8 @@ export default Ember.Controller.extend({
   ],
 
   actions: {
-    apply: K,
+    apply() {},
 
-    cancel: K,
+    cancel() {},
   }
 });
