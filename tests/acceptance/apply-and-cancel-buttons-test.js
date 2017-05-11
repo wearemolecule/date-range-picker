@@ -19,6 +19,12 @@ pickers.forEach((picker) => {
   test('apply/cancel actions on ' + picker, function(assert) {
     visit('/');
     andThen(() => assert.equal($('.dp-panel').length, 0, "date panel is close to begin"));
+
+    // `focus` only works for ember-lts-2.4 and not later versions, which are
+    // happy with `focusin`.
+    //
+    // TODO: Remove `focus` when ember-lts-2.4 is unsupported.
+    triggerEvent(picker + ' .ember-basic-dropdown-trigger', 'focus');
     triggerEvent(picker + ' .ember-basic-dropdown-trigger', 'focusin');
 
     andThen(() => {
@@ -32,6 +38,12 @@ pickers.forEach((picker) => {
     andThen(() => assert.equal($('.dp-panel').length, 0, "date panel is closed on apply"));
 
     triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'blur');
+
+    // `focus` only works for ember-lts-2.4 and not later versions, which are
+    // happy with `focusin`.
+    //
+    // TODO: Remove `focus` when ember-lts-2.4 is unsupported.
+    triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'focus');
     triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'focusin');
 
     andThen(() => {
