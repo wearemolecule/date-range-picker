@@ -1,6 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
+import Ember from 'ember';
+
+const { $  } = Ember;
 
 moduleForComponent('date-range-picker', 'Integration | Component | date range picker', {
   integration: true
