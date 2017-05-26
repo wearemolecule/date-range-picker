@@ -1,6 +1,0 @@
-{
-  "name": "date-range-picker",
-  "dependencies": {
-    "moment": "momentjs#^2.12.0"
-  }
-}
