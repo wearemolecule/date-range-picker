@@ -1,4 +1,4 @@
-# Date-range-picker [![Build Status](https://travis-ci.org/wearemolecule/date-range-picker.svg?branch=master)](https://travis-ci.org/wearemolecule/date-range-picker)
+# Date-range-picker [![Build Status](https://travis-ci.org/wearemolecule/date-range-picker.svg?branch=master)](https://travis-ci.org/wearemolecule/date-range-picker) [![Greenkeeper badge](https://badges.greenkeeper.io/wearemolecule/date-range-picker.svg)](https://greenkeeper.io/)
 
 `ember install ember-date-range-picker`
 
