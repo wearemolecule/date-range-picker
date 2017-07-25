@@ -13,14 +13,14 @@
   },
   "repository": "git@github.com:wearemolecule/date-range-picker.git",
   "engines": {
-    "node": ">= 4"
+    "node": "^4.5 || 6.* || >= 7.*"
   },
   "author": "osxi <zach@molecule.io>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.5.0",
     "ember-ajax": "3.0.0",
-    "ember-basic-dropdown": "0.33.0",
+    "ember-basic-dropdown": "0.33.1",
     "ember-cli": "2.14.1",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "4.2.0",
@@ -30,19 +30,19 @@
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-disable-prototype-extensions": "^1.1.0",
+    "ember-disable-prototype-extensions": "^1.1.2",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~2.14.0",
+    "ember-source": "~2.14.1",
     "loader.js": "^4.2.3"
   },
   "keywords": [
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^6.1.0",
+    "ember-cli-babel": "^6.3.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^0.4.3",
     "ember-cli-sass": "7.0.0",
