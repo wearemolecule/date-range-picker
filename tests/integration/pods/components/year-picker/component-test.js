@@ -176,7 +176,7 @@ function inputExpectations(assert, prefix) {
 
   assert.equal($input.val().trim(), prefix + '2016');
 
-  $input.val('2035');
+  $input.val(prefix + '2035');
 
   triggerEvent($input, 'keypress');
 
