@@ -6,6 +6,7 @@ import moment from 'moment';
 const {
   computed,
   Component,
+  run
 } = Ember;
 
 export default Component.extend({
@@ -18,15 +19,17 @@ export default Component.extend({
 
   didRender() {
     if (this.get('isExpanded')) {
-      let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
-      let $container = this.$('.dp-year-body');
-      let $scrollTo = this.$(`button.dp-btn-year-option:contains(${year})`);
-      $container.scrollTop(
-        $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-      );
-      $container.animate({
-        scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-      }, 0);
+      run.next(this, () => {
+        let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
+        let $container = this.$('.dp-year-body');
+        let $scrollTo = this.$(`button.dp-btn-year-option:contains(${year})`);
+        $container.scrollTop(
+          $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+        );
+        $container.animate({
+          scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+        }, 0);
+      });
     }
   },
 
