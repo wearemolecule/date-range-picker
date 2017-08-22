@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 const { $ } = Ember;
 
@@ -46,30 +47,39 @@ test('month/year display visibilities are togglable', function(assert) {
   assert.equal($leftCal.find('.dp-month-body').length, 1, 'left months are visible by default');
   assert.equal($leftCal.find('.dp-year-body').length, 0, 'left years not visible by default');
 
-  $leftCal.find('.dp-btn-year').click();
+  return wait().then(() => {
+    $leftCal.find('.dp-btn-year').click();
 
-  assert.equal($leftCal.find('.dp-month-body').length, 0, 'left months should not be visible after clicking year btn');
-  assert.equal($leftCal.find('.dp-year-body').length, 1, 'left years should be visible after clicking year btn');
+    assert.equal($leftCal.find('.dp-month-body').length, 0, 'left months should not be visible after clicking year btn');
+    assert.equal($leftCal.find('.dp-year-body').length, 1, 'left years should be visible after clicking year btn');
 
-  $leftCal.find('.dp-btn-year').click();
 
-  assert.equal($leftCal.find('.dp-month-body').length, 0, 'left months should not be visible after clicking year btn again');
-  assert.equal($leftCal.find('.dp-year-body').length, 0, 'left years should not be visible after clicking year btn again');
+    return wait().then(() => {
+      $leftCal.find('.dp-btn-year').click();
 
-  // Right side
+      assert.equal($leftCal.find('.dp-month-body').length, 0, 'left months should not be visible after clicking year btn again');
+      assert.equal($leftCal.find('.dp-year-body').length, 0, 'left years should not be visible after clicking year btn again');
 
-  assert.equal($rightCal.find('.dp-month-body').length, 1, 'right months visible by default');
-  assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years not visible by default');
+      // Right side
 
-  $rightCal.find('.dp-btn-year').click();
+      assert.equal($rightCal.find('.dp-month-body').length, 1, 'right months visible by default');
+      assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years not visible by default');
 
-  assert.equal($rightCal.find('.dp-month-body').length, 0, 'right months should not be visible after clicking year btn');
-  assert.equal($rightCal.find('.dp-year-body').length, 1, 'right years should be visible after clicking year btn');
+      return wait().then(() => {
+        $rightCal.find('.dp-btn-year').click();
 
-  $rightCal.find('.dp-btn-year').click();
+        assert.equal($rightCal.find('.dp-month-body').length, 0, 'right months should not be visible after clicking year btn');
+        assert.equal($rightCal.find('.dp-year-body').length, 1, 'right years should be visible after clicking year btn');
 
-  assert.equal($rightCal.find('.dp-month-body').length, 0, 'right months should not be visible after clicking year btn again');
-  assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years should not be visible after clicking year btn again');
+        return wait().then(() => {
+          $rightCal.find('.dp-btn-year').click();
+
+          assert.equal($rightCal.find('.dp-month-body').length, 0, 'right months should not be visible after clicking year btn again');
+          assert.equal($rightCal.find('.dp-year-body').length, 0, 'right years should not be visible after clicking year btn again');
+        });
+      });
+    });
+  });
 });
 
 test('has a default date of today', function(assert) {
@@ -95,27 +105,39 @@ test('picking new start & end month/year updates view/properties', function(asse
 
   // Left side
 
-  $leftCal.find(".dp-month-body button:contains('Mar')").click();
+  return wait().then(() => {
+    $leftCal.find(".dp-month-body button:contains('Mar')").click();
 
-  assert.equal(this.get('startDate').format('MMM'), 'Mar', 'start month button displays Mar.');
+    assert.equal(this.get('startDate').format('MMM'), 'Mar', 'start month button displays Mar.');
 
-  $leftCal.find('.dp-btn-year').click();
+    return wait().then(() => {
+      $leftCal.find('.dp-btn-year').click();
 
-  $leftCal.find(".dp-year-body button:contains('2015')").click();
+      return wait().then(() => {
+        $leftCal.find(".dp-year-body button:contains('2015')").click();
 
-  assert.equal(this.get('startDate').format('YYYY'), '2015', 'start year button displays Mar.');
+        assert.equal(this.get('startDate').format('YYYY'), '2015', 'start year button displays Mar.');
 
-  // Right side
+        // Right side
 
-  $rightCal.find(".dp-month-body button:contains('Jun')").click();
+        return wait().then(() => {
+          $rightCal.find(".dp-month-body button:contains('Jun')").click();
 
-  assert.equal(this.get('endDate').format('MMM'), 'Jun', 'end month button displays Jun.');
+          assert.equal(this.get('endDate').format('MMM'), 'Jun', 'end month button displays Jun.');
 
-  $rightCal.find('.dp-btn-year').click();
+          return wait().then(() => {
+            $rightCal.find('.dp-btn-year').click();
 
-  $rightCal.find(".dp-year-body button:contains('2020')").click();
+            return wait().then(() => {
+              $rightCal.find(".dp-year-body button:contains('2020')").click();
 
-  assert.equal(this.get('endDate').format('YYYY'), '2020', 'end year button displays 2020.');
+              assert.equal(this.get('endDate').format('YYYY'), '2020', 'end year button displays 2020.');
+            });
+          });
+        });
+      });
+    });
+  });
 });
 
 test('picking new start & end month/year updates view/properties', function(assert) {
