@@ -20,8 +20,10 @@ test('it renders', function(assert) {
                                 endDate=end
                                 initiallyOpened=true}}`);
 
-  let text = this.$().text().trim();
-  assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 21, 'Has 72 1-4 digit numbers...');
+  return wait().then(() => {
+    let text = this.$().text().trim();
+    assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 21, 'Has 72 1-4 digit numbers...');
+  });
 });
 
 test('it renders as an energy year picker', function(assert) {
@@ -35,8 +37,10 @@ test('it renders as an energy year picker', function(assert) {
                                 initiallyOpened=true
                                 energyYear=true}}`);
 
-  let text = this.$().text().trim();
-  assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 21, 'Has 72 1-4 digit numbers...');
+  return wait().then(() => {
+    let text = this.$().text().trim();
+    assert.equal(text.match(new RegExp('[0-9]{4}', 'g')).length, 21, 'Has 72 1-4 digit numbers...');
+  });
 });
 
 test('optional, masked input - moment', function(assert) {
@@ -48,7 +52,9 @@ test('optional, masked input - moment', function(assert) {
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate}}`);
 
-  inputExpectations.call(this, assert, "");
+  return wait().then(() => {
+    inputExpectations.call(this, assert, "");
+  });
 });
 
 test('optional, masked input - moment as an energy year picker', function(assert) {
@@ -61,7 +67,9 @@ test('optional, masked input - moment as an energy year picker', function(assert
                                 endDate=endDate
                                 energyYear=true}}`);
 
-  inputExpectations.call(this, assert, "EY ");
+  return wait().then(() => {
+    inputExpectations.call(this, assert, "EY ");
+  });
 });
 
 test('optional, masked input - string', function(assert) {
@@ -73,7 +81,9 @@ test('optional, masked input - string', function(assert) {
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate}}`);
 
-  inputExpectations.call(this, assert, "");
+  return wait().then(() => {
+    inputExpectations.call(this, assert, "");
+  });
 });
 
 test('optional, masked input - string as an energy year picker', function(assert) {
@@ -85,16 +95,20 @@ test('optional, masked input - string as an energy year picker', function(assert
   this.render(hbs`{{year-picker startDate=startDate
                                 endDate=endDate
                                 energyYear=true}}`);
-
-  inputExpectations.call(this, assert, "EY ");
+  return wait().then(() => {
+    inputExpectations.call(this, assert, "EY ");
+  });
 });
 
 test('has a default date of today', function(assert) {
   let today = moment().startOf('day').format("YYYY");
 
   this.render(hbs`{{year-picker initiallyOpened=true}}`);
-  let text = this.$('.dp-date-input')[0].value.trim();
-  assert.equal(text.match(new RegExp(today, 'g')).length, 1, 'startDate and endDate defaults to today');
+
+  return wait().then(() => {
+    let text = this.$('.dp-date-input')[0].value.trim();
+    assert.equal(text.match(new RegExp(today, 'g')).length, 1, 'startDate and endDate defaults to today');
+  });
 });
 
 test('can select a new year', function(assert) {
@@ -111,8 +125,10 @@ test('can select a new year', function(assert) {
 
   let prevYear = moment('2015', 'YYYY');
 
-  assert.equal(this.get('startDate').format('YYYY-MM-DD'), prevYear.clone().startOf('year').format('YYYY-MM-DD'), 'Start is updated.');
-  assert.equal(this.get('endDate').format('YYYY-MM-DD'), prevYear.clone().endOf('year').format('YYYY-MM-DD'), 'End is updated.');
+  return wait().then(() => {
+    assert.equal(this.get('startDate').format('YYYY-MM-DD'), prevYear.clone().startOf('year').format('YYYY-MM-DD'), 'Start is updated.');
+    assert.equal(this.get('endDate').format('YYYY-MM-DD'), prevYear.clone().endOf('year').format('YYYY-MM-DD'), 'End is updated.');
+  });
 });
 
 test('can select a new year as an energy year picker', function(assert) {
@@ -126,10 +142,12 @@ test('can select a new year as an energy year picker', function(assert) {
                                 initiallyOpened=true
                                 energyYear=true}}`);
 
-  this.$(".dp-year-body button:contains('2015')").click();
+  return wait().then(() => {
+    this.$(".dp-year-body button:contains('2015')").click();
 
-  assert.equal(this.get('startDate').format('YYYY-MM-DD'), moment('2014-06-01').format('YYYY-MM-DD'), 'Start is updated.');
-  assert.equal(this.get('endDate').format('YYYY-MM-DD'), moment('2015-05-31').format('YYYY-MM-DD'), 'End is updated.');
+    assert.equal(this.get('startDate').format('YYYY-MM-DD'), moment('2014-06-01').format('YYYY-MM-DD'), 'Start is updated.');
+    assert.equal(this.get('endDate').format('YYYY-MM-DD'), moment('2015-05-31').format('YYYY-MM-DD'), 'End is updated.');
+  });
 });
 
 test('converts strings to moments', function(assert) {
@@ -145,7 +163,9 @@ test('converts strings to moments', function(assert) {
                                 endDate=endDate
                                 initiallyOpened=true}}`);
 
-  assert.equal(this.$(".dp-year-picker input").eq(0).val(), expectedDate);
+  return wait().then(() => {
+    assert.equal(this.$(".dp-year-picker input").eq(0).val(), expectedDate);
+  });
 });
 
 test('automatically scrolls to selected year', function(assert) {

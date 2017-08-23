@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
 import Ember from 'ember';
+import wait from 'ember-test-helpers/wait';
 
 const { $  } = Ember;
 
@@ -215,25 +216,29 @@ test('converts strings to moments', function(assert) {
 });
 
 test('automatically scrolls to selected year', function(assert) {
-  let dateString = '3015-01-02';
-
   this.setProperties({
-    startDate: dateString,
-    endDate: dateString,
+    startDate: moment().startOf('day'),
+    endDate: moment().startOf('day').add(2, 'days'),
   });
 
   this.render(hbs`{{date-range-picker startDate=startDate
-                                      endDate=startDate
+                                      endDate=endDate
                                       initiallyOpened=true}}`);
 
-  this.$('.dp-btn-year').first().click();
+  return wait().then(() => {
+    $('.dp-btn-year').first().click();
 
-  let $btn = this.$(`.dp-calendar-header:first .dp-btn-year-option:contains('3015'):visible`);
-  let parentHeight = $btn.parent().height();
-  let parentScrollTop = $btn.parent().scrollTop();
-  assert.equal($btn.length, 1);
-  assert.equal($btn.offset().top < (parentHeight + parentScrollTop), true, 'selected year is visible');
+    return wait().then(() => {
+      let $btn = this.$(`.dp-calendar-header:first .dp-btn-year-option:contains('2017'):visible`);
+      let parentHeight = $btn.parent().height();
+      let parentScrollTop = $btn.parent().scrollTop();
+
+      assert.equal($btn.length, 1);
+      assert.equal($btn.offset().top < (parentHeight + parentScrollTop), true, 'selected year is visible');
+    });
+  });
 });
+
 function allText($leftCalendar, $rightCalendar) {
   return text($leftCalendar).concat(text($rightCalendar));
 }
