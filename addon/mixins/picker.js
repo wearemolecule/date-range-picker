@@ -97,6 +97,10 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
     this.$('.dp-date-input').first().focus().select();
   },
 
+  afterSelectionFocusOut() {
+    return true;
+  },
+
   actions: {
     registerAPI(context) {
       this.set('dropdownController', context);
@@ -112,6 +116,7 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
 
     apply() {
       this.resetInitialValues();
+
       let dropdown = this.get('dropdownController');
       if (dropdown) {
         dropdown.actions.close(null, false);
@@ -123,11 +128,15 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
       if (e && e.relatedTarget && e.relatedTarget.className && (e.relatedTarget.className.includes('dp-apply') ||
                                                                 e.relatedTarget.className.includes('dp-cancel') ||
                                                                 e.relatedTarget.className.includes('dp-date-input'))) {
+
         return true;
       }
 
-      dropdown.actions.open(e);
-      this.focusOnInput();
+
+      Ember.run.later(() => {
+        dropdown.actions.open(e);
+        this.focusOnInput();
+      }, 0);
     },
 
     onFocusOut(dropdown, e) {
@@ -135,7 +144,20 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
         return true;
       }
 
-      this.send('cancel');
+      Ember.run.later(() => {
+        this.send('cancel');
+      }, 0);
+    },
+
+    onFocusOutSelection(dropdown, e) {
+      if (e && (e.relatedTarget || (!e.relatedTarget && !e.sourceCapabilities))) {
+        return true;
+      }
+
+      Ember.run.later(() => {
+        this.afterSelectionFocusOut();
+        this.send('apply');
+      }, 0);
     },
 
     handleKeydown(dropdown, e) {

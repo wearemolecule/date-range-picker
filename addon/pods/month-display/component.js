@@ -8,6 +8,22 @@ export default Ember.Component.extend({
   layout,
   tagName: "span",
 
+  didRender() {
+    if (this.get('isExpanded')) {
+      Ember.run.next(this, () => {
+        let $container = this.$('.dp-month-body');
+        let $scrollTo = this.$(`button.dp-month-option:contains("${this.get('month').format('MMM')}")`);
+        $container.scrollTop(
+          $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+        );
+        $container.animate({
+          scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+        }, 0);
+      });
+    }
+  },
+
+
   actions: {
     setMonth(month) {
       if (this.get('endOfMonth')) {

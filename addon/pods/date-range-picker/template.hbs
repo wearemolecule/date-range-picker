@@ -17,6 +17,7 @@
   {{/dropdown.trigger}}
 
   {{#dropdown.content class="dp-panel"
+                      onFocusOut=(action "onFocusOutSelection")
                       destination="dp-date-range-picker"}}
       {{#presets-picker class="dp-presets"
                         presets=presets
