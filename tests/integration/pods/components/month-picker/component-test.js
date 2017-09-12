@@ -197,3 +197,142 @@ test('converts strings to moments', function(assert) {
 
   assert.equal($(`.dp-btn-month.active:contains(${expectedDate})`).length, 2);
 });
+
+test('automatically scrolls to selected year', function(assert) {
+  let dateString = '2010-04-24';
+
+  this.setProperties({
+    startDate: moment(dateString, "YYYY-MM-DD"),
+    endDate: moment(dateString, "YYYY-MM-DD"),
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                endDate=endDate
+                                initiallyOpened=true}}`);
+
+  return wait().then(() => {
+    this.$(".dp-display-month-year:first .dp-btn-year").click()
+
+    return wait().then(() => {
+      let $btn = this.$(`.dp-btn-year-option:contains('2010'):visible`);
+      let $topSelector = this.$('.dp-btn-year-option:visible:first').offset().top;
+      assert.equal($btn.length, 1);
+      Ember.run.later(() => {
+        assert.equal($btn.offset().top, $topSelector, 'selected year is visible');
+      }, 1000);
+      return wait().then(() => {
+        //assert.equal($btn.offset().top, $topSelector, 'selected year is visible');
+      }); // This is to force the animation to finish for testing 
+    });
+  });
+});
+
+test('applies changes when focus is lost', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-04-19', 'YYYY-MM-DD'),
+    endDate: moment('2016-05-19', 'YYYY-MM-DD')
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                 endDate=endDate
+                                 initiallyOpened=true}}`);
+
+  changeDateInPicker(moment("2015-03-15", "YYYY-MM-DD"), moment("2017-06-20", "YYYY-MM-DD"), assert, this)
+  assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input is updated.');
+
+  this.$('.dp-date-input').trigger('focusout');
+  return  wait().then(() => {
+    assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input is updated.');
+
+    // There was a bug where if you focused on the input and then focused back out it'd lose it's application
+    // this is to ensure that the date stays applied
+    this.$('.dp-date-input').trigger('focus');
+    return wait(() => {
+      assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input has maintained state.');
+      this.$('.dp-date-input').trigger('focusout');
+
+      return wait(() => {
+        assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input has maintainted state.');
+        // Continuation of this bug, should remain the same value after hitting cancel as well
+
+        this.$(".dp-cancel").click();
+        return wait(() => {
+          assert.equal(this.$('.dp-date-input').val(), '2016', 'Outer input is updated.');
+        });
+      });
+    });
+  });
+});
+
+test('reverts changes when cancel is pressed', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-04-19', 'YYYY-MM-DD'),
+    endDate: moment('2016-05-19', 'YYYY-MM-DD')
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                      endDate=endDate
+                                      initiallyOpened=true}}`);
+
+
+  changeDateInPicker(moment("2015-03-15", "YYYY-MM-DD"), moment("2017-06-20", "YYYY-MM-DD"), assert, this)
+  assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input is updated.');
+
+  this.$(".dp-cancel").click();
+  assert.equal(this.$('.dp-date-input').val(), '04/2016—05/2016', 'Outer input is updated.');
+});
+
+test('keeps changes when apply is pressed', function(assert) {
+  this.setProperties({
+    startDate: moment('2016-04-19', 'YYYY-MM-DD'),
+    endDate: moment('2016-05-19', 'YYYY-MM-DD')
+  });
+
+  this.render(hbs`{{month-picker startDate=startDate
+                                      endDate=endDate
+                                      initiallyOpened=true}}`);
+
+  changeDateInPicker(moment("2015-03-15", "YYYY-MM-DD"), moment("2017-06-20", "YYYY-MM-DD"), assert, this)
+  assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input is updated.');
+
+  this.$(".dp-apply").click()
+  return wait().then(() => {
+    assert.equal(this.$('.dp-date-input').val(), '03/2015—06/2017', 'Outer input is updated.');
+  });
+});
+
+function changeDateInPicker(startDate, endDate, assert, context) {
+  let originalEndDate = context.get('endDate');
+
+  let $leftCal = context.$('.dp-display-month-year:first');
+  let $rightCal = context.$('.dp-display-month-year:last');
+
+  // Left side
+  $leftCal.find('.dp-btn-year').click();
+  let leftYear = startDate.format("YYYY");
+  $leftCal.find(`.dp-year-body button:contains('${leftYear}')`).click();
+  assert.equal($leftCal.find('.dp-btn-year').text().trim(), leftYear, `Start year button display ${leftYear}.`);
+
+  let leftMonth = startDate.format("MMM");
+  $leftCal.find(`.dp-month-body button:contains('${leftMonth}')`).click();
+
+  assert.equal($leftCal.find(".dp-btn-month").text().trim(), leftMonth, `Start month button displays ${leftMonth}.`);
+  assert.equal(context.$('.dp-date-input').val(), `${startDate.format("MM/YYYY")}—${originalEndDate.format("MM/YYYY")}`, 'Outer input is updated.');
+  assert.equal(context.get('startDate').format("MM/YYYY"), startDate.format("MM/YYYY"), 'startDate is updated.');
+  assert.equal(context.get('endDate').format("MM/YYYY"), originalEndDate.format("MM/YYYY"), 'endDate does not change.');
+
+  // Right side
+  $rightCal.find('.dp-btn-year').click();
+
+  let rightYear = endDate.format("YYYY");
+  $rightCal.find(`.dp-year-body button:contains('${rightYear}')`).click();
+  assert.equal($rightCal.find('.dp-btn-year').text().trim(), rightYear, `End year button display ${rightYear}.`);
+
+  let rightMonth = endDate.format("MMM");
+  $rightCal.find(`.dp-month-body button:contains('${rightMonth}')`).click();
+  assert.equal($rightCal.find(".dp-btn-month").text().trim(), rightMonth, `End month button displays ${rightMonth}.`);
+
+  assert.equal(context.$('.dp-date-input').val(), `${startDate.format("MM/YYYY")}—${endDate.format("MM/YYYY")}`, 'Outer input is updated.');
+  assert.equal(context.get('startDate').format("MM/YYYY"), startDate.format("MM/YYYY"), 'startDate is updated.');
+  assert.equal(context.get('endDate').format("MM/YYYY"), endDate.format("MM/YYYY"), 'endDate does not change.');
+}

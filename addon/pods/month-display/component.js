@@ -13,12 +13,16 @@ export default Ember.Component.extend({
       Ember.run.next(this, () => {
         let $container = this.$('.dp-month-body');
         let $scrollTo = this.$(`button.dp-month-option:contains("${this.get('month').format('MMM')}")`);
-        $container.scrollTop(
-          $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-        );
-        $container.animate({
-          scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-        }, 0);
+        if ($container && $container.length &&
+            $scrollTo && $scrollTo.length) {
+
+          $container.scrollTop(
+            $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+          );
+          $container.animate({
+            scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+          }, 0);
+        }
       });
     }
   },

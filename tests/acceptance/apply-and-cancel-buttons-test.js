@@ -53,7 +53,6 @@ pickers.forEach((picker) => {
     });
 
     click('.dp-cancel');
-
     andThen(() => assert.equal($('.dp-panel').length, 0, "date panel is closed on cancel"));
   });
 });
