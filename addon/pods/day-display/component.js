@@ -9,9 +9,29 @@ export default Ember.Component.extend({
   layout,
   attributeBindings: ['tabindex'],
   tabindex: -1,
+  parentNode: undefined,
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (!this.get('parentNode')) {
+      this.set('parentNode', this.$().get(0))
+    }
+  },
 
   click() {
     this.sendAction('daySelected', this.get('day').clone());
+    return false
+  },
+  focusOut(e) {
+    debugger
+      if (e && e.relatedTarget && this.get('parentNode').contains(e.relatedTarget)) {
+        return true;
+      }
+    console.log('applying from calendar display')
+
+      Ember.run.next(() => {
+        this.sendAction('apply');
+      });
   },
 
   inRange: computed('day', 'selectionStart', 'selectionEnd', function() {

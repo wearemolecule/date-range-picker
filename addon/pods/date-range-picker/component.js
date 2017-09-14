@@ -14,6 +14,14 @@ export default Component.extend(Picker, KeyboardHotkeys, {
   layout,
   cancelSelected: false,
   applySelected: false,
+  node: undefined,
+
+  didInsertElement() {
+    this._super(...arguments);
+    if (!this.get('node')) {
+      this.set('node', this.$().get(0))
+    }
+  },
 
   selectedPresetIndex() {
     let sets = this.get('presets');

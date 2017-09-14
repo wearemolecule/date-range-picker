@@ -23,16 +23,14 @@ export default Component.extend({
         let year = this.get('insideYearPicker') ? this.get('startDate').year() : this.get('month').year();
         let $container = this.$('.dp-year-body');
         let $scrollTo = this.$(`button.dp-btn-year-option:contains(${year})`);
-        if ($container && $container.length &&
-            $scrollTo && $scrollTo.length) {
-
-          $container.scrollTop(
-            $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-          );
-          $container.animate({
-            scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
-          }, 0);
-        }
+        if ($container && $container.length && $scrollTo && $scrollTo.length) {
+            $container.scrollTop(
+              $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+            );
+            $container.animate({
+              scrollTop: $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
+            }, 0);
+          }
       });
     }
   },

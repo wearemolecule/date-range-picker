@@ -18,6 +18,7 @@
   {{/dropdown.trigger}}
 
   {{#dropdown.content class="dp-panel"
+                      onFocusOut=(action "onFocusOut")
                       destination="dp-year-picker"}}
     <div class="dp-display-year">
       {{year-display startDate=startDate

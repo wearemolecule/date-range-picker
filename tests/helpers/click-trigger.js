@@ -12,7 +12,7 @@ export function nativeClick(selector, options = {}) {
   });
   let element = document.querySelector(selector);
   Ember.run(() => element.dispatchEvent(mousedown));
-  this.$(element).focus();
+  (options.context || this).$(element).focus();
   Ember.run(() => element.dispatchEvent(mouseup));
   Ember.run(() => element.dispatchEvent(click));
 }
