@@ -11,14 +11,6 @@ export default Ember.Component.extend(ExpandedValidators, {
   month: moment().startOf('month'),
   selectionEnd: null,
   selectionStart: null,
-  parentNode: undefined,
-
-  didInsertElement() {
-    this._super(...arguments);
-    if (!this.get('parentNode')) {
-      this.set('parentNode', this.$().get(0))
-    }
-  },
 
   calendarExpanded: computed('monthPickerExpanded', 'yearPickerExpanded', function() {
     return !this.get('monthPickerExpanded') && !this.get('yearPickerExpanded');

@@ -8,7 +8,7 @@ const { $ } = Ember;
 let startDate = moment('2015-03-15', 'YYYY-MM-DD')
 let endDate = moment('2017-06-19', 'YYYY-MM-DD')
 
-moduleForAcceptance('Acceptance | Foocus Tests');
+moduleForAcceptance('Acceptance | Focus Tests');
 
 test('Monther Picker: applies changes when focus is lost', function(assert) {
   visit("/");
@@ -210,7 +210,6 @@ test('Date Range Picker: applies changes when focus is lost on', function(assert
   })
 
   andThen(() => {
-
     assert.equal($('.dp-display-calendar').length, 2, 'Date Range Picker is open');
     // Continuation of this bug, should remain the same value after hitting cancel as well
     click(".dp-date-range-picker .dp-cancel")
