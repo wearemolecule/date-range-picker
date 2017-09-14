@@ -132,7 +132,7 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
     },
 
     onFocusOut(dropdown, e) {
-      if (e && e.relatedTarget && this.$().get(0).contains(e.relatedTarget)) {
+      if (e && e.relatedTarget && this.$() && this.$().get(0).contains(e.relatedTarget)) {
         return true;
       }
 
