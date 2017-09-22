@@ -6,25 +6,12 @@ const { $ } = Ember;
 
 moduleForAcceptance('Acceptance | apply and cancel buttons');
 
-// PhantomJS doesn't properly implement ES6
-// this gets us the needed proper includes method used in these tests
-if (!String.prototype.includes) {
-  String.prototype.includes = function() {'use strict';
-    return String.prototype.indexOf.apply(this, arguments) !== -1;
-  };
-}
-
 let pickers = ['.dp-date-range-picker', '.dp-month-picker', '.dp-year-picker', '.dp-energy-year-picker'];
 pickers.forEach((picker) => {
   test('apply/cancel actions on ' + picker, function(assert) {
     visit('/');
     andThen(() => assert.equal($('.dp-panel').length, 0, "date panel is close to begin"));
 
-    // `focus` only works for ember-lts-2.4 and not later versions, which are
-    // happy with `focusin`.
-    //
-    // TODO: Remove `focus` when ember-lts-2.4 is unsupported.
-    triggerEvent(picker + ' .ember-basic-dropdown-trigger', 'focus');
     triggerEvent(picker + ' .ember-basic-dropdown-trigger', 'focusin');
 
     andThen(() => {
@@ -39,11 +26,6 @@ pickers.forEach((picker) => {
 
     triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'blur');
 
-    // `focus` only works for ember-lts-2.4 and not later versions, which are
-    // happy with `focusin`.
-    //
-    // TODO: Remove `focus` when ember-lts-2.4 is unsupported.
-    triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'focus');
     triggerEvent(picker + ' .ember-basic-dropdown-trigger input', 'focusin');
 
     andThen(() => {
@@ -53,7 +35,6 @@ pickers.forEach((picker) => {
     });
 
     click('.dp-cancel');
-
     andThen(() => assert.equal($('.dp-panel').length, 0, "date panel is closed on cancel"));
   });
 });

@@ -6,6 +6,10 @@ const { computed, run } = Ember;
 
 export default Ember.Mixin.create(SafeMoment, {
   resetInitialValues() {
+    if (this.get('isDestroyed') || this.get('isDestroying')){
+      return
+    }
+
     this.setProperties({
       initialStartDate: this.safeClone('startDate'),
       initialEndDate: this.safeClone('endDate'),
@@ -30,6 +34,10 @@ export default Ember.Mixin.create(SafeMoment, {
 
   actions: {
     reset() {
+      if (this.get('isDestroyed') || this.get('isDestroying')){
+        return
+      }
+
       this.setProperties({
         startDate: this.safeClone('initialStartDate'),
         endDate: this.safeClone('initialEndDate'),

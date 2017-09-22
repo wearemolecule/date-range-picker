@@ -112,6 +112,7 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
 
     apply() {
       this.resetInitialValues();
+
       let dropdown = this.get('dropdownController');
       if (dropdown) {
         dropdown.actions.close(null, false);
@@ -131,11 +132,11 @@ export default Mixin.create(CancelableMixin, SafeMoment,  {
     },
 
     onFocusOut(dropdown, e) {
-      if (e && e.relatedTarget) {
+      if (e && e.relatedTarget && this.$() && this.$().get(0).contains(e.relatedTarget)) {
         return true;
       }
 
-      this.send('cancel');
+      this.send('apply');
     },
 
     handleKeydown(dropdown, e) {
