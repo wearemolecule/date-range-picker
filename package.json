@@ -1,6 +1,6 @@
 {
   "name": "ember-date-range-picker",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Ember addon that provides various date pickers.",
   "directories": {
     "doc": "doc",
