@@ -12,10 +12,13 @@ export default Ember.Component.extend({
     if (this.get('isExpanded')) {
       Ember.run.next(this, () => {
         let $container = this.$('.dp-month-body');
-        let $scrollTo = this.$(`button.dp-month-option:contains("${this.get('month').format('MMM')}")`);
-        if ($container && $container.length &&
-            $scrollTo && $scrollTo.length) {
+        let month = this.get('month');
+        if (!month) {
+          return;
+        }
 
+        let $scrollTo = this.$(`button.dp-month-option:contains("${month.format('MMM')}")`);
+        if ($container && $container.length && $scrollTo && $scrollTo.length) {
           $container.scrollTop(
             $scrollTo.offset().top - $container.offset().top + $container.scrollTop()
           );

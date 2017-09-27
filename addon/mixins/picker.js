@@ -4,7 +4,6 @@ import SafeMoment from 'date-range-picker/mixins/safe-moment';
 import moment from 'moment';
 
 const {
-  isBlank,
   Mixin,
 } = Ember;
 
