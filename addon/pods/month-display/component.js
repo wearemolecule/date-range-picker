@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import layout from './template';
 import { range } from 'date-range-picker/helpers/range';
+import moment from 'moment';
 
 export default Ember.Component.extend({
   allMonths: range(1, 13),
@@ -33,13 +34,19 @@ export default Ember.Component.extend({
 
   actions: {
     setMonth(month) {
+      let oldMonth = this.get('month');
+      if (!oldMonth) {
+        oldMonth = moment();
+      }
+      oldMonth = oldMonth.clone().month(month);
+
       if (this.get('endOfMonth')) {
-        this.set('month', this.get('month').clone().month(month).endOf('month'));
+        this.set('month', oldMonth.endOf('month'));
       } else {
-        this.set('month', this.get('month').clone().month(month).startOf('month'));
+        this.set('month', oldMonth.startOf('month'));
       }
 
-      if(this.get('monthWasSelected')) {
+      if (this.get('monthWasSelected')) {
         this.sendAction('monthWasSelected');
       }
     },
