@@ -20,7 +20,7 @@ export default Component.extend({
   didRender() {
     if (this.get('isExpanded')) {
       run.next(this, () => {
-        let year = this.get('insideYearPicker') && this.get('startDate') ? this.get('startDate').year() : this.get('month').year();
+        let year = this._deduceYear();
         let $container = this.$('.dp-year-body');
         let $scrollTo = this.$(`button.dp-btn-year-option:contains(${year})`);
         if ($container && $container.length && $scrollTo && $scrollTo.length) {
@@ -33,6 +33,14 @@ export default Component.extend({
           }
       });
     }
+  },
+
+  _deduceYear() {
+    if (this.get('insideYearPicker') && this.get('startDate')) {
+      this.get('startDate').year();
+    }
+    let month = this.get('month');
+    month ? month.year() : moment().year();
   },
 
   allYears: computed('startDate', 'insideYearPicker', 'allYearsOffset', 'month', function() {
