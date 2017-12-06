@@ -8,26 +8,23 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
+    "start": "ember serve",
     "test": "ember try:each"
   },
   "repository": "git@github.com:wearemolecule/date-range-picker.git",
-  "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
-  },
   "author": "osxi <zach@molecule.io>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.5.0",
     "ember-ajax": "3.0.0",
     "ember-basic-dropdown": "0.33.7",
-    "ember-cli": "2.14.2",
+    "ember-cli": "~2.17.0",
     "ember-cli-dependency-checker": "^2.0.0",
-    "ember-cli-eslint": "4.2.1",
+    "ember-cli-eslint": "^4.2.1",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-moment-shim": "^3.3.3",
-    "ember-cli-qunit": "^4.0.0",
-    "ember-cli-shims": "^1.1.0",
+    "ember-cli-qunit": "^4.1.1",
+    "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
     "ember-disable-prototype-extensions": "^1.1.2",
@@ -35,7 +32,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
-    "ember-source": "~2.12.1",
+    "ember-source": "~2.17.0",
     "loader.js": "^4.2.3"
   },
   "keywords": [
@@ -51,6 +48,9 @@
     "ember-keyboard": "2.1.11",
     "ember-moment": "7.5.0",
     "ember-native-dom-helpers": "^0.5.0"
+  },
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

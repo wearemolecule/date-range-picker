@@ -34,10 +34,10 @@ test("month-picker scrolls month and year selection to top", function(assert) {
   var $originalMonthOffset;
   andThen(() => {
     let $leftCal = $('.dp-display-month-year').eq(0);
-    if (moment().month() <= 4) { // Won't scroll because we're at the end of the list
-      $monthBtn = $leftCal.find(`.dp-month-option`).eq(4);
+    if (moment().month() <= 4) { // At top of month list
+      $monthBtn = $leftCal.find(`.dp-month-option`).eq(8); // Click Sep
     } else {
-      $monthBtn = $leftCal.find(`.dp-month-option`).eq(8);
+      $monthBtn = $leftCal.find(`.dp-month-option`).eq(0); // Click Jan
     }
     assert.equal($monthBtn.length, 1, "found month button");
     $originalMonthOffset = $monthBtn.offset().top;
