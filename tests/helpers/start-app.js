@@ -1,7 +1,7 @@
 import Application from '../../app';
 import config from '../../config/environment';
 import keyboardRegisterTestHelpers from './ember-keyboard/register-test-helpers';
-import registerBasicDropdownHelpers from './ember-basic-dropdown';
+import registerBasicDropdownHelpers from 'ember-basic-dropdown/test-support/helpers';
 import { merge } from '@ember/polyfills';
 import { run } from '@ember/runloop';
 
