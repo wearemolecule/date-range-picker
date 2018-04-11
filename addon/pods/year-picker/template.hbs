@@ -9,9 +9,9 @@
                       onKeydown=(action "handleKeydown")}}
 
     {{#if showInput}}
-      {{input-mask value=rangeFormatted
-                   mask=inputMask
-                   class="dp-date-input"}}
+      {{one-way-input-mask value=rangeFormatted
+                           mask=inputMask
+                           class="dp-date-input"}}
     {{else}}
       {{yield}}
     {{/if}}

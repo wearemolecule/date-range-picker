@@ -1,10 +1,8 @@
 import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
-import Ember from 'ember';
 import wait from 'ember-test-helpers/wait';
-
-const { $ } = Ember;
+import $ from 'jquery';
 
 moduleForComponent('month-picker', 'Integration | Component | month picker', {
   integration: true
@@ -201,7 +199,7 @@ test('converts strings to moments', function(assert) {
 // TODO: Test that the year and month picker scrolls selection to the top
 // There are two reasons why this hard to test:
 // 1. The scroll calculation appears that it MAY be off due to this picker being inside the ember-testing container
-// 2. You MUST use jquery animate to force the scroll to happen in the integration test. Because of this, it causes a race condition between assertion and scroll completion 
+// 2. You MUST use jquery animate to force the scroll to happen in the integration test. Because of this, it causes a race condition between assertion and scroll completion
 skip('automatically scrolls to selected year');
 skip('automatically scrolls to selected month');
 

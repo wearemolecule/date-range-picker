@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 import PickerMixin from 'date-range-picker/mixins/picker';
 import { module, test } from 'qunit';
 import moment from 'moment';
@@ -20,7 +20,7 @@ function safeFormat(day, format) {
 }
 
 module('Unit | Mixin | picker');
-const PickerObject = Ember.Object.extend(PickerMixin);
+const PickerObject = EmberObject.extend(PickerMixin);
 
 test('it can be mixed into an Ember.Object', function(assert) {
   let subject = PickerObject.create();

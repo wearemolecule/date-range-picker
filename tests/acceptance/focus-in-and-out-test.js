@@ -1,9 +1,7 @@
 import { test } from 'ember-qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import Ember from 'ember';
+import $ from 'jquery';
 import moment from 'moment';
-
-const { $ } = Ember;
 
 let startDate = moment('2015-03-15', 'YYYY-MM-DD')
 let endDate = moment('2017-06-19', 'YYYY-MM-DD')
@@ -14,7 +12,7 @@ test('Monther Picker: applies changes when focus is lost', function(assert) {
   visit("/");
   triggerEvent('.dp-month-picker .ember-basic-dropdown-trigger', 'focusin');
 
-  var $leftCal 
+  var $leftCal
   var $rightCal
   andThen(() => {
     $leftCal = $('.dp-display-month-year:first');
@@ -29,7 +27,7 @@ test('Monther Picker: applies changes when focus is lost', function(assert) {
     $leftCal.find(`.dp-year-body button:contains('${leftYear}')`).click();
   })
 
-  var leftMonth 
+  var leftMonth
   andThen(() => {
     assert.equal($leftCal.find('.dp-btn-year').text().trim(), leftYear, `Start year button display ${leftYear}.`);
 
@@ -107,7 +105,7 @@ test('Date Range Picker: applies changes when focus is lost on', function(assert
   visit("/");
   triggerEvent('.dp-date-range-picker .ember-basic-dropdown-trigger', 'focusin');
 
-  var $leftCal 
+  var $leftCal
   var $rightCal
   andThen(() => {
     $leftCal = $('.dp-display-calendar:first');

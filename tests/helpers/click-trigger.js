@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import { getKeyCode } from 'ember-keyboard';
+import { run } from '@ember/runloop';
 
 export function nativeClick(selector, options = {}) {
   let mousedown = new window.Event('mousedown', { bubbles: true, cancelable: true, view: window });
@@ -11,10 +11,10 @@ export function nativeClick(selector, options = {}) {
     click[key] = options[key];
   });
   let element = document.querySelector(selector);
-  Ember.run(() => element.dispatchEvent(mousedown));
+  run(() => element.dispatchEvent(mousedown));
   (options.context || this).$(element).focus();
-  Ember.run(() => element.dispatchEvent(mouseup));
-  Ember.run(() => element.dispatchEvent(click));
+  run(() => element.dispatchEvent(mouseup));
+  run(() => element.dispatchEvent(click));
 }
 
 export function clickTrigger(scope, options = {}) {
@@ -30,5 +30,5 @@ export function nativeKeyDown(key, selector) {
   event.keyCode = getKeyCode(key);
   event.initEvent('keydown');
   var element = selector ? document.querySelector(selector) : document.activeElement;
-  Ember.run(() => element.dispatchEvent(event));
+  run(() => element.dispatchEvent(event));
 }

@@ -1,6 +1,6 @@
-import InputMask from 'ember-inputmask/components/input-mask';
+import OneWayInputMask from 'ember-inputmask/components/one-way-input-mask';
 
-export default InputMask.extend({
+export default OneWayInputMask.extend({
   // Default options
   greedyMask:                false,
   skipOptionalPartCharacter: "-",
