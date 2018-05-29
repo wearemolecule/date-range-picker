@@ -1,9 +1,7 @@
 import { test } from 'ember-qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import Ember from 'ember';
+import $ from 'jquery';
 import moment from 'moment';
-
-const { $ } = Ember;
 
 moduleForAcceptance('Acceptance | Year and Month Pickers Scroll');
 
