@@ -1,6 +1,6 @@
 {
   "name": "ember-date-range-picker",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Ember addon that provides various date pickers.",
   "directories": {
     "doc": "doc",
@@ -23,7 +23,7 @@
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-moment-shim": "^3.3.3",
-    "ember-cli-qunit": "^4.1.1",
+    "ember-cli-qunit": "^4.4.0",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
@@ -42,7 +42,7 @@
     "ember-cli-babel": "^6.6.1",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
-    "ember-cli-sass": "7.2.0",
+    "ember-cli-sass": "8.0.1",
     "ember-click-outside": "^1.0.0-beta.6",
     "ember-inputmask": "^0.6.0",
     "ember-keyboard": "3.0.1",
