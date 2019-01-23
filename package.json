@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "start": "ember serve",
-    "test": "ember try:each"
+    "test": "ember test"
   },
   "repository": "git@github.com:wearemolecule/date-range-picker.git",
   "author": "osxi <zach@molecule.io>",
@@ -33,7 +33,8 @@
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.17.0",
-    "loader.js": "^4.2.3"
+    "loader.js": "^4.2.3",
+    "sass": "^1.16.1"
   },
   "keywords": [
     "ember-addon"
